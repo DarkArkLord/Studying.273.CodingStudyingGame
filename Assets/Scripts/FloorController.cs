@@ -49,9 +49,9 @@ public class FloorController : MonoBehaviour
         }
         else
         {
-            for (int x = 0; x <= floor.GetLength(0); x++)
+            for (int x = 0; x < floor.GetLength(0); x++)
             {
-                for (int y = 0; y <= floor.GetLength(1); y++)
+                for (int y = 0; y < floor.GetLength(1); y++)
                 {
                     if (floor[x, y] != null)
                     {

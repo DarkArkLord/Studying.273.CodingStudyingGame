@@ -26,7 +26,11 @@ public class MapController : MonoBehaviour
         player = new Vector2(3, 3);
     }
 
+    public int GetPlayerCell() => GetMapCell(player.x, player.y);
+
     public int GetMapCell(int x, int y) => map[x, y];
+
+    public int GetMapCell(float x, float y) => map[(int)x, (int)y];
 
     public int GetRelativeMapCell(int x, int y)
     {
@@ -39,11 +43,29 @@ public class MapController : MonoBehaviour
         return map[tx, ty];
     }
 
+    public int GetRelativeMapCell(float x, float y) => GetRelativeMapCell((int)x, (int)y);
+
     public Vector2 GetPlayerPosition() => player;
 
     public bool MovePlayer(MoveDirection direction)
     {
         var temp = player + direction.DirectionToVector();
+        var tx = (int)temp.x;
+        var ty = (int)temp.y;
+        if (tx < 0 || tx >= map.GetLength(0) || ty < 0 || ty >= map.GetLength(1) || map[tx, ty] < 1)
+        {
+            return false;
+        }
+        else
+        {
+            player = temp;
+            return true;
+        }
+    }
+
+    public bool MovePlayer(Vector2 offset)
+    {
+        var temp = player + offset;
         var tx = (int)temp.x;
         var ty = (int)temp.y;
         if (tx < 0 || tx >= map.GetLength(0) || ty < 0 || ty >= map.GetLength(1) || map[tx, ty] < 1)

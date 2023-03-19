@@ -212,7 +212,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prefab: {fileID: 4269905547878521643, guid: c4609ee46b4dcdc45998db0d13dd877d, type: 3}
-  StartCount: 10
+  StartCount: 30
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -458,7 +458,8 @@ GameObject:
   - component: {fileID: 1775631192}
   - component: {fileID: 1775631191}
   - component: {fileID: 1775631190}
-  - component: {fileID: 1775631189}
+  - component: {fileID: 1775631194}
+  - component: {fileID: 1775631195}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -466,18 +467,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1775631189
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1775631188}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 48f362a6a77c79d40a12f230aa3a20ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &1775631190
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -556,3 +545,29 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1775631194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1775631188}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f7c06dc86176f94683b7e9449dc1eda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Floor: {fileID: 994254110}
+  Jumper: {fileID: 1775631195}
+--- !u!114 &1775631195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1775631188}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7f2d5a78b148504b9caa84f961e142b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
