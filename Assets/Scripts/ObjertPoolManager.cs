@@ -21,7 +21,7 @@ public class ObjertPoolManager : MonoBehaviour
 
     private ObjectPoolItem AddItem()
     {
-        var obj = Instantiate(Prefab);
+        var obj = Instantiate(Prefab, transform);
         obj.SetActive(false);
         var item = new ObjectPoolItem(obj);
         items.Add(item);
