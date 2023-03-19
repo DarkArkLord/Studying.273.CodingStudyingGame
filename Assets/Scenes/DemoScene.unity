@@ -123,6 +123,50 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &29892061
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 29892062}
+  - component: {fileID: 29892063}
+  m_Layer: 0
+  m_Name: MapController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &29892062
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 29892061}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.54850006, y: -35.117397, z: 81.96376}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 994254109}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &29892063
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 29892061}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d27b55991b60a04c84c5d6ed7b36851, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &397951586
 GameObject:
   m_ObjectHideFlags: 0
@@ -134,7 +178,7 @@ GameObject:
   - component: {fileID: 397951588}
   - component: {fileID: 397951589}
   m_Layer: 0
-  m_Name: FloorPoolManager
+  m_Name: FloorPool
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -167,7 +211,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b71bae6e4d50034d9f144bf9fafd699, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Prefab: {fileID: 3480251710477361916, guid: c4609ee46b4dcdc45998db0d13dd877d, type: 3}
+  Prefab: {fileID: 4269905547878521643, guid: c4609ee46b4dcdc45998db0d13dd877d, type: 3}
   StartCount: 10
 --- !u!1 &705507993
 GameObject:
@@ -356,7 +400,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 994254109}
-  - component: {fileID: 994254108}
+  - component: {fileID: 994254110}
   m_Layer: 0
   m_Name: FloorManager
   m_TagString: Untagged
@@ -364,21 +408,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &994254108
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 994254107}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd9c8baa582b1aa4699185ab549c515e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObjectPool: {fileID: 397951589}
-  Anchor: {fileID: 1775631188}
-  Radius: 1
 --- !u!4 &994254109
 Transform:
   m_ObjectHideFlags: 0
@@ -392,9 +421,31 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 397951588}
+  - {fileID: 29892062}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &994254110
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 994254107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd9c8baa582b1aa4699185ab549c515e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObjectPool: {fileID: 397951589}
+  Materials:
+  - {fileID: 2100000, guid: 6c59149e2d4452249b329e9ac8a09b04, type: 2}
+  - {fileID: 2100000, guid: 50b4ceda3db3cd64d86be2545471de76, type: 2}
+  - {fileID: 2100000, guid: 929e9ebf618b5f642a6ffd7a4067caff, type: 2}
+  - {fileID: 2100000, guid: e2cd4ac295272ed48af03ecd1014e965, type: 2}
+  Map: {fileID: 29892063}
+  Anchor: {fileID: 1775631188}
+  Radius: 2
 --- !u!1 &1775631188
 GameObject:
   m_ObjectHideFlags: 0

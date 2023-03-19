@@ -1,5 +1,4 @@
 using Assets.Scripts;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -58,21 +57,42 @@ public class ObjertPoolManager : MonoBehaviour
         }
     }
 
+    public GameObject GetObject()
+    {
+        foreach (var obj in items)
+        {
+            if (obj.IsFree)
+            {
+                obj.IsFree = false;
+                return obj.Item; ;
+            }
+        }
+
+        var item = AddItem();
+        item.IsFree = false;
+        return item.Item;
+    }
+
     public void FreeObjects(IEnumerable<GameObject> objects)
     {
         foreach (var obj in objects)
         {
-            var id = obj.GetInstanceID();
-            var item = items.Find(x => x.Item.GetInstanceID() == id);
-            if(item != null)
-            {
-                item.IsFree = true;
-                item.Item.SetActive(false);
-            }
-            else
-            {
-                Debug.LogError($"No object with id {id} for freeing");
-            }
+            FreeObject(obj);
+        }
+    }
+
+    public void FreeObject(GameObject obj)
+    {
+        var id = obj.GetInstanceID();
+        var item = items.Find(x => x.Item.GetInstanceID() == id);
+        if (item != null)
+        {
+            item.IsFree = true;
+            item.Item.SetActive(false);
+        }
+        else
+        {
+            Debug.LogError($"No object with id {id} for freeing");
         }
     }
 }
