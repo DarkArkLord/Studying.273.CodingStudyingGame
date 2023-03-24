@@ -19,7 +19,7 @@ public class MoveController : MonoBehaviour
 
     protected float FramePart => Time.deltaTime / MoveTime;
     protected Vector3 StepOffset => MoveDirection * FramePart;
-    protected virtual Vector3 GetStepPosition() => PathPoint;
+    protected virtual Vector3 GetStepPosition => PathPoint;
 
     public bool Move()
     {
@@ -32,7 +32,7 @@ public class MoveController : MonoBehaviour
         }
 
         PathPoint += StepOffset;
-        transform.position = GetStepPosition();
+        transform.position = GetStepPosition;
         return true;
     }
 }
