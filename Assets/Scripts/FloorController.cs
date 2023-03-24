@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class FloorController : MonoBehaviour
@@ -60,6 +61,17 @@ public class FloorController : MonoBehaviour
                         floor[x, y] = null;
                     }
                 }
+            }
+        }
+    }
+
+    public IEnumerable<GameObject> GetObjects()
+    {
+        for (int x = 0; x < floor.GetLength(0); x++)
+        {
+            for (int y = 0; y < floor.GetLength(1); y++)
+            {
+                yield return floor[x, y];
             }
         }
     }

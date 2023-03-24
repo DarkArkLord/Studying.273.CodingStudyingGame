@@ -27,6 +27,7 @@ public class MoveController : MonoBehaviour
 
         if (Progress >= 1)
         {
+            Progress = 1;
             transform.position = Target;
             return false;
         }

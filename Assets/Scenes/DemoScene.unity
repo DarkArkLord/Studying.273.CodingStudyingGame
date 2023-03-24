@@ -212,7 +212,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prefab: {fileID: 4269905547878521643, guid: c4609ee46b4dcdc45998db0d13dd877d, type: 3}
-  StartCount: 30
+  StartCount: 50
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -445,7 +445,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: e2cd4ac295272ed48af03ecd1014e965, type: 2}
   Map: {fileID: 29892063}
   Anchor: {fileID: 1775631188}
-  Radius: 2
+  Radius: 3
 --- !u!1 &1775631188
 GameObject:
   m_ObjectHideFlags: 0
