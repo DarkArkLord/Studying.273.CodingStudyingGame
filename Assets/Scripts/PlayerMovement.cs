@@ -4,14 +4,9 @@ public class PlayerMovement : MonoBehaviour
 {
     public FloorController Floor;
     public JumpController Jumper;
+    public MoveController CameraMove;
 
     private bool isBlocked = false;
-    private bool isMoveBack = false;
-
-    private float jumpTime = 0.25f;
-    private float moveBackTime = 0.1f;
-
-    private float playerShiftLimit = 2f;
 
     // Start is called before the first frame update
     void Start()
@@ -24,14 +19,9 @@ public class PlayerMovement : MonoBehaviour
     {
         if (isBlocked)
         {
-            if (isMoveBack)
-            {
-                MoveBackStep();
-            }
-            else
-            {
-                MovePlayerStep();
-            }
+            // Тут я использую именно | вместо || чтобы оба метода были вызваны
+            // Here I use | instead of || that both method were used
+            isBlocked = Jumper.Move() | CameraMove.Move();
         }
         else
         {
@@ -69,55 +59,15 @@ public class PlayerMovement : MonoBehaviour
             var isMoved = Floor.Map.MovePlayer(input);
             if (isMoved)
             {
-                var target = transform.position + new Vector3(input.x, 0, input.y);
-                Jumper.SetTarget(target);
+                var offset = new Vector3(input.x, 0, input.y);
+                var playerTarget = transform.position + offset;
+                Jumper.SetTarget(playerTarget);
+                var cameraTarget = CameraMove.transform.position + offset;
+                CameraMove.SetTarget(cameraTarget);
             }
             else
             {
                 Jumper.SetTarget(transform.position);
-            }
-        }
-    }
-
-    private void MoveBackStep()
-    {
-        isBlocked = Jumper.Move();
-        foreach (var item in Floor.GetObjects())
-        {
-            var moveItem = item.GetComponent<MoveController>();
-            if (moveItem != null)
-            {
-                isBlocked |= moveItem.Move();
-            }
-        }
-
-        if (!isBlocked)
-        {
-            isMoveBack = false;
-            Jumper.NeedJump = true;
-            Jumper.MoveTime = jumpTime;
-            Floor.Clear();
-            Floor.Redraw();
-        }
-    }
-
-    private void MovePlayerStep()
-    {
-        isBlocked = Jumper.Move();
-        if (!isBlocked && transform.position.magnitude >= playerShiftLimit)
-        {
-            isBlocked = isMoveBack = true;
-            Jumper.SetTarget(Vector3.zero);
-            Jumper.NeedJump = false;
-            Jumper.MoveTime = moveBackTime;
-            foreach (var item in Floor.GetObjects())
-            {
-                var moveItem = item.GetComponent<MoveController>();
-                if (moveItem != null)
-                {
-                    moveItem.SetTarget(item.transform.position - transform.position);
-                    moveItem.MoveTime = moveBackTime;
-                }
             }
         }
     }

@@ -318,6 +318,7 @@ GameObject:
   - component: {fileID: 963194228}
   - component: {fileID: 963194227}
   - component: {fileID: 963194226}
+  - component: {fileID: 963194229}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -391,6 +392,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 20, y: 0, z: 0}
+--- !u!114 &963194229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b88e16038dd8bd41a52ca8ee3eb6ebb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &994254107
 GameObject:
   m_ObjectHideFlags: 0
@@ -444,8 +457,6 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 929e9ebf618b5f642a6ffd7a4067caff, type: 2}
   - {fileID: 2100000, guid: e2cd4ac295272ed48af03ecd1014e965, type: 2}
   Map: {fileID: 29892063}
-  Anchor: {fileID: 1775631188}
-  Radius: 3
 --- !u!1 &1775631188
 GameObject:
   m_ObjectHideFlags: 0
@@ -559,6 +570,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Floor: {fileID: 994254110}
   Jumper: {fileID: 1775631195}
+  CameraMove: {fileID: 963194229}
 --- !u!114 &1775631195
 MonoBehaviour:
   m_ObjectHideFlags: 0

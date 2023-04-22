@@ -26,6 +26,9 @@ public class MapController : MonoBehaviour
         player = new Vector2(3, 3);
     }
 
+    public int Width => map.GetLength(0);
+    public int Height => map.GetLength(1);
+
     public int GetPlayerCell() => GetMapCell(player.x, player.y);
 
     public int GetMapCell(int x, int y) => map[x, y];

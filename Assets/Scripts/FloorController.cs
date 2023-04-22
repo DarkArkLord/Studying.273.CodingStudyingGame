@@ -7,9 +7,6 @@ public class FloorController : MonoBehaviour
     public Material[] Materials;
     public MapController Map;
 
-    public GameObject Anchor;
-    public int Radius;
-
     const int VerticalOffset = -1;
 
     private GameObject[,] floor;
@@ -22,20 +19,17 @@ public class FloorController : MonoBehaviour
 
     public void Redraw()
     {
-        var centerPosition = Anchor.transform.position;
-        for (int x = -Radius; x <= Radius; x++)
+        var playerPosition = Map.GetPlayerPosition();
+        for (int x = 0; x < floor.GetLength(0); x++)
         {
-            for (int y = -Radius; y <= Radius; y++)
+            for (int y = 0; y < floor.GetLength(1); y++)
             {
-                var xi = Radius + x;
-                var yi = Radius + y;
-
                 var obj = ObjectPool.GetObject();
-                floor[xi, yi] = obj;
+                floor[x, y] = obj;
 
-                var cell = Map.GetRelativeMapCell(x, y);
+                var cell = Map.GetMapCell(x, y);
                 obj.GetComponent<Renderer>().material = Materials[cell];
-                obj.transform.position = centerPosition + new Vector3(x, VerticalOffset, y);
+                obj.transform.position = new Vector3(x - playerPosition.x, VerticalOffset, y - playerPosition.y);
                 obj.SetActive(true);
             }
         }
@@ -45,8 +39,7 @@ public class FloorController : MonoBehaviour
     {
         if (floor == null)
         {
-            var diameter = Radius + 1 + Radius;
-            floor = new GameObject[diameter, diameter];
+            floor = new GameObject[Map.Width, Map.Height];
         }
         else
         {
