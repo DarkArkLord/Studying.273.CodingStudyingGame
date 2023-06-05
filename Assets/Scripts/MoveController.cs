@@ -9,6 +9,8 @@ public class MoveController : MonoBehaviour
     public Vector3 MoveDirection { get; private set; }
     public Vector3 PathPoint { get; private set; }
 
+    public Vector2Int Position2D => new Vector2Int((int)transform.position.x, (int)transform.position.z);
+
     public virtual void SetTarget(Vector3 target)
     {
         Target = target;

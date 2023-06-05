@@ -15,7 +15,6 @@ public class NPCManager : MonoBehaviour
     void Start()
     {
         Enemies = new NPCController[EnemiesCount];
-        Map.enemies = new Vector2Int[EnemiesCount];
         for (int i = 0; i < Enemies.Length; i++)
         {
             var obj = ObjectPool.GetObject();

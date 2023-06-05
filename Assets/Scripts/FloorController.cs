@@ -19,7 +19,6 @@ public class FloorController : MonoBehaviour
 
     public void Redraw()
     {
-        var playerPosition = Map.GetPlayerPosition();
         for (int x = 0; x < floor.GetLength(0); x++)
         {
             for (int y = 0; y < floor.GetLength(1); y++)
@@ -29,7 +28,7 @@ public class FloorController : MonoBehaviour
 
                 var cell = Map.GetMapCell(x, y);
                 obj.GetComponent<Renderer>().material = Materials[cell];
-                obj.transform.position = new Vector3(x - playerPosition.x, VerticalOffset, y - playerPosition.y);
+                obj.transform.position = new Vector3(x, VerticalOffset, y);
                 obj.SetActive(true);
             }
         }

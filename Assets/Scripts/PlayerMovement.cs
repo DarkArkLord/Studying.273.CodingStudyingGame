@@ -11,7 +11,9 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //
+        var offset = new Vector3(Floor.Map.StartX, transform.position.y, Floor.Map.StartY) - transform.position;
+        transform.position += offset;
+        CameraMove.transform.position += offset;
     }
 
     // Update is called once per frame
@@ -56,7 +58,8 @@ public class PlayerMovement : MonoBehaviour
         if (input.magnitude > 0)
         {
             isBlocked = true;
-            var isMoved = Floor.Map.MovePlayer(input);
+            var newPosition = Jumper.Position2D + input;
+            var isMoved = Floor.Map.IsCanMove(newPosition);
             if (isMoved)
             {
                 var offset = new Vector3(input.x, 0, input.y);
