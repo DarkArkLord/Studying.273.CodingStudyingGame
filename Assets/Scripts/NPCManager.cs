@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NPCController : MonoBehaviour
+public class NPCManager : MonoBehaviour
 {
-    public JumpController Jumper;
+    public ObjertPoolManager ObjectPool;
     public MapController Map;
 
     // Start is called before the first frame update
