@@ -4,32 +4,19 @@ using UnityEngine.EventSystems;
 
 public class MapController : MonoBehaviour
 {
+    public int Width = 20, Height = 20, StartX = 3, StartY = 3;
+
     private int[,] map;
-    private Vector2 player;
+    private Vector2Int player;
+
+    public Vector2Int[] enemies;
 
     // Start is called before the first frame update
     void Start()
     {
-        int startX = 3, startY = 3;
-        map = MapGenerator.GenerateMap(20, 20, 4, startX, startY);
-        //    new int[10, 10]
-        //{
-        //    { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
-        //    { 1, 2, 1, 1, 2, 2, 1, 1, 2, 1 },
-        //    { 1, 1, 2, 3, 0, 0, 3, 2, 1, 1 },
-        //    { 1, 1, 3, 2, 3, 3, 2, 3, 1, 1 },
-        //    { 1, 2, 0, 3, 2, 2, 3, 0, 2, 1 },
-        //    { 1, 2, 0, 3, 2, 2, 3, 0, 2, 1 },
-        //    { 1, 1, 3, 2, 3, 3, 2, 3, 1, 1 },
-        //    { 1, 1, 2, 3, 0, 0, 3, 2, 1, 1 },
-        //    { 1, 2, 1, 1, 2, 2, 1, 1, 2, 1 },
-        //    { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
-        //};
-        player = new Vector2(startX, startY);
+        map = MapGenerator.GenerateMap(Width, Height, 4, StartX, StartY);
+        player = new Vector2Int(StartX, StartY);
     }
-
-    public int Width => map.GetLength(0);
-    public int Height => map.GetLength(1);
 
     public int GetPlayerCell() => GetMapCell(player.x, player.y);
 
@@ -39,8 +26,8 @@ public class MapController : MonoBehaviour
 
     public int GetRelativeMapCell(int x, int y)
     {
-        var tx = (int)(player.x + x);
-        var ty = (int)(player.y + y);
+        var tx = player.x + x;
+        var ty = player.y + y;
         if (tx < 0 || tx >= map.GetLength(0) || ty < 0 || ty >= map.GetLength(1))
         {
             return 0;
@@ -50,14 +37,12 @@ public class MapController : MonoBehaviour
 
     public int GetRelativeMapCell(float x, float y) => GetRelativeMapCell((int)x, (int)y);
 
-    public Vector2 GetPlayerPosition() => player;
+    public Vector2Int GetPlayerPosition() => player;
 
     public bool MovePlayer(MoveDirection direction)
     {
-        var temp = player + direction.DirectionToVector();
-        var tx = (int)temp.x;
-        var ty = (int)temp.y;
-        if (tx < 0 || tx >= map.GetLength(0) || ty < 0 || ty >= map.GetLength(1) || map[tx, ty] < 1)
+        var temp = player + direction.DirectionToVectorInt();
+        if (temp.x < 0 || temp.x >= map.GetLength(0) || temp.y < 0 || temp.y >= map.GetLength(1) || map[temp.x, temp.y] < 1)
         {
             return false;
         }
@@ -68,12 +53,10 @@ public class MapController : MonoBehaviour
         }
     }
 
-    public bool MovePlayer(Vector2 offset)
+    public bool MovePlayer(Vector2Int offset)
     {
         var temp = player + offset;
-        var tx = (int)temp.x;
-        var ty = (int)temp.y;
-        if (tx < 0 || tx >= map.GetLength(0) || ty < 0 || ty >= map.GetLength(1) || map[tx, ty] < 1)
+        if (temp.x < 0 || temp.x >= map.GetLength(0) || temp.y < 0 || temp.y >= map.GetLength(1) || map[temp.x, temp.y] < 1)
         {
             return false;
         }

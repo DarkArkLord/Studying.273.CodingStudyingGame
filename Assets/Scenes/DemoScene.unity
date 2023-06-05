@@ -167,6 +167,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d27b55991b60a04c84c5d6ed7b36851, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Width: 20
+  Height: 20
+  StartX: 3
+  StartY: 3
 --- !u!1 &368712725
 GameObject:
   m_ObjectHideFlags: 0
@@ -398,8 +402,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40412ca92f7031542b4fe084a11ede61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EnemiesCount: 5
   ObjectPool: {fileID: 368712727}
   Map: {fileID: 29892063}
+  Enemies: []
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0

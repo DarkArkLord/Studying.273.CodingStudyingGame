@@ -29,25 +29,25 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private Vector2 GetButtonsVector()
+    private Vector2Int GetButtonsVector()
     {
         if (Input.GetKey(KeyCode.LeftArrow))
         {
-            return Vector2.left;
+            return Vector2Int.left;
         }
         if (Input.GetKey(KeyCode.RightArrow))
         {
-            return Vector2.right;
+            return Vector2Int.right;
         }
         if (Input.GetKey(KeyCode.UpArrow))
         {
-            return Vector2.up;
+            return Vector2Int.up;
         }
         if (Input.GetKey(KeyCode.DownArrow))
         {
-            return Vector2.down;
+            return Vector2Int.down;
         }
-        return Vector2.zero;
+        return Vector2Int.zero;
     }
 
     private void CheckInputStep()
