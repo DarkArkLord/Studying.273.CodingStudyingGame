@@ -15,7 +15,8 @@ public class NPCManager : MonoBehaviour
         enemyObj = ObjectPool.GetObject();
         enemy = enemyObj.GetComponent<NPCController>();
         enemy.Map = Map;
-        enemy.SetStartPosition(Player);
+        enemy.Player = Player;
+        enemy.SetStartPosition();
         enemyObj.SetActive(true);
     }
 
@@ -25,7 +26,11 @@ public class NPCManager : MonoBehaviour
         if (enemy.IsActive && enemy.IsAlive && Player.Jumper.Position2D == enemy.Jumper.Position2D)
         {
             enemy.SetActive(false);
-            enemy.SetStartPosition(Player);
+            enemy.SetVisibility(false);
+
+            enemy.SetStartPosition();
+
+            enemy.SetVisibility(true);
             enemy.SetActive(true);
         }
     }

@@ -5,6 +5,7 @@ public class NPCController : MonoBehaviour
 {
     public JumpController Jumper;
     public MapController Map;
+    public PlayerMovement Player;
     public float TimeBeforeStep = 2;
 
     public bool IsAlive { get; private set; } = true;
@@ -24,9 +25,9 @@ public class NPCController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (IsActive && IsAlive)
+        if (IsActive)
         {
-            if (isMoving)
+            if (isMoving && IsAlive)
             {
                 isMoving = Jumper.Move();
             }
@@ -38,6 +39,13 @@ public class NPCController : MonoBehaviour
                     isMoving = true;
                     SetMoveTarget();
                     waitingTime = TimeBeforeStep;
+
+                    if (!IsAlive)
+                    {
+                        IsAlive = true;
+                        SetStartPosition();
+                        Jumper.SetTarget(transform.position);
+                    }
                 }
             }
         }
@@ -46,7 +54,6 @@ public class NPCController : MonoBehaviour
     public void SetActive(bool active)
     {
         IsActive = active;
-        gameObject.SetActive(active);
     }
 
     public void SetAlive(bool alive)
@@ -54,7 +61,12 @@ public class NPCController : MonoBehaviour
         IsAlive = alive;
     }
 
-    public void SetStartPosition(PlayerMovement Player)
+    public void SetVisibility(bool visibility)
+    {
+        gameObject.SetActive(visibility);
+    }
+
+    public void SetStartPosition()
     {
         var playerPos = Player.Jumper.Position2D;
         while (true)

@@ -8,6 +8,13 @@ public class PlayerMovement : MonoBehaviour
 
     private bool isBlocked = false;
 
+    public bool IsActive { get; private set; } = true;
+
+    public void SetActive(bool active)
+    {
+        IsActive = active;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,15 +26,18 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isBlocked)
+        if (IsActive)
         {
-            // Тут я использую именно | вместо || чтобы оба метода были вызваны
-            // Here I use | instead of || that both method were used
-            isBlocked = Jumper.Move() | CameraMove.Move();
-        }
-        else
-        {
-            CheckInputStep();
+            if (isBlocked)
+            {
+                // Тут я использую именно | вместо || чтобы оба метода были вызваны
+                // Here I use | instead of || that both method were used
+                isBlocked = Jumper.Move() | CameraMove.Move();
+            }
+            else
+            {
+                CheckInputStep();
+            }
         }
     }
 

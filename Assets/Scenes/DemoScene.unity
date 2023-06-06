@@ -215,7 +215,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b71bae6e4d50034d9f144bf9fafd699, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Prefab: {fileID: 5869975276517276975, guid: 55db6756e2120204f8a88c9fb28c9a93, type: 3}
+  Prefab: {fileID: 4093800245759067203, guid: 55db6756e2120204f8a88c9fb28c9a93, type: 3}
   StartCount: 5
 --- !u!1 &397951586
 GameObject:
@@ -402,7 +402,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40412ca92f7031542b4fe084a11ede61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemiesCount: 5
   ObjectPool: {fileID: 368712727}
   Map: {fileID: 29892063}
   Player: {fileID: 1775631194}
