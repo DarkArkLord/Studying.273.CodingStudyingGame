@@ -536,6 +536,7 @@ MonoBehaviour:
   ObjectPool: {fileID: 368712727}
   Map: {fileID: 29892063}
   Player: {fileID: 1775631194}
+  UIController: {fileID: 156728481}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0

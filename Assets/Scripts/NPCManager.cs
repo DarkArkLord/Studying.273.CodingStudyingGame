@@ -6,6 +6,8 @@ public class NPCManager : MonoBehaviour
     public MapController Map;
     public PlayerMovement Player;
 
+    public UIController UIController;
+
     private GameObject enemyObj;
     private NPCController enemy;
 
@@ -26,12 +28,10 @@ public class NPCManager : MonoBehaviour
         if (enemy.IsActive && enemy.IsAlive && Player.Jumper.Position2D == enemy.Jumper.Position2D)
         {
             enemy.SetActive(false);
-            enemy.SetVisibility(false);
 
             enemy.SetStartPosition();
 
             enemy.SetVisibility(true);
-            enemy.SetActive(true);
         }
     }
 }
