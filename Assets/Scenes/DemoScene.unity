@@ -405,7 +405,7 @@ MonoBehaviour:
   EnemiesCount: 5
   ObjectPool: {fileID: 368712727}
   Map: {fileID: 29892063}
-  Enemies: []
+  Player: {fileID: 1775631194}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0

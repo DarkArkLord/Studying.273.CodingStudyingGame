@@ -22,10 +22,15 @@ public class MapController : MonoBehaviour
         return map[x, y];
     }
 
+    public bool IsCanMove(int x, int y)
+    {
+        var cell = GetMapCell(x, y);
+        return cell > 0;
+    }
+
     public bool IsCanMove(Vector2Int to)
     {
-        var cell = GetMapCell(to.x, to.y);
-        return cell > 0;
+        return IsCanMove(to.x, to.y);
     }
 
     public int GetRelativeMapCell(Vector2Int anchor, int x, int y)
