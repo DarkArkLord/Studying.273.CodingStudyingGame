@@ -43,7 +43,17 @@ public class NPCManager : MonoBehaviour
                 if (UIController.IsComplete)
                 {
                     Player.SetActive(true);
-                    enemy.SetVisibility(true);
+                    enemy.SetActive(true);
+                    enemy.SetInBattle(false);
+
+                    if (UIController.IsWin)
+                    {
+                        enemy.SetStartPosition();
+                    } 
+                    else
+                    {
+                        Player.SetStartPosition();
+                    }
                 }
             }
         }

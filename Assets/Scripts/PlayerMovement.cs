@@ -15,12 +15,17 @@ public class PlayerMovement : MonoBehaviour
         IsActive = active;
     }
 
-    // Start is called before the first frame update
-    void Start()
+    public void SetStartPosition()
     {
         var offset = new Vector3(Floor.Map.StartX, transform.position.y, Floor.Map.StartY) - transform.position;
         transform.position += offset;
         CameraMove.transform.position += offset;
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        SetStartPosition();
     }
 
     // Update is called once per frame
