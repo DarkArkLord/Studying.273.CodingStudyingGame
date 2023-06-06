@@ -10,6 +10,7 @@ public class NPCController : MonoBehaviour
 
     public bool IsAlive { get; private set; } = true;
     public bool IsActive { get; private set; } = true;
+    public bool IsInBattle { get; private set; } = false;
 
     private System.Random random = new System.Random(666);
 
@@ -59,6 +60,11 @@ public class NPCController : MonoBehaviour
     public void SetAlive(bool alive)
     {
         IsAlive = alive;
+    }
+
+    public void SetInBattle(bool inBattle)
+    {
+        IsInBattle = inBattle;
     }
 
     public void SetVisibility(bool visibility)

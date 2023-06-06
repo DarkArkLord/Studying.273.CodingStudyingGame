@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class UIButtonController : MonoBehaviour
 {
-    public GameObject Value;
-    public GameObject Number;
+    public TextMesh Value;
+    public TextMesh Number;
 
     // Start is called before the first frame update
     void Start()
@@ -17,5 +17,10 @@ public class UIButtonController : MonoBehaviour
     void Update()
     {
         
+    }
+
+    void OnMouseUp()
+    {
+        Debug.Log(Value.text);
     }
 }

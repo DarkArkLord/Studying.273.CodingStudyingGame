@@ -28,10 +28,24 @@ public class NPCManager : MonoBehaviour
         if (enemy.IsActive && enemy.IsAlive && Player.Jumper.Position2D == enemy.Jumper.Position2D)
         {
             enemy.SetActive(false);
+            enemy.SetInBattle(true);
+            Player.SetActive(false);
+        }
 
-            enemy.SetStartPosition();
-
-            enemy.SetVisibility(true);
+        if (enemy.IsInBattle)
+        {
+            if (!UIController.IsActive)
+            {
+                UIController.SetActive(true);
+            }
+            else
+            {
+                if (UIController.IsComplete)
+                {
+                    Player.SetActive(true);
+                    enemy.SetVisibility(true);
+                }
+            }
         }
     }
 }
