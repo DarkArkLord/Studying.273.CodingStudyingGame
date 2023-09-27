@@ -4,7 +4,7 @@ public class PlayerMovement : MonoBehaviour
 {
     public FloorController Floor;
     public JumpController Jumper;
-    public MoveController CameraMove;
+    public SmoothMoveController CameraMove;
 
     private bool isBlocked = false;
 
