@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectPoolManager : MonoBehaviour
+public class ObjectPoolComponent : MonoBehaviour
 {
     private class ObjectPoolItem
     {
@@ -21,7 +21,7 @@ public class ObjectPoolManager : MonoBehaviour
     private List<ObjectPoolItem> items;
 
     // Start is called before the first frame update
-    void Start()
+    public void Init()
     {
         items = new List<ObjectPoolItem>(StartCount);
         for (int i = 0; i < StartCount; i++)

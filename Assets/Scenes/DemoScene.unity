@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18206784, g: 0.2277626, b: 0.30739385, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -484,14 +484,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 705507993}
-  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
+  m_LocalRotation: {x: 0.34967378, y: -0.121890396, z: 0.15694451, w: 0.91555417}
   m_LocalPosition: {x: 4.94, y: 14.78, z: -8.56}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+  m_LocalEulerAnglesHint: {x: 42.731, y: -8.884, z: 15.973}
 --- !u!1 &768813690
 GameObject:
   m_ObjectHideFlags: 0
@@ -619,7 +619,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: 0.17364816, y: 0, z: 0, w: 0.9848078}
-  m_LocalPosition: {x: 0.03, y: 5.11, z: -10}
+  m_LocalPosition: {x: 0, y: 5, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -832,8 +832,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ede33253f74dc940a04e775364430f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _light: {fileID: 705507994}
-  _playerPrefab: {fileID: 2928578452829954765, guid: db4e1e8942acb1f43b34a52332ae42da, type: 3}
 --- !u!4 &1122639642
 Transform:
   m_ObjectHideFlags: 0
@@ -1221,7 +1219,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1775631188}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 6.71, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1255,6 +1253,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7f2d5a78b148504b9caa84f961e142b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <MoveTime>k__BackingField: 0.25
+  <Target>k__BackingField: {x: 0, y: 0, z: 0}
+  <Progress>k__BackingField: 0
+  <MoveDirection>k__BackingField: {x: 0, y: 0, z: 0}
+  <PathPoint>k__BackingField: {x: 0, y: 0, z: 0}
+  <JumpHeight>k__BackingField: 0.5
+  <NeedJump>k__BackingField: 1
+  sqrt_h: 0
 --- !u!1 &2097298476
 GameObject:
   m_ObjectHideFlags: 0

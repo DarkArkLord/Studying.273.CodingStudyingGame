@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class UIController : MonoBehaviour
 {
-    public ObjectPoolManager ObjectPool;
+    public ObjectPoolComponent ObjectPool;
     public TextMesh ResultText;
 
     private UIButtonController[] buttons = new UIButtonController[9];

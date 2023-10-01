@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class NPCManager : MonoBehaviour
 {
-    public ObjectPoolManager ObjectPool;
+    public ObjectPoolComponent ObjectPool;
     public MapController Map;
     public PlayerMovement Player;
 

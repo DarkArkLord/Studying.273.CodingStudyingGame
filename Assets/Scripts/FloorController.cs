@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class FloorController : MonoBehaviour
 {
-    public ObjectPoolManager ObjectPool;
+    public ObjectPoolComponent ObjectPool;
     public Material[] Materials;
     public MapController Map;
 
