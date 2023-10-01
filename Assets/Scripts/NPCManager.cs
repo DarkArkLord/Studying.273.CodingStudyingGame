@@ -1,10 +1,11 @@
+using Assets.Scripts.Controllers;
 using UnityEngine;
 
 public class NPCManager : MonoBehaviour
 {
     public ObjectPoolComponent ObjectPool;
     public MapController Map;
-    public PlayerMovement Player;
+    //public PlayerMovement Player;
 
     public UIController UIController;
 
@@ -17,7 +18,7 @@ public class NPCManager : MonoBehaviour
         enemyObj = ObjectPool.GetObject();
         enemy = enemyObj.GetComponent<NPCController>();
         enemy.Map = Map;
-        enemy.Player = Player;
+        //enemy.Player = Player;
         enemy.SetStartPosition();
         enemyObj.SetActive(true);
     }
@@ -25,36 +26,36 @@ public class NPCManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (enemy.IsActive && enemy.IsAlive && Player.Jumper.Position2D == enemy.Jumper.Position2D)
-        {
-            enemy.SetActive(false);
-            enemy.SetInBattle(true);
-            Player.SetActive(false);
-        }
+        //if (enemy.IsActive && enemy.IsAlive && Player.Jumper.Position2D == enemy.Jumper.Position2D)
+        //{
+        //    enemy.SetActive(false);
+        //    enemy.SetInBattle(true);
+        //    Player.SetActive(false);
+        //}
 
         if (enemy.IsInBattle)
         {
             if (!UIController.IsActive)
             {
-                UIController.SetActive(true);
+                //UIController.SetActive(true);
             }
             else
             {
-                if (UIController.IsComplete)
-                {
-                    Player.SetActive(true);
-                    enemy.SetActive(true);
-                    enemy.SetInBattle(false);
+                //if (UIController.IsComplete)
+                //{
+                //    Player.SetActive(true);
+                //    enemy.SetActive(true);
+                //    enemy.SetInBattle(false);
 
-                    if (UIController.IsWin)
-                    {
-                        enemy.SetStartPosition();
-                    } 
-                    else
-                    {
-                        Player.SetStartPosition();
-                    }
-                }
+                //    if (UIController.IsWin)
+                //    {
+                //        enemy.SetStartPosition();
+                //    } 
+                //    else
+                //    {
+                //        Player.SetStartPosition();
+                //    }
+                //}
             }
         }
     }

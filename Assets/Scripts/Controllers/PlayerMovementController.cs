@@ -1,23 +1,35 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.Utils;
+using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace Assets.Scripts
+namespace Assets.Scripts.Controllers
 {
     public class PlayerMovementController
     {
         private SmoothMoveComponent _player;
         private SmoothMoveComponent _camera;
 
+        private FloorController floor;
+
         public bool IsOnPause { get; private set; }
         public bool IsMoving { get; private set; }
 
-        public PlayerMovementController(SmoothMoveComponent player, SmoothMoveComponent camera)
+        public PlayerMovementController(SmoothMoveComponent player, SmoothMoveComponent camera, FloorController floor)
         {
             _player = player;
             _camera = camera;
 
+            this.floor = floor;
+
             IsOnPause = false;
             IsMoving = false;
+        }
+
+        public void SetStartPosition()
+        {
+            var offset = new Vector3(floor.Map.StartX, _player.transform.position.y, floor.Map.StartY) - _player.transform.position;
+            _player.transform.position += offset;
+            _camera.transform.position += offset;
         }
 
         public void OnUpdate(MoveDirection? moveDirection)
@@ -30,7 +42,7 @@ namespace Assets.Scripts
                 if (movementVector.magnitude > 0)
                 {
                     IsMoving = true;
-                    var isCanMove = true; // ??
+                    var isCanMove = floor.Map.IsCanMove(_player.Position2D + movementVector);
                     if (isCanMove)
                     {
                         var offset = new Vector3(movementVector.x, 0, movementVector.y);
@@ -51,6 +63,11 @@ namespace Assets.Scripts
 
                 IsMoving = isPlayerMoved || isCameraMoved;
             }
+        }
+
+        public void SetPause(bool pause)
+        {
+            IsOnPause = pause;
         }
     }
 }

@@ -1,22 +1,43 @@
-using Assets.Scripts;
+using Assets.Scripts.Controllers;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class BootstrapperController : MonoBehaviour
+public class BootstrapperComponent : MonoBehaviour
 {
     private Camera _camera;
     private GameObject _playerElement;
 
     private PlayerMovementController _playerMovementController;
+    private FloorController _floorController;
 
 
     private void Awake()
     {
-        InitializePlayer();
+        InitMap();
+        InitPlayer();
     }
 
-    private void InitializePlayer()
+    private void InitMap()
+    {
+        var mapController = new MapController(20, 20, 3, 3);
+
+        var objectsPool = new GameObject("FlootObjectPool").AddComponent<ObjectPoolComponent>();
+        var floorPrefub = Resources.Load("Models/FloorModel") as GameObject;
+        objectsPool.Init(floorPrefub);
+
+        var floorMaterials = new Material[4]
+        {
+            Resources.Load("Materials/NoFloorMaterial") as Material,
+            Resources.Load("Materials/FloorMaterial_1") as Material,
+            Resources.Load("Materials/FloorMaterial_2") as Material,
+            Resources.Load("Materials/FloorMaterial_3") as Material,
+        };
+
+        _floorController = new FloorController(mapController, objectsPool, floorMaterials);
+    }
+
+    private void InitPlayer()
     {
         _camera = Camera.main;
         var movableCamera = _camera.AddComponent<SmoothMoveComponent>();
@@ -26,7 +47,8 @@ public class BootstrapperController : MonoBehaviour
         _playerElement.transform.name = "Player";
         var movablePlayer = _playerElement.AddComponent<JumpComponent>();
 
-        _playerMovementController = new PlayerMovementController(movablePlayer, movableCamera);
+        _playerMovementController = new PlayerMovementController(movablePlayer, movableCamera, _floorController);
+        _playerMovementController.SetStartPosition();
     }
 
     // Start is called before the first frame update

@@ -15,16 +15,18 @@ public class ObjectPoolComponent : MonoBehaviour
         }
     }
 
-    public GameObject Prefab;
-    public int StartCount = 10;
+    private GameObject _prefab;
+    private int _startCount;
 
     private List<ObjectPoolItem> items;
 
-    // Start is called before the first frame update
-    public void Init()
+    public void Init(GameObject prefab, int startCount = 10)
     {
-        items = new List<ObjectPoolItem>(StartCount);
-        for (int i = 0; i < StartCount; i++)
+        _prefab = prefab;
+        _startCount = startCount;
+
+        items = new List<ObjectPoolItem>(_startCount);
+        for (int i = 0; i < _startCount; i++)
         {
             AddItem();
         }
@@ -32,8 +34,10 @@ public class ObjectPoolComponent : MonoBehaviour
 
     private ObjectPoolItem AddItem()
     {
-        var obj = Instantiate(Prefab, transform);
+        var obj = Instantiate(_prefab, transform);
         obj.SetActive(false);
+        obj.transform.SetParent(transform);
+
         var item = new ObjectPoolItem(obj);
         items.Add(item);
         return item;
@@ -75,7 +79,7 @@ public class ObjectPoolComponent : MonoBehaviour
             if (obj.IsFree)
             {
                 obj.IsFree = false;
-                return obj.Item; ;
+                return obj.Item;
             }
         }
 

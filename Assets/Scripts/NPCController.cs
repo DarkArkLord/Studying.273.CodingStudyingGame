@@ -1,11 +1,12 @@
-using Assets.Scripts;
+using Assets.Scripts.Controllers;
+using Assets.Scripts.Utils;
 using UnityEngine;
 
 public class NPCController : MonoBehaviour
 {
     public JumpComponent Jumper;
     public MapController Map;
-    public PlayerMovement Player;
+    //public PlayerMovement Player;
     public float TimeBeforeStep = 2;
 
     public bool IsAlive { get; private set; } = true;
@@ -74,17 +75,17 @@ public class NPCController : MonoBehaviour
 
     public void SetStartPosition()
     {
-        var playerPos = Player.Jumper.Position2D;
+        //var playerPos = Player.Jumper.Position2D;
         while (true)
         {
             var x = random.Next(Map.Width);
             var y = random.Next(Map.Height);
 
-            if (Map.IsCanMove(x, y) && playerPos.x != x && playerPos.y != y)
-            {
-                gameObject.transform.position = new Vector3(x, 0, y);
-                break;
-            }
+            //if (Map.IsCanMove(x, y) && playerPos.x != x && playerPos.y != y)
+            //{
+            //    gameObject.transform.position = new Vector3(x, 0, y);
+            //    break;
+            //}
         }
     }
 

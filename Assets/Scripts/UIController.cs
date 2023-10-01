@@ -20,19 +20,19 @@ public class UIController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        buttonLocalScale = new Vector3(0.2f, 0.2f, 1f);
-        for (int i = 0; i < buttons.Length; i++)
-        {
-            var obj = ObjectPool.GetObject();
-            var x = i / 3 - 1;
-            var y = i % 3 - 1;
-            obj.transform.localPosition = new Vector3(x * buttonOffset, y * buttonOffset, -2);
-            obj.transform.localScale = buttonLocalScale;
+        //buttonLocalScale = new Vector3(0.2f, 0.2f, 1f);
+        //for (int i = 0; i < buttons.Length; i++)
+        //{
+        //    var obj = ObjectPool.GetObject();
+        //    var x = i / 3 - 1;
+        //    var y = i % 3 - 1;
+        //    obj.transform.localPosition = new Vector3(x * buttonOffset, y * buttonOffset, -2);
+        //    obj.transform.localScale = buttonLocalScale;
 
-            buttons[i] = obj.GetComponent<UIButtonController>();
-            buttons[i].MainController = this;
-            buttons[i].Value.text = (i + 1).ToString();
-        }
+        //    buttons[i] = obj.GetComponent<UIButtonController>();
+        //    buttons[i].MainController = this;
+        //    buttons[i].Value.text = (i + 1).ToString();
+        //}
         SetActive(false);
     }
 

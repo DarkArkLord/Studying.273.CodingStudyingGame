@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace Assets.Scripts
+namespace Assets.Scripts.Utils
 {
     public static class DirectionUtils
     {
