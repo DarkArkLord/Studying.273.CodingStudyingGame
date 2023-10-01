@@ -136,7 +136,6 @@ GameObject:
   - component: {fileID: 156728478}
   - component: {fileID: 156728477}
   - component: {fileID: 156728481}
-  - component: {fileID: 156728480}
   m_Layer: 5
   m_Name: BackFig
   m_TagString: Untagged
@@ -230,18 +229,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 156728475}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &156728480
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 156728475}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b71bae6e4d50034d9f144bf9fafd699, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &156728481
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -254,7 +241,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6f5bda863e836142909eae89c2c484d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ObjectPool: {fileID: 156728480}
+  ObjectPool: {fileID: 0}
   ResultText: {fileID: 1564042345}
 --- !u!1 &705507993
 GameObject:
