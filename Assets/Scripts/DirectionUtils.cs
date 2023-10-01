@@ -3,7 +3,7 @@ using UnityEngine.EventSystems;
 
 namespace Assets.Scripts
 {
-    internal static class DirectionUtils
+    public static class DirectionUtils
     {
         public static Vector2 DirectionToVector(this MoveDirection direction)
         {
@@ -17,7 +17,7 @@ namespace Assets.Scripts
             return Vector2.zero;
         }
 
-        public static Vector2Int DirectionToVectorInt(this MoveDirection direction)
+        public static Vector2Int DirectionToVectorInt(this MoveDirection? direction)
         {
             switch (direction)
             {
