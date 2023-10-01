@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class NPCController : MonoBehaviour
 {
-    public JumpController Jumper;
+    public JumpComponent Jumper;
     public MapController Map;
     public PlayerMovement Player;
     public float TimeBeforeStep = 2;

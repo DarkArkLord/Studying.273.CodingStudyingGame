@@ -17,8 +17,8 @@ public class BootstrapperController : MonoBehaviour
         _light.transform.position = _camera.transform.position;
         _light.transform.rotation = _camera.transform.rotation;
 
-        var movableCamera = _camera.AddComponent<SmoothMoveController>();
-        var movableLight = _light.AddComponent<SmoothMoveController>();
+        var movableCamera = _camera.AddComponent<SmoothMoveComponent>();
+        var movableLight = _light.AddComponent<SmoothMoveComponent>();
 
         //
     }

@@ -3,8 +3,8 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public FloorController Floor;
-    public JumpController Jumper;
-    public SmoothMoveController CameraMove;
+    public JumpComponent Jumper;
+    public SmoothMoveComponent CameraMove;
 
     private bool isBlocked = false;
 

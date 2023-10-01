@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SmoothMoveController : MonoBehaviour
+public class SmoothMoveComponent : MonoBehaviour
 {
     public float MoveTime { get; set; } = 0.25f;
 

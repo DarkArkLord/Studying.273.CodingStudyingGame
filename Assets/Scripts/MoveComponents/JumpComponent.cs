@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class JumpController : SmoothMoveController
+public class JumpComponent : SmoothMoveComponent
 {
     public float JumpHeight { get; set; } = 0.5f;
     public bool NeedJump { get; set; } = true;
