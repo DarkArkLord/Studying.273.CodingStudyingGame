@@ -7,7 +7,7 @@ namespace Assets.Scripts.Controllers
     public class NPCMovementController
     {
         private IMovableEntity npc;
-        private IMovableEntity player;
+        private IEntityWithPosition player;
         private MapController map;
 
         private System.Random random = RandomUtils.Random;
@@ -22,7 +22,7 @@ namespace Assets.Scripts.Controllers
         public bool IsAlive { get; private set; } = false;
         public bool IsOnPause { get; private set; } = false;
 
-        public NPCMovementController(IMovableEntity npc, IMovableEntity player, MapController map, float timeBeforeSteps = 2, float timeForRespawn = 5)
+        public NPCMovementController(IMovableEntity npc, IEntityWithPosition player, MapController map, float timeBeforeSteps = 2, float timeForRespawn = 5)
         {
             this.npc = npc;
             this.player = player;
