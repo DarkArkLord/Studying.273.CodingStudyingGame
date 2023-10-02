@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Utils;
+﻿using Assets.Scripts.Interfaces;
+using Assets.Scripts.Utils;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -6,15 +7,15 @@ namespace Assets.Scripts.Controllers
 {
     public class PlayerMovementController
     {
-        private SmoothMoveComponent _player;
-        private SmoothMoveComponent _camera;
+        private IMovableEntity _player;
+        private IMovableEntity _camera;
 
         private FloorController floor;
 
         public bool IsOnPause { get; private set; }
         public bool IsMoving { get; private set; }
 
-        public PlayerMovementController(SmoothMoveComponent player, SmoothMoveComponent camera, FloorController floor)
+        public PlayerMovementController(IMovableEntity player, IMovableEntity camera, FloorController floor)
         {
             _player = player;
             _camera = camera;
@@ -27,9 +28,9 @@ namespace Assets.Scripts.Controllers
 
         public void SetStartPosition()
         {
-            var offset = new Vector3(floor.Map.StartX, _player.transform.position.y, floor.Map.StartY) - _player.transform.position;
-            _player.transform.position += offset;
-            _camera.transform.position += offset;
+            var offset = new Vector3(floor.Map.StartX, _player.Transform.position.y, floor.Map.StartY) - _player.Transform.position;
+            _player.Transform.position += offset;
+            _camera.Transform.position += offset;
         }
 
         public void OnUpdate(MoveDirection? moveDirection)
@@ -47,12 +48,12 @@ namespace Assets.Scripts.Controllers
                     {
                         var offset = new Vector3(movementVector.x, 0, movementVector.y);
 
-                        _player.SetTarget(_player.transform.position + offset);
-                        _camera.SetTarget(_camera.transform.position + offset);
+                        _player.SetTarget(_player.Transform.position + offset);
+                        _camera.SetTarget(_camera.Transform.position + offset);
                     }
                     else
                     {
-                        _player.SetTarget(_player.transform.position);
+                        _player.SetTarget(_player.Transform.position);
                     }
                 }
             }

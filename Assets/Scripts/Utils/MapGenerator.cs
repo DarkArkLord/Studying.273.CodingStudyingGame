@@ -3,11 +3,11 @@ using PointsQueue = System.Collections.Generic.Queue<(int x, int y)>;
 
 namespace Assets.Scripts.Utils
 {
-    internal static class MapGenerator
+    public static class MapGenerator
     {
         public static int[,] GenerateMap(int width, int height, int maxCellValue, int playerX, int playerY)
         {
-            var random = new Random(666);
+            var random = RandomUtils.Random;
             int[,] map = new int[width, height];
 
             for (int x = 0; x < width; x++)

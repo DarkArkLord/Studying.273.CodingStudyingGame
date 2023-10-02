@@ -12,8 +12,6 @@ GameObject:
   - component: {fileID: 5078731248114782713}
   - component: {fileID: 3270402519533248562}
   - component: {fileID: 4434982672485983855}
-  - component: {fileID: 125529216188701661}
-  - component: {fileID: 8054073654513187736}
   m_Layer: 0
   m_Name: NPCCube
   m_TagString: Untagged
@@ -99,29 +97,3 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &125529216188701661
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4093800245759067203}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 041d9bab46b456d44bfc7260ca7b2fd2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Jumper: {fileID: 8054073654513187736}
-  Map: {fileID: 0}
---- !u!114 &8054073654513187736
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4093800245759067203}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7f2d5a78b148504b9caa84f961e142b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

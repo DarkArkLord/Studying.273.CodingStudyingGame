@@ -1,6 +1,7 @@
+using Assets.Scripts.Interfaces;
 using UnityEngine;
 
-public class SmoothMoveComponent : MonoBehaviour
+public class SmoothMoveComponent : MonoBehaviour, IMovableEntity
 {
     public float MoveTime { get; set; } = 0.25f;
 
@@ -10,6 +11,9 @@ public class SmoothMoveComponent : MonoBehaviour
     public Vector3 PathPoint { get; private set; }
 
     public Vector2Int Position2D => new Vector2Int((int)transform.position.x, (int)transform.position.z);
+    public Transform Transform => transform;
+
+    public GameObject GameObject => gameObject;
 
     public virtual void SetTarget(Vector3 target)
     {
