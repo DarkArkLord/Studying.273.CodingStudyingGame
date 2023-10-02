@@ -3,24 +3,24 @@ using UnityEngine;
 
 public class NPCManager : MonoBehaviour
 {
-    public ObjectPoolComponent ObjectPool;
-    public MapController Map;
-    //public PlayerMovement Player;
+    //public ObjectPoolComponent ObjectPool;
+    //public MapController Map;
+    ////public PlayerMovement Player;
 
-    public UIController UIController;
+    //public UIController UIController;
 
-    private GameObject enemyObj;
-    private NPCController enemy;
+    //private GameObject enemyObj;
+    //private NPCController enemy;
 
     // Start is called before the first frame update
     void Start()
     {
-        enemyObj = ObjectPool.GetObject();
-        enemy = enemyObj.GetComponent<NPCController>();
-        enemy.Map = Map;
-        //enemy.Player = Player;
-        enemy.SetStartPosition();
-        enemyObj.SetActive(true);
+        //enemyObj = ObjectPool.GetObject();
+        //enemy = enemyObj.GetComponent<NPCController>();
+        //enemy.Map = Map;
+        ////enemy.Player = Player;
+        //enemy.SetStartPosition();
+        //enemyObj.SetActive(true);
     }
 
     // Update is called once per frame
@@ -33,30 +33,30 @@ public class NPCManager : MonoBehaviour
         //    Player.SetActive(false);
         //}
 
-        if (enemy.IsInBattle)
-        {
-            if (!UIController.IsActive)
-            {
-                //UIController.SetActive(true);
-            }
-            else
-            {
-                //if (UIController.IsComplete)
-                //{
-                //    Player.SetActive(true);
-                //    enemy.SetActive(true);
-                //    enemy.SetInBattle(false);
+        //if (enemy.IsInBattle)
+        //{
+        //    if (!UIController.IsActive)
+        //    {
+        //        //UIController.SetActive(true);
+        //    }
+        //    else
+        //    {
+        //        //if (UIController.IsComplete)
+        //        //{
+        //        //    Player.SetActive(true);
+        //        //    enemy.SetActive(true);
+        //        //    enemy.SetInBattle(false);
 
-                //    if (UIController.IsWin)
-                //    {
-                //        enemy.SetStartPosition();
-                //    } 
-                //    else
-                //    {
-                //        Player.SetStartPosition();
-                //    }
-                //}
-            }
-        }
+        //        //    if (UIController.IsWin)
+        //        //    {
+        //        //        enemy.SetStartPosition();
+        //        //    } 
+        //        //    else
+        //        //    {
+        //        //        Player.SetStartPosition();
+        //        //    }
+        //        //}
+        //    }
+        //}
     }
 }

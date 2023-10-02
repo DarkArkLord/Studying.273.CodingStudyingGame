@@ -1,7 +1,8 @@
+using Assets.Scripts.Interfaces;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectPoolComponent : MonoBehaviour
+public class ObjectPoolComponent : MonoBehaviour, IObjectPool
 {
     private class ObjectPoolItem
     {

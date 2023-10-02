@@ -4,7 +4,7 @@ namespace Assets.Scripts.Interfaces
 {
     public interface IMovableEntity : IEntityWithPosition
     {
-        public void SetTarget(Vector3 target);
-        public bool Move();
+        void SetTarget(Vector3 target);
+        bool Move();
     }
 }

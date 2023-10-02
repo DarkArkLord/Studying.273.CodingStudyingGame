@@ -10,12 +10,14 @@ public class BootstrapperComponent : MonoBehaviour
 
     private PlayerMovementController _playerMovementController;
     private FloorController _floorController;
+    private NPCsController _npcController;
 
 
     private void Awake()
     {
         InitMap();
         InitPlayer();
+        InitEnemies();
     }
 
     private void InitMap()
@@ -51,6 +53,17 @@ public class BootstrapperComponent : MonoBehaviour
         _playerMovementController.SetStartPosition();
     }
 
+    private void InitEnemies()
+    {
+        var npcPrefub = Resources.Load("Models/NPCCube") as GameObject;
+        var objectsPool = new GameObject("FlootObjectPool").AddComponent<ObjectPoolComponent>();
+        objectsPool.Init(npcPrefub);
+
+        var movablePlayer = _playerElement.GetComponent<JumpComponent>();
+
+        _npcController = new NPCsController(5, objectsPool, movablePlayer, _floorController.Map);
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -62,7 +75,7 @@ public class BootstrapperComponent : MonoBehaviour
     {
         var buttonDirection = GetButtonsDirection();
         _playerMovementController.OnUpdate(buttonDirection);
-        // Add keys down to event bus )0)
+        _npcController.OnUpdate();
     }
 
     private MoveDirection? GetButtonsDirection()
