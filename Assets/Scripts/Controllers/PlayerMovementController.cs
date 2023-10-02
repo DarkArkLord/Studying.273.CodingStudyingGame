@@ -12,8 +12,8 @@ namespace Assets.Scripts.Controllers
 
         private FloorController floor;
 
-        public bool IsOnPause { get; private set; }
-        public bool IsMoving { get; private set; }
+        public bool IsOnPause { get; private set; } = false;
+        public bool IsMoving { get; private set; } = false;
 
         public PlayerMovementController(IMovableEntity player, IMovableEntity camera, FloorController floor)
         {
@@ -21,9 +21,6 @@ namespace Assets.Scripts.Controllers
             _camera = camera;
 
             this.floor = floor;
-
-            IsOnPause = false;
-            IsMoving = false;
         }
 
         public void SetStartPosition()

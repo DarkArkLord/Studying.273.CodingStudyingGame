@@ -20,6 +20,7 @@ namespace Assets.Scripts.Controllers
 
         public bool IsMoving { get; private set; } = false;
         public bool IsAlive { get; private set; } = false;
+        public bool IsOnPause { get; private set; } = false;
 
         public NPCMovementController(IMovableEntity npc, IMovableEntity player, MapController map, float timeBeforeSteps = 2, float timeForRespawn = 5)
         {
@@ -33,6 +34,8 @@ namespace Assets.Scripts.Controllers
 
         public void OnUpdate()
         {
+            if (IsOnPause) return;
+
             if (IsAlive)
             {
                 if (IsMoving)
