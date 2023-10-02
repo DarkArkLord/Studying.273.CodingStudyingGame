@@ -59,6 +59,11 @@ namespace Assets.Scripts.Controllers
             }
         }
 
+        public void SetPause(bool pause)
+        {
+            IsOnPause = pause;
+        }
+
         private void SetMoveTarget()
         {
             while (true)
