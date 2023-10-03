@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 
 namespace Assets.Scripts.Controllers
 {
-    public class PlayerMovementController
+    public class PlayerMovementController : IBattleEntity
     {
         private IMovableEntity _player;
         private IMovableEntity _camera;
@@ -15,19 +15,14 @@ namespace Assets.Scripts.Controllers
         public bool IsOnPause { get; private set; } = false;
         public bool IsMoving { get; private set; } = false;
 
+        public Vector2Int Position2D => _player.Position2D;
+
         public PlayerMovementController(IMovableEntity player, IMovableEntity camera, FloorController floor)
         {
             _player = player;
             _camera = camera;
 
             this.floor = floor;
-        }
-
-        public void SetStartPosition()
-        {
-            var offset = new Vector3(floor.Map.StartX, _player.Transform.position.y, floor.Map.StartY) - _player.Transform.position;
-            _player.Transform.position += offset;
-            _camera.Transform.position += offset;
         }
 
         public void OnUpdate(MoveDirection? moveDirection)
@@ -66,6 +61,19 @@ namespace Assets.Scripts.Controllers
         public void SetPause(bool pause)
         {
             IsOnPause = pause;
+        }
+
+        public void Kill()
+        {
+            // Not Implemented
+            // No Actions
+        }
+
+        public void Resurrect()
+        {
+            var offset = new Vector3(floor.Map.StartX, _player.Transform.position.y, floor.Map.StartY) - _player.Transform.position;
+            _player.Transform.position += offset;
+            _camera.Transform.position += offset;
         }
     }
 }

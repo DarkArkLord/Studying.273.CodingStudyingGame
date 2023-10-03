@@ -2,9 +2,8 @@
 
 namespace Assets.Scripts.Interfaces
 {
-    public interface IEntityWithPosition : IGameObject
+    public interface IEntityWithPosition
     {
         Vector2Int Position2D { get; }
-        Transform Transform { get; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Interfaces;
+using System.Collections.Generic;
 
 namespace Assets.Scripts.Controllers
 {
@@ -10,6 +11,8 @@ namespace Assets.Scripts.Controllers
         private IEntityWithPosition player;
 
         public bool IsOnPause { get; private set; } = false;
+
+        public IReadOnlyList<IBattleEntity> NPCs => npcs;
 
         public void SetPause(bool pause)
         {

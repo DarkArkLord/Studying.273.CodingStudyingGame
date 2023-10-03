@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Controllers
 {
-    public class NPCMovementController
+    public class NPCMovementController : IBattleEntity
     {
         private IMovableEntity npc;
         private IEntityWithPosition player;
@@ -21,6 +21,8 @@ namespace Assets.Scripts.Controllers
         public bool IsMoving { get; private set; } = false;
         public bool IsAlive { get; private set; } = false;
         public bool IsOnPause { get; private set; } = false;
+
+        public Vector2Int Position2D => npc.Position2D;
 
         public NPCMovementController(IMovableEntity npc, IEntityWithPosition player, MapController map, float timeBeforeSteps = 2, float timeForRespawn = 5)
         {

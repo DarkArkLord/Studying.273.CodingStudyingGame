@@ -11,6 +11,8 @@ public class BootstrapperComponent : MonoBehaviour
     private PlayerMovementController _playerMovementController;
     private FloorController _floorController;
     private NPCsController _npcController;
+    private GlobalEventsController _globalEventsController;
+    private BattleController _battleController;
 
 
     private void Awake()
@@ -18,6 +20,8 @@ public class BootstrapperComponent : MonoBehaviour
         InitMap();
         InitPlayer();
         InitEnemies();
+        InitEvents();
+        InitBattles();
     }
 
     private void InitMap()
@@ -50,7 +54,7 @@ public class BootstrapperComponent : MonoBehaviour
         var movablePlayer = _playerElement.AddComponent<JumpComponent>();
 
         _playerMovementController = new PlayerMovementController(movablePlayer, movableCamera, _floorController);
-        _playerMovementController.SetStartPosition();
+        _playerMovementController.Resurrect();
     }
 
     private void InitEnemies()
@@ -62,6 +66,18 @@ public class BootstrapperComponent : MonoBehaviour
         var movablePlayer = _playerElement.GetComponent<JumpComponent>();
 
         _npcController = new NPCsController(5, objectsPool, movablePlayer, _floorController.Map);
+    }
+
+    private void InitEvents()
+    {
+        _globalEventsController = new GlobalEventsController();
+        _globalEventsController.PauseEvent.AddListener(_playerMovementController.SetPause);
+        _globalEventsController.PauseEvent.AddListener(_npcController.SetPause);
+    }
+
+    private void InitBattles()
+    {
+        _battleController = new BattleController(_playerMovementController, _npcController, _globalEventsController);
     }
 
     // Start is called before the first frame update
@@ -76,6 +92,7 @@ public class BootstrapperComponent : MonoBehaviour
         var buttonDirection = GetButtonsDirection();
         _playerMovementController.OnUpdate(buttonDirection);
         _npcController.OnUpdate();
+        _battleController.OnUpdate();
     }
 
     private MoveDirection? GetButtonsDirection()
