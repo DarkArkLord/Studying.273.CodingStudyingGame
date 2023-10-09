@@ -29,7 +29,7 @@ namespace Assets.Scripts.Controllers
                 {
                     if (npc.Position2D == player.Position2D)
                     {
-                        eventsController.PauseEvent.Invoke(true);
+                        eventsController.MapPauseEvent.Invoke(true);
                         IsInBattle = true;
                         // Create battle
                         break;

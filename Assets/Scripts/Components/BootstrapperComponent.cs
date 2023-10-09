@@ -71,8 +71,8 @@ public class BootstrapperComponent : MonoBehaviour
     private void InitEvents()
     {
         _globalEventsController = new GlobalEventsController();
-        _globalEventsController.PauseEvent.AddListener(_playerMovementController.SetPause);
-        _globalEventsController.PauseEvent.AddListener(_npcController.SetPause);
+        _globalEventsController.MapPauseEvent.AddListener(_playerMovementController.SetPause);
+        _globalEventsController.MapPauseEvent.AddListener(_npcController.SetPause);
     }
 
     private void InitBattles()
