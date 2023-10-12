@@ -67,6 +67,7 @@ namespace Assets.Scripts.Controllers
 
         public void Kill()
         {
+            IsMoving = false;
             Resurrect();
         }
 
