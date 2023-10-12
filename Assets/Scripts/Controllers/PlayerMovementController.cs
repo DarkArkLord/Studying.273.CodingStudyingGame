@@ -15,6 +15,8 @@ namespace Assets.Scripts.Controllers
         public bool IsOnPause { get; private set; } = false;
         public bool IsMoving { get; private set; } = false;
 
+        public bool IsAlive => true;
+
         public Vector2Int Position2D => _player.Position2D;
 
         public PlayerMovementController(IMovableEntity player, IMovableEntity camera, FloorController floor)
