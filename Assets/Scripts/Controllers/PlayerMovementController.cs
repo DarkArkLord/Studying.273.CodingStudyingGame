@@ -67,8 +67,7 @@ namespace Assets.Scripts.Controllers
 
         public void Kill()
         {
-            // Not Implemented
-            // No Actions
+            Resurrect();
         }
 
         public void Resurrect()
