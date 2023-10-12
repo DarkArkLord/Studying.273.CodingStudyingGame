@@ -58,6 +58,11 @@ namespace Assets.Scripts.Controllers
             else
             {
                 RespawnWaitingTime -= Time.deltaTime;
+                if(RespawnWaitingTime < 0)
+                {
+                    RespawnWaitingTime = 0;
+                    Resurrect();
+                }
             }
         }
 
