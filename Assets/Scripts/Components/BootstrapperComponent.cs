@@ -14,6 +14,7 @@ public class BootstrapperComponent : MonoBehaviour
     private GlobalEventsController _globalEventsController;
     private BattleController _battleController;
 
+    public TempBattle1Conponent TempBattle1Conponent;
 
     private void Awake()
     {
@@ -77,7 +78,8 @@ public class BootstrapperComponent : MonoBehaviour
 
     private void InitBattles()
     {
-        _battleController = new BattleController(_playerMovementController, _npcController, _globalEventsController);
+        TempBattle1Conponent.Init();
+        _battleController = new BattleController(_playerMovementController, _npcController, _globalEventsController, TempBattle1Conponent);
     }
 
     // Start is called before the first frame update
