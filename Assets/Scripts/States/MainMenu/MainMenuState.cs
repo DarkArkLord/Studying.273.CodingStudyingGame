@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Assets.Scripts.States.MainMenu
 {
-    public class MainMenuState : BaseState
+    public class MainMenuState : BaseState<MainStateCode>
     {
-        public override void Update()
+        public override void OnUpdate()
         {
             //
         }

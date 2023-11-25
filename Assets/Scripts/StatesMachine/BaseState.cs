@@ -1,12 +1,19 @@
-﻿namespace Assets.Scripts.StatesMachine
-{
-    public abstract class BaseState
-    {
-        protected MainStatesController MainController { get; private set; }
+﻿using System;
+using UnityEngine;
 
-        public void SetMainController(MainStatesController mainController)
+namespace Assets.Scripts.StatesMachine
+{
+    public abstract class BaseState<T> : BaseModel where T : Enum
+    {
+        [SerializeField]
+        private T _id;
+        public T Id => _id;
+
+        protected StatesController<T> controller { get; private set; }
+
+        public void SetController(StatesController<T> controller)
         {
-            MainController = mainController;
+            this.controller = controller;
         }
 
         public virtual void OnStateCreating()
@@ -29,6 +36,6 @@
             // Вызывается после pop, если этот стейт current
         }
 
-        public abstract void Update();
+        public abstract void OnUpdate();
     }
 }

@@ -6,16 +6,14 @@ using UnityEngine;
 
 public class AppBootstraper : MonoBehaviour
 {
-    private MainStatesController mainStatesController;
-
     private void Awake()
     {
-        mainStatesController = new MainStatesController();
+        //
     }
 
     // Update is called once per frame
     void Update()
     {
-        mainStatesController.Update();
+        //
     }
 }
