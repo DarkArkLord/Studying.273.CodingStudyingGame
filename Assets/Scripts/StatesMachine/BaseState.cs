@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 
 namespace Assets.Scripts.StatesMachine
@@ -16,24 +17,38 @@ namespace Assets.Scripts.StatesMachine
             this.controller = controller;
         }
 
-        public virtual void OnStateCreating()
+        protected bool IsActive { get; private set; } = false;
+
+        public virtual IEnumerator OnStateCreating()
         {
             // Вызывается перед push
+            Debug.Log($"Create {Id} State");
+            IsActive = true;
+            yield return null;
         }
 
-        public virtual void OnStatePop()
+        public virtual IEnumerator OnStatePop()
         {
             // Вызывается после pop, если этот стейт станет current
+            Debug.Log($"Pop {Id} State");
+            IsActive = true;
+            yield return null;
         }
 
-        public virtual void OnStatePush()
+        public virtual IEnumerator OnStatePush()
         {
             // Вызывается перед push, если этот стейт current
+            Debug.Log($"Push {Id} State");
+            IsActive = false;
+            yield return null;
         }
 
-        public virtual void OnStateDestroy()
+        public virtual IEnumerator OnStateDestroy()
         {
             // Вызывается после pop, если этот стейт current
+            Debug.Log($"Destroy {Id} State");
+            IsActive = false;
+            yield return null;
         }
 
         public abstract void OnUpdate();

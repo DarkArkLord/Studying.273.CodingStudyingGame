@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -19,30 +20,58 @@ namespace Assets.Scripts.StatesMachine
 
         public void UseState(T stateId)
         {
-            if (CurrentState != null)
-            {
-                CurrentState.OnStateDestroy();
-            }
-
-            CurrentState = model.GetState(stateId);
-            CurrentState.SetController(this);
-            CurrentState.OnStateCreating();
+            model.StartCoroutine(UseStateCoroutine(stateId));
         }
 
         public void PushState(T stateId)
         {
-            if (CurrentState != null)
-            {
-                CurrentState.OnStatePush();
-                UsingStates.Push(CurrentState);
-            }
-
-            CurrentState = model.GetState(stateId);
-            CurrentState.SetController(this);
-            CurrentState.OnStateCreating();
+            model.StartCoroutine(PushStateCoroutine(stateId));
         }
 
         public void PopState()
+        {
+            model.StartCoroutine(PopStateCoroutine());
+        }
+
+        public void OnUpdate()
+        {
+            CurrentState?.OnUpdate();
+        }
+
+        private IEnumerator UseStateCoroutine(T stateId)
+        {
+            var newState = model.GetState(stateId);
+            if (!newState) yield break;
+
+            if (CurrentState != null)
+            {
+                yield return CurrentState.OnStateDestroy();
+            }
+
+            CurrentState = newState;
+            newState.SetController(this);
+
+            yield return newState.OnStateCreating();
+        }
+
+        private IEnumerator PushStateCoroutine(T stateId)
+        {
+            var newState = model.GetState(stateId);
+            if (!newState) yield break;
+
+            if (CurrentState != null)
+            {
+                yield return CurrentState.OnStatePush();
+                UsingStates.Push(CurrentState);
+            }
+
+            CurrentState = newState;
+            newState.SetController(this);
+
+            yield return newState.OnStateCreating();
+        }
+
+        private IEnumerator PopStateCoroutine()
         {
             if (UsingStates.Count < 1)
             {
@@ -53,13 +82,8 @@ namespace Assets.Scripts.StatesMachine
             var newState = CurrentState = UsingStates.Pop();
             newState.SetController(this);
 
-            oldState.OnStateDestroy();
-            newState.OnStatePop();
-        }
-
-        public void OnUpdate()
-        {
-            CurrentState?.OnUpdate();
+            yield return oldState.OnStateDestroy();
+            yield return newState.OnStatePop();
         }
     }
 }
