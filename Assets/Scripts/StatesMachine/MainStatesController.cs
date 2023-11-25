@@ -19,6 +19,7 @@ namespace Assets.Scripts.StatesMachine
             }
 
             CurrentState = newState;
+            newState.SetMainController(this);
             newState.OnStateCreating();
         }
 
@@ -31,6 +32,7 @@ namespace Assets.Scripts.StatesMachine
 
             var oldState = CurrentState;
             var newState = CurrentState = States.Pop();
+            newState.SetMainController(this);
 
             oldState.OnStateDestroy();
             newState.OnStatePop();
