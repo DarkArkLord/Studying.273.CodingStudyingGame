@@ -1,6 +1,9 @@
 using UnityEngine;
 
-public abstract class BaseModel : MonoBehaviour
+namespace Assets.Scripts
 {
-    public Root Root => Root.Instance;
+    public abstract class BaseModel : MonoBehaviour
+    {
+        public Root Root => Root.Instance;
+    }
 }

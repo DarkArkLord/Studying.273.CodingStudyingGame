@@ -6,9 +6,7 @@ namespace Assets.Scripts.StatesMachine
 {
     public abstract class BaseState<T> : BaseModel where T : Enum
     {
-        [SerializeField]
-        private T _id;
-        public T Id => _id;
+        public abstract T Id { get; }
 
         protected StatesController<T> controller { get; private set; }
 
@@ -17,6 +15,7 @@ namespace Assets.Scripts.StatesMachine
             this.controller = controller;
         }
 
+        // TODO: Сделать ивент активации/деактивации вместо флага?
         protected bool IsActive { get; private set; } = false;
 
         public virtual IEnumerator OnStateCreating()

@@ -1,18 +1,26 @@
 using Assets.Scripts.StatesMachine;
 using UnityEngine;
 
-public class Root : MonoBehaviour
+namespace Assets.Scripts
 {
-    #region SINGLETONE
+    public class Root : MonoBehaviour
+    {
+        #region SINGLETONE
 
-    private static Root _instance;
-    public static Root Instance => _instance ?? (_instance = FindObjectOfType<Root>());
+        private static Root _instance;
+        public static Root Instance => _instance ?? (_instance = FindObjectOfType<Root>());
 
-    #endregion
+        #endregion
 
-    [SerializeField]
-    private MainStatesListModel _statesModel;
-    public MainStatesListModel States => _statesModel;
+        [SerializeField]
+        private MainStatesListModel _statesModel;
+        public MainStatesListModel States => _statesModel;
 
-    // Some data
+        // Some data
+
+        private void Awake()
+        {
+            States.OnInit();
+        }
+    }
 }
