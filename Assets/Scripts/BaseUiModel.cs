@@ -27,7 +27,6 @@ namespace Assets.Scripts
 
         public IEnumerator HidePanelCorutine()
         {
-
             var progress = 1f;
             var endProgress = 0f;
             while (progress > endProgress)

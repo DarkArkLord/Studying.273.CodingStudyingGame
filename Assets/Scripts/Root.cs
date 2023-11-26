@@ -20,6 +20,7 @@ namespace Assets.Scripts
 
         private void Awake()
         {
+            // Entry point
             States.OnInit();
         }
     }
