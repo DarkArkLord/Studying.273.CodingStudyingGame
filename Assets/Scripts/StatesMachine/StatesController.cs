@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Assets.Scripts.StatesMachine
 {
@@ -39,9 +40,13 @@ namespace Assets.Scripts.StatesMachine
         private IEnumerator UseStateCoroutine(T stateId)
         {
             var newState = model.GetState(stateId);
-            if (!newState) yield break;
+            if (!newState)
+            {
+                Debug.LogError($"No state {stateId}");
+                yield break;
+            }
 
-            if (CurrentState != null)
+            if (CurrentState)
             {
                 yield return CurrentState.OnStateDestroy();
             }
@@ -55,9 +60,13 @@ namespace Assets.Scripts.StatesMachine
         private IEnumerator PushStateCoroutine(T stateId)
         {
             var newState = model.GetState(stateId);
-            if (!newState) yield break;
+            if (!newState)
+            {
+                Debug.LogError($"No state {stateId}");
+                yield break;
+            }
 
-            if (CurrentState != null)
+            if (CurrentState)
             {
                 yield return CurrentState.OnStatePush();
                 UsingStates.Push(CurrentState);

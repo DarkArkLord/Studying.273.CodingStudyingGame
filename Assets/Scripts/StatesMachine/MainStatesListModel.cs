@@ -9,5 +9,6 @@
     {
         None = 0,
         MainMenu = 10,
+        Exit = 20,
     }
 }

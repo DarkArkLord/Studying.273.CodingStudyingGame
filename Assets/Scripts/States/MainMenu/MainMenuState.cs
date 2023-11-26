@@ -23,33 +23,33 @@ namespace Assets.Scripts.States.MainMenu
 
         public override IEnumerator OnStateCreating()
         {
-            yield return StartCoroutine(Ui.ShowPanelCorutine());
+            yield return Ui.ShowPanelCorutine();
             Ui.ExitButton.OnClick.AddListener(ExitButtonClick);
             yield return base.OnStateCreating();
         }
 
         public override IEnumerator OnStatePush()
         {
-            yield return StartCoroutine(Ui.HidePanelCorutine());
+            yield return Ui.HidePanelCorutine();
             yield return base.OnStatePush();
         }
 
         public override IEnumerator OnStatePop()
         {
-            yield return StartCoroutine(Ui.ShowPanelCorutine());
+            yield return Ui.ShowPanelCorutine();
             yield return base.OnStatePop();
         }
 
         public override IEnumerator OnStateDestroy()
         {
             Ui.ExitButton.OnClick.RemoveAllListeners();
-            yield return StartCoroutine(Ui.HidePanelCorutine());
+            yield return Ui.HidePanelCorutine();
             yield return base.OnStateDestroy();
         }
 
         private void ExitButtonClick()
         {
-            Debug.Log(123);
+            controller.UseState(MainStateCode.Exit);
         }
     }
 }
