@@ -8,8 +8,9 @@
     public enum MainStateCode
     {
         None = 0,
-        Init = 10,
-        MainMenu = 20,
-        Exit = 30,
+        Exit = 10,
+        Init = 20,
+        MainMenu = 30,
+        Map = 40,
     }
 }

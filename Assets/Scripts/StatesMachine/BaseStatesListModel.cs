@@ -14,7 +14,7 @@ namespace Assets.Scripts.StatesMachine
         [SerializeField]
         private BaseState<T> _initialState;
 
-        private StatesController<T> _controller;
+        protected StatesController<T> _controller;
 
         public void OnInit()
         {
@@ -26,5 +26,10 @@ namespace Assets.Scripts.StatesMachine
         }
 
         public BaseState<T> GetState(T stateId) => StatesList.FirstOrDefault(state => state.Id.Equals(stateId));
+
+        private void Update()
+        {
+            _controller.OnUpdate();
+        }
     }
 }

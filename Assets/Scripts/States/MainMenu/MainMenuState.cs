@@ -26,13 +26,16 @@ namespace Assets.Scripts.States.MainMenu
             yield return Ui.ShowPanelCorutine();
 
             Ui.StartButton.OnClick.AddListener(StartButtonClick);
-            Ui.ContinueButton.OnClick.AddListener(ContinueButtonClick);
-            Ui.ExitButton.OnClick.AddListener(ExitButtonClick);
-
             if (controller.UsingStates.Count < 1)
             {
                 Ui.ContinueButton.gameObject.SetActive(false);
             }
+            else
+            {
+                Ui.ContinueButton.gameObject.SetActive(true);
+                Ui.ContinueButton.OnClick.AddListener(ContinueButtonClick);
+            }
+            Ui.ExitButton.OnClick.AddListener(ExitButtonClick);
 
             yield return base.OnStateCreating();
         }
@@ -67,12 +70,13 @@ namespace Assets.Scripts.States.MainMenu
 
         private void StartButtonClick()
         {
-            controller.UseState(MainStateCode.Exit);
+            controller.UsingStates.Clear();
+            controller.UseState(MainStateCode.Map);
         }
 
         private void ContinueButtonClick()
         {
-            controller.UseState(MainStateCode.Exit);
+            controller.PopState();
         }
 
         private void ExitButtonClick()
