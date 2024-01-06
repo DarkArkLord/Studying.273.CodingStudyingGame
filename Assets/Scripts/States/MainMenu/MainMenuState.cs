@@ -23,6 +23,8 @@ namespace Assets.Scripts.States.MainMenu
 
         public override IEnumerator OnStateCreating()
         {
+            Ui.SetCanvasAlpha(0);
+            Ui.EnableCanvas();
             yield return Ui.ShowPanelCorutine();
 
             Ui.StartButton.OnClick.AddListener(StartButtonClick);
@@ -43,18 +45,15 @@ namespace Assets.Scripts.States.MainMenu
         public override IEnumerator OnStatePush()
         {
             yield return Ui.HidePanelCorutine();
-
-            //
-
+            Ui.DisableCanvas();
             yield return base.OnStatePush();
         }
 
         public override IEnumerator OnStatePop()
         {
+            Ui.SetCanvasAlpha(0);
+            Ui.EnableCanvas();
             yield return Ui.ShowPanelCorutine();
-
-            //
-
             yield return base.OnStatePop();
         }
 
@@ -65,6 +64,7 @@ namespace Assets.Scripts.States.MainMenu
             Ui.ExitButton.OnClick.RemoveAllListeners();
 
             yield return Ui.HidePanelCorutine();
+            Ui.DisableCanvas();
             yield return base.OnStateDestroy();
         }
 
