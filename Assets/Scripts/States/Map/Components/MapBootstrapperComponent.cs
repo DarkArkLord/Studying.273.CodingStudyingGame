@@ -19,14 +19,11 @@ namespace Assets.Scripts.States.Map.Components
 
         private NPCMasterController _npcController;
 
-        private GlobalEventsController _globalEventsController;
-
         public void OnMapInit()
         {
             InitMap();
             InitPlayer();
             InitEnemies();
-            InitEvents();
             IsInited = true;
         }
 
@@ -77,13 +74,6 @@ namespace Assets.Scripts.States.Map.Components
             _npcController = new NPCMasterController(5, objectsPool, movablePlayer, _floorController.Map);
         }
 
-        private void InitEvents()
-        {
-            _globalEventsController = new GlobalEventsController();
-            _globalEventsController.MapPauseEvent.AddListener(_playerMovementController.SetPause);
-            _globalEventsController.MapPauseEvent.AddListener(_npcController.SetPause);
-        }
-
         public void OnMapDestroy()
         {
             for(int i = 0; i < transform.childCount; i++)
@@ -102,7 +92,8 @@ namespace Assets.Scripts.States.Map.Components
 
         public void SetPause(bool pause)
         {
-            _globalEventsController.MapPauseEvent.Invoke(pause);
+            _playerMovementController.SetPause(pause);
+            _npcController.SetPause(pause);
         }
 
         private MoveDirection? GetButtonsDirection()
