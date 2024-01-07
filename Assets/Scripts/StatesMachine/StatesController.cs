@@ -32,6 +32,15 @@ namespace Assets.Scripts.StatesMachine
             model.StartCoroutine(PopStateCoroutine());
         }
 
+        public void ClearStatesStack()
+        {
+            while(UsingStates.Count > 0)
+            {
+                var state = UsingStates.Pop();
+                model.StartCoroutine(state.OnStateDestroy());
+            }
+        }
+
         public void OnUpdate()
         {
             CurrentState?.OnUpdate();

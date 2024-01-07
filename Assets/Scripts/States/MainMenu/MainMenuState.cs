@@ -70,7 +70,7 @@ namespace Assets.Scripts.States.MainMenu
 
         private void StartButtonClick()
         {
-            controller.UsingStates.Clear();
+            controller.ClearStatesStack();
             controller.UseState(MainStateCode.Map);
         }
 

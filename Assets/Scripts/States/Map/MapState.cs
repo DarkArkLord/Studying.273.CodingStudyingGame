@@ -83,6 +83,7 @@ namespace Assets.Scripts.States.Map
         {
             GlobalMapPause = true;
             _bootstrapper.SetPause(GlobalMapPause);
+            _bootstrapper.OnMapDestroy();
             //Ui.StartButton.OnClick.RemoveAllListeners();
             //Ui.ContinueButton.OnClick.RemoveAllListeners();
             //Ui.ExitButton.OnClick.RemoveAllListeners();

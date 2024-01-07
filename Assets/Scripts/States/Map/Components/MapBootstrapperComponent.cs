@@ -84,6 +84,14 @@ namespace Assets.Scripts.States.Map.Components
             _globalEventsController.MapPauseEvent.AddListener(_npcController.SetPause);
         }
 
+        public void OnMapDestroy()
+        {
+            for(int i = 0; i < transform.childCount; i++)
+            {
+                Destroy(transform.GetChild(i).gameObject);
+            }
+        }
+
         public void OnUpdate()
         {
             if (!IsInited) return;
