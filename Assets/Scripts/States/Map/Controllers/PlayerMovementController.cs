@@ -73,9 +73,11 @@ namespace Assets.Scripts.States.Map.Controllers
 
         public void Resurrect()
         {
-            var offset = new Vector3(floor.Map.StartX, 0, floor.Map.StartY) - _player.Transform.position;
-            _player.Transform.position += offset;
-            _camera.Transform.position += offset;
+            //var offset = new Vector3(floor.Map.StartX, _player.Transform.position.y, floor.Map.StartY) - _player.Transform.position;
+            //_player.Transform.position += offset;
+            //_camera.Transform.position += offset;
+            _player.Transform.position = new Vector3(floor.Map.StartX, 0, floor.Map.StartY);
+            _camera.Transform.position = new Vector3(floor.Map.StartX, 5, floor.Map.StartY - 10);
         }
     }
 }
