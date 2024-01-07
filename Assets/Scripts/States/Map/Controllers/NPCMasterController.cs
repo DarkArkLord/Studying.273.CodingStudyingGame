@@ -1,18 +1,20 @@
-﻿using Assets.Scripts.Interfaces;
+﻿using Assets.Scripts.CommonComponents;
+using Assets.Scripts.Interfaces;
+using Assets.Scripts.States.Map.Components;
 using System.Collections.Generic;
 
-namespace Assets.Scripts.Controllers
+namespace Assets.Scripts.States.Map.Controllers
 {
-    public class NPCsController
+    public class NPCMasterController
     {
         private int enemyCount;
-        private IObjectPool pool;
+        private ObjectPoolComponent pool;
         private NPCMovementController[] npcs;
-        private IEntityWithPosition player;
+        private JumpComponent player;
 
         public bool IsOnPause { get; private set; } = false;
 
-        public IReadOnlyList<IBattleEntity> NPCs => npcs;
+        public IReadOnlyList<NPCMovementController> NPCs => npcs;
 
         public void SetPause(bool pause)
         {
@@ -23,7 +25,7 @@ namespace Assets.Scripts.Controllers
             }
         }
 
-        public NPCsController(int enemyCount, IObjectPool pool, IEntityWithPosition player, MapController map)
+        public NPCMasterController(int enemyCount, ObjectPoolComponent pool, JumpComponent player, MapController map)
         {
             this.player = player;
 

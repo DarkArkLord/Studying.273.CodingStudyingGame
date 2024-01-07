@@ -1,7 +1,8 @@
+using Assets.Scripts.Utils;
 using System;
 using PointsQueue = System.Collections.Generic.Queue<(int x, int y)>;
 
-namespace Assets.Scripts.Utils
+namespace Assets.Scripts.States.Map.Common
 {
     public static class MapGenerator
     {

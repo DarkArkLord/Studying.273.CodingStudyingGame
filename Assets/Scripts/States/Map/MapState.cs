@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.StatesMachine;
+﻿using Assets.Scripts.States.Map.Components;
+using Assets.Scripts.StatesMachine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,20 +16,27 @@ namespace Assets.Scripts.States.Map
 
         public override MainStateCode Id => MainStateCode.Map;
 
-        private bool skipUpdateFlag = false;
+        private bool GlobalMapPause = false;
 
         public override void OnUpdate()
         {
-            if (skipUpdateFlag) return;
+            if (GlobalMapPause) return;
 
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                skipUpdateFlag = true;
+                GlobalMapPause = true;
                 controller.PushState(MainStateCode.MainMenu);
+                return;
             }
+
+            _bootstrapper.OnUpdate();
         }
 
         #endregion
+
+        [SerializeField]
+        private MapBootstrapperComponent _bootstrapper;
+        public MapBootstrapperComponent Bootstrapper => _bootstrapper;
 
         public override IEnumerator OnStateCreating()
         {
@@ -44,12 +52,15 @@ namespace Assets.Scripts.States.Map
             //}
 
             yield return base.OnStateCreating();
-            skipUpdateFlag = false;
+            GlobalMapPause = false;
+            _bootstrapper.OnMapInit();
+            _bootstrapper.SetPause(GlobalMapPause);
         }
 
         public override IEnumerator OnStatePush()
         {
-            skipUpdateFlag = true;
+            GlobalMapPause = true;
+            _bootstrapper.SetPause(GlobalMapPause);
             //yield return Ui.HidePanelCorutine();
 
             //
@@ -64,12 +75,14 @@ namespace Assets.Scripts.States.Map
             //
 
             yield return base.OnStatePop();
-            skipUpdateFlag = false;
+            GlobalMapPause = false;
+            _bootstrapper.SetPause(GlobalMapPause);
         }
 
         public override IEnumerator OnStateDestroy()
         {
-            skipUpdateFlag = true;
+            GlobalMapPause = true;
+            _bootstrapper.SetPause(GlobalMapPause);
             //Ui.StartButton.OnClick.RemoveAllListeners();
             //Ui.ContinueButton.OnClick.RemoveAllListeners();
             //Ui.ExitButton.OnClick.RemoveAllListeners();

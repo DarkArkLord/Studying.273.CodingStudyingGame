@@ -1,13 +1,15 @@
 ﻿using Assets.Scripts.Interfaces;
+using Assets.Scripts.States.Map.Components;
+using Assets.Scripts.States.Map.Utils;
 using Assets.Scripts.Utils;
 using UnityEngine;
 
-namespace Assets.Scripts.Controllers
+namespace Assets.Scripts.States.Map.Controllers
 {
     public class NPCMovementController : IBattleEntity
     {
-        private IMovableEntity npc;
-        private IEntityWithPosition player;
+        private JumpComponent npc;
+        private JumpComponent player;
         private MapController map;
 
         private System.Random random = RandomUtils.Random;
@@ -24,7 +26,7 @@ namespace Assets.Scripts.Controllers
 
         public Vector2Int Position2D => npc.Position2D;
 
-        public NPCMovementController(IMovableEntity npc, IEntityWithPosition player, MapController map, float timeBeforeSteps = 2, float timeForRespawn = 5)
+        public NPCMovementController(JumpComponent npc, JumpComponent player, MapController map, float timeBeforeSteps = 2, float timeForRespawn = 5)
         {
             this.npc = npc;
             this.player = player;
@@ -58,7 +60,7 @@ namespace Assets.Scripts.Controllers
             else
             {
                 RespawnWaitingTime -= Time.deltaTime;
-                if(RespawnWaitingTime < 0)
+                if (RespawnWaitingTime < 0)
                 {
                     RespawnWaitingTime = 0;
                     Resurrect();

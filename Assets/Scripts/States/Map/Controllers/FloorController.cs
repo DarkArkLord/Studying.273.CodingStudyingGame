@@ -1,7 +1,8 @@
+using Assets.Scripts.CommonComponents;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.Scripts.Controllers
+namespace Assets.Scripts.States.Map.Controllers
 {
     public class FloorController
     {

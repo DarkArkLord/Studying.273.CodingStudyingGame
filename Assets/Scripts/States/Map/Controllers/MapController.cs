@@ -1,7 +1,7 @@
-using Assets.Scripts.Utils;
+using Assets.Scripts.States.Map.Common;
 using UnityEngine;
 
-namespace Assets.Scripts.Controllers
+namespace Assets.Scripts.States.Map.Controllers
 {
     public class MapController
     {

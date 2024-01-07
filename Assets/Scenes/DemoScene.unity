@@ -608,6 +608,50 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WinButton: {fileID: 1159112426}
   LoseButton: {fileID: 749822084}
+--- !u!1 &497048206
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 497048207}
+  - component: {fileID: 497048208}
+  m_Layer: 0
+  m_Name: bootstrapper
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &497048207
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 497048206}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 646500900}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &497048208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 497048206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42c72dbd2d524c544bde3955a2fd58d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &597224845
 GameObject:
   m_ObjectHideFlags: 0
@@ -712,7 +756,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 497048207}
   m_Father: {fileID: 1819303563}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -728,6 +773,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efddc29b1e3f7c2419e8b563cc14fc28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _bootstrapper: {fileID: 497048208}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -1283,6 +1329,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b88e16038dd8bd41a52ca8ee3eb6ebb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <MoveTime>k__BackingField: 0.25
+  <Target>k__BackingField: {x: 0, y: 0, z: 0}
+  <Progress>k__BackingField: 0
+  <MoveDirection>k__BackingField: {x: 0, y: 0, z: 0}
+  <PathPoint>k__BackingField: {x: 0, y: 0, z: 0}
 --- !u!1 &1034437505
 GameObject:
   m_ObjectHideFlags: 0
@@ -1525,7 +1576,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ede33253f74dc940a04e775364430f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TempBattle1Conponent: {fileID: 371633532}
 --- !u!4 &1122639642
 Transform:
   m_ObjectHideFlags: 0

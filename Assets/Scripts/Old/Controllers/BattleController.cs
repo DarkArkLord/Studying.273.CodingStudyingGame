@@ -1,19 +1,19 @@
-﻿using Assets.Scripts.Interfaces;
+﻿using Assets.Scripts.States.Map.Controllers;
 
 namespace Assets.Scripts.Controllers
 {
     public class BattleController
     {
-        private IBattleEntity player;
-        private NPCsController npcs;
+        private PlayerMovementController player;
+        private NPCMasterController npcs;
         private GlobalEventsController eventsController;
 
         private TempBattle1Conponent tempBattle1Conponent;
 
         public bool IsInBattle { get; private set; } = false;
-        private IBattleEntity currentEnemy;
+        private NPCMovementController currentEnemy;
 
-        public BattleController(IBattleEntity player, NPCsController npcs, GlobalEventsController eventsController, TempBattle1Conponent tempBattle1Conponent)
+        public BattleController(PlayerMovementController player, NPCMasterController npcs, GlobalEventsController eventsController, TempBattle1Conponent tempBattle1Conponent)
         {
             this.player = player;
             this.npcs = npcs;
@@ -26,7 +26,7 @@ namespace Assets.Scripts.Controllers
         {
             if (IsInBattle)
             {
-                if(tempBattle1Conponent.IsWin is not null)
+                if (tempBattle1Conponent.IsWin is not null)
                 {
                     bool result = (bool)tempBattle1Conponent.IsWin;
                     tempBattle1Conponent.SetNoResult();
@@ -43,7 +43,7 @@ namespace Assets.Scripts.Controllers
                     }
                     currentEnemy = null;
                 }
-             }
+            }
             else
             {
                 foreach (var npc in npcs.NPCs)

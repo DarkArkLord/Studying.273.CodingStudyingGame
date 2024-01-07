@@ -1,14 +1,14 @@
-﻿using Assets.Scripts.Interfaces;
-using Assets.Scripts.Utils;
+﻿using Assets.Scripts.States.Map.Components;
+using Assets.Scripts.States.Map.Utils;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace Assets.Scripts.Controllers
+namespace Assets.Scripts.States.Map.Controllers
 {
-    public class PlayerMovementController : IBattleEntity
+    public class PlayerMovementController
     {
-        private IMovableEntity _player;
-        private IMovableEntity _camera;
+        private SmoothMoveComponent _player;
+        private SmoothMoveComponent _camera;
 
         private FloorController floor;
 
@@ -19,7 +19,7 @@ namespace Assets.Scripts.Controllers
 
         public Vector2Int Position2D => _player.Position2D;
 
-        public PlayerMovementController(IMovableEntity player, IMovableEntity camera, FloorController floor)
+        public PlayerMovementController(SmoothMoveComponent player, SmoothMoveComponent camera, FloorController floor)
         {
             _player = player;
             _camera = camera;
@@ -73,7 +73,7 @@ namespace Assets.Scripts.Controllers
 
         public void Resurrect()
         {
-            var offset = new Vector3(floor.Map.StartX, _player.Transform.position.y, floor.Map.StartY) - _player.Transform.position;
+            var offset = new Vector3(floor.Map.StartX, 0, floor.Map.StartY) - _player.Transform.position;
             _player.Transform.position += offset;
             _camera.Transform.position += offset;
         }
