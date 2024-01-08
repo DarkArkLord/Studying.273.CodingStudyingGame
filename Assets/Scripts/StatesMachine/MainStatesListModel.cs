@@ -12,5 +12,6 @@
         Init = 20,
         MainMenu = 30,
         Map = 40,
+        Battle1 = 50,
     }
 }
