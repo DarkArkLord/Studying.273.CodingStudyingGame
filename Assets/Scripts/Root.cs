@@ -1,3 +1,4 @@
+using Assets.Scripts.DataKeeper;
 using Assets.Scripts.StatesMachine;
 using UnityEngine;
 
@@ -15,6 +16,10 @@ namespace Assets.Scripts
         [SerializeField]
         private MainStatesListModel _statesModel;
         public MainStatesListModel States => _statesModel;
+
+        [SerializeField]
+        private MainDataKeeper _dataKeeper;
+        public MainDataKeeper Data => _dataKeeper;
 
         // Some data
 
