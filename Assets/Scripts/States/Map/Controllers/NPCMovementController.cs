@@ -102,8 +102,10 @@ namespace Assets.Scripts.States.Map.Controllers
             {
                 var x = random.Next(map.Width);
                 var y = random.Next(map.Height);
-
-                if (map.IsCanMove(x, y) && playerPos.x != x && playerPos.y != y)
+                // if can move
+                // and not current player position
+                // and not start player position
+                if (map.IsCanMove(x, y) && (playerPos.x != x || playerPos.y != y) && (map.StartX != x || map.StartY != y))
                 {
                     npc.Transform.position = new Vector3(x, 0, y);
                     npc.GameObject.SetActive(true);
