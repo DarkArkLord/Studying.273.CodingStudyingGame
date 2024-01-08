@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.StatesMachine;
 using System.Collections;
+using UnityEngine;
 
 namespace Assets.Scripts.States.Exit
 {
