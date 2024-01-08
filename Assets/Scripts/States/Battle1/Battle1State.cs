@@ -25,10 +25,12 @@ namespace Assets.Scripts.States.Battle1
         {
             Ui.SetCanvasAlpha(0);
             Ui.EnableCanvas();
+            Ui.ShowBattleUi();
             yield return Ui.ShowPanelCorutine();
 
             Ui.WinButton.OnClick.AddListener(Win);
             Ui.LoseButton.OnClick.AddListener(Lose);
+            Ui.CloseButton.OnClick.AddListener(CloseBattle);
 
             yield return base.OnStateCreating();
 
@@ -53,6 +55,7 @@ namespace Assets.Scripts.States.Battle1
         {
             Ui.SetCanvasAlpha(0);
             Ui.EnableCanvas();
+            Ui.ShowBattleUi();
             yield return Ui.ShowPanelCorutine();
 
             //
@@ -64,6 +67,7 @@ namespace Assets.Scripts.States.Battle1
         {
             Ui.WinButton.OnClick.RemoveAllListeners();
             Ui.LoseButton.OnClick.RemoveAllListeners();
+            Ui.CloseButton.OnClick.RemoveAllListeners();
 
             yield return Ui.HidePanelCorutine();
             Ui.DisableCanvas();
@@ -73,12 +77,17 @@ namespace Assets.Scripts.States.Battle1
         private void Win()
         {
             Root.Data.Battle.IsPlayerWin = true;
-            controller.PopState();
+            Ui.ShowResultUi("Победа");
         }
 
         private void Lose()
         {
             Root.Data.Battle.IsPlayerWin = false;
+            Ui.ShowResultUi("Поражение");
+        }
+
+        private void CloseBattle()
+        {
             controller.PopState();
         }
     }
