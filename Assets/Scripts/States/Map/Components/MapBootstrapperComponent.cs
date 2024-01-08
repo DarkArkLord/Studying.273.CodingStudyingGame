@@ -1,14 +1,16 @@
 ﻿using Assets.Scripts.CommonComponents;
 using Assets.Scripts.Controllers;
 using Assets.Scripts.States.Map.Controllers;
+using Assets.Scripts.StatesMachine;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace Assets.Scripts.States.Map.Components
 {
-    public class MapBootstrapperComponent : MonoBehaviour
+    public class MapBootstrapperComponent : BaseModel
     {
+        private StatesController<MainStateCode> statesController;
         private bool IsInited = false;
 
         private FloorController _floorController;
@@ -19,11 +21,15 @@ namespace Assets.Scripts.States.Map.Components
 
         private NPCMasterController _npcController;
 
-        public void OnMapInit()
+        public BattleController BattleController {  get; private set; }
+
+        public void OnMapInit(StatesController<MainStateCode> statesController)
         {
+            this.statesController = statesController;
             InitMap();
             InitPlayer();
             InitEnemies();
+            InitBattle();
             IsInited = true;
         }
 
@@ -74,9 +80,19 @@ namespace Assets.Scripts.States.Map.Components
             _npcController = new NPCMasterController(5, objectsPool, movablePlayer, _floorController.Map);
         }
 
+        private void InitBattle()
+        {
+            BattleController = new BattleController(_playerMovementController, _npcController, Root.Data);
+            BattleController.StartBattleEvent.AddListener((stateCode) =>
+            {
+                statesController.PushState(stateCode);
+            });
+        }
+
         public void OnMapDestroy()
         {
-            for(int i = 0; i < transform.childCount; i++)
+            IsInited = false;
+            for (int i = 0; i < transform.childCount; i++)
             {
                 Destroy(transform.GetChild(i).gameObject);
             }
@@ -88,6 +104,7 @@ namespace Assets.Scripts.States.Map.Components
             var buttonDirection = GetButtonsDirection();
             _playerMovementController.OnUpdate(buttonDirection);
             _npcController.OnUpdate();
+            BattleController.OnUpdate();
         }
 
         public void SetPause(bool pause)

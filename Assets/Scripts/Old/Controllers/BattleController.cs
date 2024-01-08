@@ -2,7 +2,7 @@
 
 namespace Assets.Scripts.Controllers
 {
-    public class BattleController
+    public class BattleControllerOld
     {
         //private PlayerMovementController player;
         //private NPCMasterController npcs;

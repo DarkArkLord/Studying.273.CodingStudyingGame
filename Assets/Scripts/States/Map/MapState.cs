@@ -53,7 +53,7 @@ namespace Assets.Scripts.States.Map
 
             yield return base.OnStateCreating();
             GlobalMapPause = false;
-            _bootstrapper.OnMapInit();
+            _bootstrapper.OnMapInit(controller);
             _bootstrapper.SetPause(GlobalMapPause);
         }
 
@@ -77,6 +77,7 @@ namespace Assets.Scripts.States.Map
             yield return base.OnStatePop();
             GlobalMapPause = false;
             _bootstrapper.SetPause(GlobalMapPause);
+            _bootstrapper.BattleController.ResolveBattle();
         }
 
         public override IEnumerator OnStateDestroy()
