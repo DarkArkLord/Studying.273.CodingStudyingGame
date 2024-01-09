@@ -2,7 +2,7 @@
 using TMPro;
 using UnityEngine;
 
-namespace Assets.Scripts.States.Battle1
+namespace Assets.Scripts.States.BattleTest
 {
     public class BattleTestUi : BaseUiModel
     {
