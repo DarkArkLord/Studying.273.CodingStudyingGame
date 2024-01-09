@@ -17,11 +17,14 @@ namespace Assets.Scripts.States.BattleExecutorNumbers
         private BENCodeElement codeElementsPrefab;
         [SerializeField]
         private GameObject codeElementsParent;
+        [SerializeField]
+        private BEN_CodeType_Selector codeElementsTypeSelector;
 
         private BENCodeElement codeElementsTree;
 
         public void OnInit()
         {
+            codeElementsTypeSelector.OnInit();
             codeElementsPool.Init(codeElementsPrefab.gameObject, 10);
 
             var obj = codeElementsPool.GetObject();
@@ -47,7 +50,17 @@ namespace Assets.Scripts.States.BattleExecutorNumbers
                 codeElementsTree = codeElementsTree.ListPrevNode;
             }
 
+            while (codeElementsTree != null)
+            {
+                var current = codeElementsTree;
+                codeElementsTree = codeElementsTree.ListNextNode;
 
+                current.OnElementDestory();
+                current.transform.SetParent(codeElementsPool.transform);
+                codeElementsPool.FreeObject(current.gameObject);
+            }
+
+            codeElementsTypeSelector.OnClose();
         }
     }
 }
