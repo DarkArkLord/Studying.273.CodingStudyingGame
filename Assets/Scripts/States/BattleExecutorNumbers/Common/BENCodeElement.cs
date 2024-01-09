@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -30,6 +31,11 @@ namespace Assets.Scripts.States.BattleExecutorNumbers.Common
         private BEN_CE_MovingButton _addButton;
         public BEN_CE_MovingButton AddButton => _addButton;
 
+        [SerializeField]
+        private TMP_Text _text;
+
+        public BEN_CodeElementType CodeElementType { get; private set; }
+
         public void SetButtonsActivity()
         {
             _moveUpButton.SetButtonActive(ListPrevNode != null);
@@ -39,7 +45,13 @@ namespace Assets.Scripts.States.BattleExecutorNumbers.Common
             _addButton.SetButtonActive(true);
         }
 
-        public void InitButtons(GameObject onCreateParent, ObjectPoolComponent objectsPool, Action updateCodeTreeRoot)
+        public void InitType(BEN_CodeElementType elementType)
+        {
+            CodeElementType = elementType;
+            _text.text = elementType.GetName();
+        }
+
+        public void InitButtons(GameObject onCreateParent, ObjectPoolComponent objectsPool, Action updateCodeTreeRoot, BEN_CodeType_Selector typeSelector)
         {
             SetButtonsActivity();
             _moveUpButton.OnClick.AddListener(() =>
@@ -104,7 +116,8 @@ namespace Assets.Scripts.States.BattleExecutorNumbers.Common
 
                 element.transform.SetParent(onCreateParent.transform);
                 element.transform.SetSiblingIndex(transform.GetSiblingIndex() + 1);
-                element.InitButtons(onCreateParent, objectsPool, updateCodeTreeRoot);
+                element.InitType(typeSelector.SelectedButton.ElementType);
+                element.InitButtons(onCreateParent, objectsPool, updateCodeTreeRoot, typeSelector);
                 element.gameObject.SetActive(true);
 
                 SetButtonsActivity();

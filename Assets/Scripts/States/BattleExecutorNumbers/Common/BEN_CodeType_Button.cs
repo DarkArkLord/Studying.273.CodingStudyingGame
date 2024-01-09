@@ -15,6 +15,7 @@ namespace Assets.Scripts.States.BattleExecutorNumbers.Common
         private TMP_Text buttonText;
         [SerializeField]
         private BEN_CodeElementType elementType;
+        public BEN_CodeElementType ElementType => elementType;
 
         public void OnInit(Action<BEN_CodeType_Button> selector)
         {

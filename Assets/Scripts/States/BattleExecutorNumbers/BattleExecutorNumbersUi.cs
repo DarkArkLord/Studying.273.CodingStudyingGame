@@ -27,28 +27,42 @@ namespace Assets.Scripts.States.BattleExecutorNumbers
             codeElementsTypeSelector.OnInit();
             codeElementsPool.Init(codeElementsPrefab.gameObject, 10);
 
-            var obj = codeElementsPool.GetObject();
-            codeElementsTree = obj.GetComponent<BENCodeElement>();
+            var inputCodeElement = InitCodeElement(BEN_CodeElementType.IO_ReadInput);
+            var outputCodeElement = InitCodeElement(BEN_CodeElementType.IO_WriteOutput);
 
-            codeElementsTree.ListNextNode = codeElementsTree.ListPrevNode = null;
-            codeElementsTree.transform.SetParent(codeElementsParent.transform);
-            codeElementsTree.InitButtons(codeElementsParent, codeElementsPool, () =>
-            {
-                while (codeElementsTree.ListPrevNode != null)
-                {
-                    codeElementsTree = codeElementsTree.ListPrevNode;
-                }
-            });
-
-            codeElementsTree.gameObject.SetActive(true);
+            inputCodeElement.ListNextNode = outputCodeElement;
+            inputCodeElement.SetButtonsActivity();
+            outputCodeElement.ListPrevNode = inputCodeElement;
+            outputCodeElement.SetButtonsActivity();
+            codeElementsTree = inputCodeElement;
         }
 
-        public void OnClose()
+        private BENCodeElement InitCodeElement(BEN_CodeElementType type)
+        {
+            var obj = codeElementsPool.GetObject();
+            var element = obj.GetComponent<BENCodeElement>();
+
+            element.ListNextNode = element.ListPrevNode = null;
+            element.transform.SetParent(codeElementsParent.transform);
+            element.InitType(type);
+            element.InitButtons(codeElementsParent, codeElementsPool, MoveTreeToRoot, codeElementsTypeSelector);
+
+            element.gameObject.SetActive(true);
+
+            return element;
+        }
+
+        private void MoveTreeToRoot()
         {
             while (codeElementsTree.ListPrevNode != null)
             {
                 codeElementsTree = codeElementsTree.ListPrevNode;
             }
+        }
+
+        public void OnClose()
+        {
+            MoveTreeToRoot();
 
             while (codeElementsTree != null)
             {

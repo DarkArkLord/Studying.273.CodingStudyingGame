@@ -30,6 +30,8 @@ namespace Assets.Scripts.States.BattleExecutorNumbers.Common
                     SelectedButton.GetComponent<Image>().color = Color.blue;
                 });
             }
+
+            buttons[0].OnClick.Invoke();
         }
 
         public void OnClose()
