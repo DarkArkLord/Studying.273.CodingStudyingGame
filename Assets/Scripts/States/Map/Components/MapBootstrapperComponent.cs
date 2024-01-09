@@ -1,5 +1,4 @@
 ﻿using Assets.Scripts.CommonComponents;
-using Assets.Scripts.Controllers;
 using Assets.Scripts.States.Map.Controllers;
 using Assets.Scripts.StatesMachine;
 using Unity.VisualScripting;

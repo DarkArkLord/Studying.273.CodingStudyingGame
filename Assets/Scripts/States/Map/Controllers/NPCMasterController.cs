@@ -1,5 +1,4 @@
 ﻿using Assets.Scripts.CommonComponents;
-using Assets.Scripts.Interfaces;
 using Assets.Scripts.States.Map.Components;
 using System.Collections.Generic;
 

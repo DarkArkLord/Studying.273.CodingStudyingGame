@@ -1,12 +1,11 @@
-﻿using Assets.Scripts.Interfaces;
-using Assets.Scripts.States.Map.Components;
+﻿using Assets.Scripts.States.Map.Components;
 using Assets.Scripts.States.Map.Utils;
 using Assets.Scripts.Utils;
 using UnityEngine;
 
 namespace Assets.Scripts.States.Map.Controllers
 {
-    public class NPCMovementController : IBattleEntity
+    public class NPCMovementController
     {
         private JumpComponent npc;
         private JumpComponent player;
