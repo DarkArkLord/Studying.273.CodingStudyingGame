@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.CommonComponents;
 using Assets.Scripts.States.BattleNumbersOrder.Common;
+using Assets.Scripts.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,11 +27,21 @@ namespace Assets.Scripts.States.BattleNumbersOrder
         private BNOButtonComponent[] buttons = new BNOButtonComponent[buttonsCount];
         private Stack<BNOButtonComponent> pressedButtonsStack = new Stack<BNOButtonComponent>();
 
+        private System.Random _random = RandomUtils.Random;
+
         public void OnInit()
         {
-            // add variants
-            _battleHeader.text = "Выберите числа в порядке возрастания";
-            _valuesComparator = (a, b) => a < b;
+            // variants
+            if (_random.Next() % 2 == 0)
+            {
+                _battleHeader.text = "Выберите числа в порядке возрастания";
+                _valuesComparator = (a, b) => a < b;
+            }
+            else
+            {
+                _battleHeader.text = "Выберите числа в порядке убывания";
+                _valuesComparator = (a, b) => a > b;
+            }
 
             if (!_buttonsPool.IsInited)
             {
@@ -41,7 +52,9 @@ namespace Assets.Scripts.States.BattleNumbersOrder
             var buttonOffset = 215f;
             var verticalOffset = 50f;
 
-            for (int i = 0; i < buttonsCount; i++)
+            for (int i = 0, buttonValue = _random.Next(1, 5);
+                i < buttonsCount;
+                i++, buttonValue += _random.Next(1, 5))
             {
                 var obj = _buttonsPool.GetObject();
                 var x = i / 3 - 1;
@@ -50,7 +63,7 @@ namespace Assets.Scripts.States.BattleNumbersOrder
                 obj.transform.localScale = buttonLocalScale;
 
                 var button = buttons[i] = obj.GetComponent<BNOButtonComponent>();
-                button.SetValue(i + 1);
+                button.SetValue(buttonValue);
                 SetDefaultButtonIndexAndCollors(button);
 
                 obj.SetActive(true);
@@ -75,6 +88,17 @@ namespace Assets.Scripts.States.BattleNumbersOrder
                         CheckCorrectOrder();
                     }
                 });
+            }
+
+            // mix values
+            for (int i = 0; i < buttonsCount * buttonsCount; i++)
+            {
+                var ai = _random.Next(buttonsCount);
+                var bi = _random.Next(buttonsCount);
+
+                var temp = buttons[ai].Value;
+                buttons[ai].SetValue(buttons[bi].Value);
+                buttons[bi].SetValue(temp);
             }
         }
 
