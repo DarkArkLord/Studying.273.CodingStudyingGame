@@ -15,5 +15,6 @@
         Battle_test = 50,
         Battle_NumbersOrder = 51,
         Battle_Equations = 52,
+        Battle_ExecutorNumbers = 53,
     }
 }
