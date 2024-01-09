@@ -8,9 +8,19 @@ namespace Assets.Scripts.CommonComponents
     {
         public UnityEvent OnClick = new UnityEvent();
 
+        public bool IsButtonActive { get; protected set; } = true;
+
+        public virtual void SetButtonActive(bool isActive)
+        {
+            IsButtonActive = isActive;
+        }
+
         public void OnPointerClick(PointerEventData eventData)
         {
-            OnClick.Invoke();
+            if (IsButtonActive)
+            {
+                OnClick.Invoke();
+            }
         }
     }
 }

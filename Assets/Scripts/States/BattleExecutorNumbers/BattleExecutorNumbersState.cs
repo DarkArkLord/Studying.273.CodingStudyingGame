@@ -26,6 +26,7 @@ namespace Assets.Scripts.States.BattleExecutorNumbers
             Ui.SetCanvasAlpha(0);
             Ui.EnableCanvas();
             Ui.ShowBattleUi();
+            Ui.OnInit();
             yield return Ui.ShowPanelCorutine();
 
             //Ui.WinButton.OnClick.AddListener(Win);
