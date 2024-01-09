@@ -4,11 +4,11 @@ using UnityEngine;
 
 namespace Assets.Scripts.States.Battle1
 {
-    public class Battle1State : BaseState<MainStateCode>
+    public class BattleTestState : BaseState<MainStateCode>
     {
         #region Main info
 
-        public override MainStateCode Id => MainStateCode.Battle1;
+        public override MainStateCode Id => MainStateCode.Battle_test;
 
         public override void OnUpdate()
         {
@@ -18,8 +18,8 @@ namespace Assets.Scripts.States.Battle1
         #endregion
 
         [SerializeField]
-        private Battle1Ui _ui;
-        public Battle1Ui Ui => _ui;
+        private BattleTestUi _ui;
+        public BattleTestUi Ui => _ui;
 
         public override IEnumerator OnStateCreating()
         {

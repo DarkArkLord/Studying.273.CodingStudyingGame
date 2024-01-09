@@ -2427,7 +2427,7 @@ GameObject:
   - component: {fileID: 1502823933}
   - component: {fileID: 1502823934}
   m_Layer: 0
-  m_Name: battle1canvas
+  m_Name: canvas_battle_test
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3281,7 +3281,7 @@ GameObject:
   - component: {fileID: 1913851134}
   - component: {fileID: 1913851133}
   m_Layer: 0
-  m_Name: battle1
+  m_Name: battle_test
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.States.Battle1
 {
-    public class Battle1Ui : BaseUiModel
+    public class BattleTestUi : BaseUiModel
     {
         [SerializeField]
         private ButtonComponent _winButton;
