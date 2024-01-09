@@ -14,5 +14,6 @@
         Map = 40,
         Battle_test = 50,
         Battle_NumbersOrder = 51,
+        Battle_Equations = 52,
     }
 }
