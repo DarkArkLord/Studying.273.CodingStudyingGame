@@ -28,7 +28,7 @@ namespace Assets.Scripts.States.Map.Controllers
                 if (npc.Position2D == player.Position2D && npc.IsAlive && player.IsAlive)
                 {
                     dataKeeper.Battle = new BattleInfo { Enemy = npc, };
-                    StartBattleEvent.Invoke(MainStateCode.Battle_test);
+                    StartBattleEvent.Invoke(MainStateCode.Battle_NumbersOrder);
                     return;
                 }
             }
