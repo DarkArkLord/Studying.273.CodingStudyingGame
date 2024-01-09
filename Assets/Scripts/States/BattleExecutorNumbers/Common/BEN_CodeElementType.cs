@@ -29,5 +29,21 @@
                 default: return "";
             }
         }
+
+        public static string GetOper(this BEN_CodeElementType type)
+        {
+            switch (type)
+            {
+                case BEN_CodeElementType.IO_ReadInput: return "Ввод";
+                case BEN_CodeElementType.IO_WriteOutput: return "Вывод";
+                case BEN_CodeElementType.IO_SetValue: return ":=";
+                case BEN_CodeElementType.Numeric_Add: return "+";
+                case BEN_CodeElementType.Numeric_Sub: return "-";
+                case BEN_CodeElementType.Numeric_Mult: return "*";
+                case BEN_CodeElementType.Numeric_Div: return "/";
+                case BEN_CodeElementType.Numeric_Mod: return "%";
+                default: return "";
+            }
+        }
     }
 }

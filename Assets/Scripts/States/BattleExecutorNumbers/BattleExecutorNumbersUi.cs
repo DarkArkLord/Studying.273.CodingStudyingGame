@@ -22,8 +22,14 @@ namespace Assets.Scripts.States.BattleExecutorNumbers
 
         private BENCodeElement codeElementsTree;
 
+        private BEN_ExecutionContext executionContext = new BEN_ExecutionContext();
+
         public void OnInit()
         {
+            // Task configure
+            ConfigTask1();
+            // End task configure
+
             codeElementsTypeSelector.OnInit();
             codeElementsPool.Init(codeElementsPrefab.gameObject, 10);
 
@@ -44,7 +50,7 @@ namespace Assets.Scripts.States.BattleExecutorNumbers
 
             element.ListNextNode = element.ListPrevNode = null;
             element.transform.SetParent(codeElementsParent.transform);
-            element.InitType(type);
+            element.InitType(type, executionContext);
             element.InitButtons(codeElementsParent, codeElementsPool, MoveTreeToRoot, codeElementsTypeSelector);
 
             element.gameObject.SetActive(true);
@@ -58,6 +64,13 @@ namespace Assets.Scripts.States.BattleExecutorNumbers
             {
                 codeElementsTree = codeElementsTree.ListPrevNode;
             }
+        }
+
+        private void ConfigTask1()
+        {
+            var input = new int[] { 1, 2, 3, };
+            var output = new int[] { 2, 4, 6, };
+            executionContext.OnInit(input, output);
         }
 
         public void OnClose()
