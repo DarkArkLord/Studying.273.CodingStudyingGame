@@ -31,8 +31,8 @@ namespace Assets.Scripts.States.BattleNumbersOrder
         {
             Ui.SetCanvasAlpha(0);
             Ui.EnableCanvas();
-            //Ui.ShowBattleUi();
-            Ui.ShowResultUi("123");
+            Ui.ShowBattleUi();
+            Ui.OnInit();
             yield return Ui.ShowPanelCorutine();
 
             //Ui.WinButton.OnClick.AddListener(Win);
@@ -78,6 +78,7 @@ namespace Assets.Scripts.States.BattleNumbersOrder
 
             yield return Ui.HidePanelCorutine();
             Ui.DisableCanvas();
+            Ui.OnClose();
             yield return base.OnStateDestroy();
         }
 

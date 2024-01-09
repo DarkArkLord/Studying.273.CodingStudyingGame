@@ -17,6 +17,8 @@ namespace Assets.Scripts.CommonComponents
             }
         }
 
+        public bool IsInited { get; private set; } = false;
+
         private GameObject _prefab;
         private int _startCount;
 
@@ -32,6 +34,8 @@ namespace Assets.Scripts.CommonComponents
             {
                 AddItem();
             }
+
+            IsInited = true;
         }
 
         private ObjectPoolItem AddItem()
