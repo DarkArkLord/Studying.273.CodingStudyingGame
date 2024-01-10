@@ -25,6 +25,7 @@ namespace Assets.Scripts.States.BattleExecutorNumbers.Common
             {
                 elementsPool.FreeObject(element.gameObject);
             }
+            InfoElements.Clear();
         }
 
         public BEN_Info_Element AddItem(string text)
