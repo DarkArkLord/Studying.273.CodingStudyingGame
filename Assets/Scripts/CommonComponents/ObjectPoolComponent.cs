@@ -36,7 +36,7 @@ namespace Assets.Scripts.CommonComponents
             }
 
             IsInited = true;
-        }
+        } 
 
         private ObjectPoolItem AddItem()
         {

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 namespace Assets.Scripts.States.BattleExecutorNumbers.Common
@@ -31,6 +26,8 @@ namespace Assets.Scripts.States.BattleExecutorNumbers.Common
                 });
             }
 
+            SetButtonsActive(true);
+
             buttons[0].OnClick.Invoke();
         }
 
@@ -39,6 +36,14 @@ namespace Assets.Scripts.States.BattleExecutorNumbers.Common
             foreach (var button in buttons)
             {
                 button.OnClose();
+            }
+        }
+
+        public void SetButtonsActive(bool active)
+        {
+            foreach (var button in buttons)
+            {
+                button.SetButtonActive(active);
             }
         }
     }

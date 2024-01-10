@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Assets.Scripts.States.BattleExecutorNumbers.Common
 {
@@ -39,11 +33,20 @@ namespace Assets.Scripts.States.BattleExecutorNumbers.Common
             context.SetMemoryDropDownOptions(_dropdown_b.options);
 
             gameObject.SetActive(true);
+            SetElementsActive(true);
         }
 
         public void OnClose()
         {
             gameObject.SetActive(false);
+            SetElementsActive(false);
+        }
+
+        public void SetElementsActive(bool active)
+        {
+            _dropdown_res.interactable = active;
+            _dropdown_a.interactable = active;
+            _dropdown_b.interactable = active;
         }
     }
 }

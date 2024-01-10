@@ -1,6 +1,8 @@
 ﻿using Assets.Scripts.CommonComponents;
 using Assets.Scripts.States.BattleExecutorNumbers.Common;
+using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 namespace Assets.Scripts.States.BattleExecutorNumbers
@@ -24,13 +26,71 @@ namespace Assets.Scripts.States.BattleExecutorNumbers
 
         private BEN_ExecutionContext executionContext = new BEN_ExecutionContext();
 
+        [SerializeField]
+        private BEN_Info_Column inputInfoColumn;
+        [SerializeField]
+        private BEN_Info_Column outputInfoColumn;
+        [SerializeField]
+        private BEN_Info_Column memInfoColumn;
+
+        [SerializeField]
+        private TMP_Text taskText;
+        [SerializeField]
+        private ButtonComponent runButton;
+
         public void OnInit()
         {
             // Task configure
             ConfigTask1();
             // End task configure
 
+            InitInfoColumns();
+
             codeElementsTypeSelector.OnInit();
+            InitCodeTree();
+
+            runButton.OnClick.AddListener(() =>
+            {
+                StartCoroutine(RunExecuteCorutine());
+            });
+            runButton.SetButtonActive(true);
+        }
+
+        private void ConfigTask1()
+        {
+            taskText.text = "Просто выведи эти цифры, пожалуйста...";
+            var input = new int[] { 1, };
+            executionContext.OnInit(input, input);
+        }
+
+        private void InitInfoColumns()
+        {
+            inputInfoColumn.OnInit();
+            foreach (var input in executionContext.Inputs)
+            {
+                inputInfoColumn.AddItem(input.ToString());
+            }
+
+            outputInfoColumn.OnInit();
+            foreach (var output in executionContext.Outputs)
+            {
+                outputInfoColumn.AddItem($"?={output}");
+            }
+
+            memInfoColumn.OnInit();
+            UpdateMemInfo();
+        }
+
+        private void UpdateMemInfo()
+        {
+            for (int i = 0; i < executionContext.Memory.Length; i++)
+            {
+                memInfoColumn.AddItem($"M{i}={executionContext.Memory[i]}");
+            }
+        }
+
+        private void InitCodeTree()
+        {
             codeElementsPool.Init(codeElementsPrefab.gameObject, 10);
 
             var inputCodeElement = InitCodeElement(BEN_CodeElementType.IO_ReadInput);
@@ -66,15 +126,25 @@ namespace Assets.Scripts.States.BattleExecutorNumbers
             }
         }
 
-        private void ConfigTask1()
+        private IEnumerator RunExecuteCorutine()
         {
-            var input = new int[] { 1, 2, 3, };
-            var output = new int[] { 2, 4, 6, };
-            executionContext.OnInit(input, output);
+            runButton.SetButtonActive(false);
+            codeElementsTypeSelector.SetButtonsActive(false);
+            MoveTreeToRoot();
+            for (var node = codeElementsTree; node != null; node = node.ListNextNode)
+            {
+                node.SetElementsActive(false);
+            }
+
+            yield return null;
+
+            ShowResultUi("123\n321");
         }
 
         public void OnClose()
         {
+            runButton.OnClick.RemoveAllListeners();
+
             MoveTreeToRoot();
 
             while (codeElementsTree != null)

@@ -1,13 +1,6 @@
 ﻿using Assets.Scripts.CommonComponents;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace Assets.Scripts.States.BattleExecutorNumbers.Common
 {
@@ -178,6 +171,8 @@ namespace Assets.Scripts.States.BattleExecutorNumbers.Common
                 transform.SetParent(objectsPool.transform);
                 objectsPool.FreeObject(gameObject);
             });
+
+            SetElementsActive(true);
         }
 
         public void OnElementDestory()
@@ -188,6 +183,18 @@ namespace Assets.Scripts.States.BattleExecutorNumbers.Common
             _removeButton.OnClick.RemoveAllListeners();
 
             ListPrevNode = ListNextNode = null;
+        }
+
+        public void SetElementsActive(bool active)
+        {
+            _moveUpButton.SetButtonActive(active);
+            _moveDownButton.SetButtonActive(active);
+            _removeButton.SetButtonActive(active);
+            _addButton.SetButtonActive(active);
+
+            _int_1.SetElementsActive(active);
+            _int_2.SetElementsActive(active);
+            _int_3.SetElementsActive(active);
         }
     }
 }
