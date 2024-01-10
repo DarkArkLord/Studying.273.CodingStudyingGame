@@ -27,10 +27,11 @@ namespace Assets.Scripts.States.BattleTest
             Ui.SetCanvasAlpha(0);
             Ui.EnableCanvas();
             Ui.ShowBattleUi();
+            Ui.OnInit();
             yield return Ui.ShowPanelCorutine();
 
-            Ui.WinButton.OnClick.AddListener(Win);
-            Ui.LoseButton.OnClick.AddListener(Lose);
+            //Ui.WinButton.OnClick.AddListener(Win);
+            //Ui.LoseButton.OnClick.AddListener(Lose);
             Ui.CloseButton.OnClick.AddListener(CloseBattle);
 
             yield return base.OnStateCreating();
@@ -66,25 +67,14 @@ namespace Assets.Scripts.States.BattleTest
 
         public override IEnumerator OnStateDestroy()
         {
-            Ui.WinButton.OnClick.RemoveAllListeners();
-            Ui.LoseButton.OnClick.RemoveAllListeners();
+            //Ui.WinButton.OnClick.RemoveAllListeners();
+            //Ui.LoseButton.OnClick.RemoveAllListeners();
             Ui.CloseButton.OnClick.RemoveAllListeners();
 
             yield return Ui.HidePanelCorutine();
             Ui.DisableCanvas();
+            Ui.OnClose();
             yield return base.OnStateDestroy();
-        }
-
-        private void Win()
-        {
-            Root.Data.Battle.IsPlayerWin = true;
-            Ui.ShowResultUi("Победа");
-        }
-
-        private void Lose()
-        {
-            Root.Data.Battle.IsPlayerWin = false;
-            Ui.ShowResultUi("Поражение");
         }
 
         private void CloseBattle()
