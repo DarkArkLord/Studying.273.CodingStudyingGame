@@ -1,6 +1,5 @@
 ﻿using Assets.Scripts.StatesMachine;
 using System.Collections;
-using UnityEngine;
 
 namespace Assets.Scripts.States.Exit
 {
@@ -24,7 +23,7 @@ namespace Assets.Scripts.States.Exit
 #if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;
 #else
-            Application.Quit();
+            UnityEngine.Application.Quit();
 #endif
         }
     }
