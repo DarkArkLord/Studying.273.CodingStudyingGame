@@ -26,6 +26,9 @@ namespace Assets.Scripts.CommonComponents
 
         public void Init(GameObject prefab, int startCount = 10)
         {
+            // For repeat init we have lost memory
+            if (IsInited) return;
+
             _prefab = prefab;
             _startCount = startCount;
 
@@ -36,7 +39,7 @@ namespace Assets.Scripts.CommonComponents
             }
 
             IsInited = true;
-        } 
+        }
 
         private ObjectPoolItem AddItem()
         {
