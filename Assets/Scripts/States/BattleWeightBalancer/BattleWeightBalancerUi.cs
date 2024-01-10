@@ -24,6 +24,8 @@ namespace Assets.Scripts.States.BattleWeightBalancer
 
         public void OnInit()
         {
+            _input.text = "";
+
             var maxValue = 0;
             foreach (var button in _weightButtons)
             {
