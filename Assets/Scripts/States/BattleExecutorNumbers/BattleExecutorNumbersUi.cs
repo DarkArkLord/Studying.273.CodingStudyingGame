@@ -59,14 +59,15 @@ namespace Assets.Scripts.States.BattleExecutorNumbers
         private void ConfigTask()
         {
             // Task 1
-            //taskText.text = "Задание: вывести поступающие на вход цифры.";
-            //var input = new int[] { 1, 2, 3 };
-            //executionContext.OnInit(input, input);
+            taskText.text = "Задание: вывести поступающие на вход цифры.";
+            var input = new int[] { 1, 2, 3 };
+            executionContext.OnInit(input, input);
 
-            taskText.text = "Задание: считать попарно числа А и Б, вывести их сумму, разность, произведение, частное и остаток.";
-            var input = new int[] { 1, 2, 6, 3, 7, 3 };
-            var output = new int[] { 3, -1, 2, 0, 1, 9, 3, 18, 2, 0, 10, 4, 21, 2, 1 };
-            executionContext.OnInit(input, output);
+            // Task 2
+            //taskText.text = "Задание: считать попарно числа А и Б, вывести их сумму, разность, произведение, частное и остаток.";
+            //var input = new int[] { 1, 2, 6, 3, 7, 3 };
+            //var output = new int[] { 3, -1, 2, 0, 1, 9, 3, 18, 2, 0, 10, 4, 21, 2, 1 };
+            //executionContext.OnInit(input, output);
         }
 
         private void InitInfoColumns()

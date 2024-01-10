@@ -8,5 +8,16 @@ namespace Assets.Scripts.States.BattleExecutorNumbers.Common
         [SerializeField]
         private TMP_Text _text;
         public TMP_Text Text => _text;
+        private Color defaultColor;
+
+        public void OnInit()
+        {
+            defaultColor = _text.color;
+        }
+
+        public void OnClose()
+        {
+            _text.color = defaultColor;
+        }
     }
 }

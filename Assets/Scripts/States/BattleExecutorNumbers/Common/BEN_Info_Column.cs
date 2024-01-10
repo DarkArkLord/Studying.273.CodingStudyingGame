@@ -23,6 +23,7 @@ namespace Assets.Scripts.States.BattleExecutorNumbers.Common
         {
             foreach (var element in InfoElements)
             {
+                element.OnClose();
                 elementsPool.FreeObject(element.gameObject);
             }
             InfoElements.Clear();
@@ -34,6 +35,7 @@ namespace Assets.Scripts.States.BattleExecutorNumbers.Common
             var element = obj.GetComponent<BEN_Info_Element>();
 
             element.Text.text = text;
+            element.OnInit();
             element.gameObject.SetActive(true);
 
             InfoElements.Add(element);

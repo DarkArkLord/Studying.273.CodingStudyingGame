@@ -1,5 +1,6 @@
 ﻿using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Assets.Scripts.States.BattleExecutorNumbers.Common
 {
@@ -27,10 +28,18 @@ namespace Assets.Scripts.States.BattleExecutorNumbers.Common
 
             _dropdown_res.ClearOptions();
             context.SetMemoryDropDownOptions(_dropdown_res.options);
+            _dropdown_res.value = 0;
+            _dropdown_res.RefreshShownValue();
+
             _dropdown_a.ClearOptions();
             context.SetMemoryDropDownOptions(_dropdown_a.options);
+            _dropdown_a.value = 0;
+            _dropdown_a.RefreshShownValue();
+
             _dropdown_b.ClearOptions();
             context.SetMemoryDropDownOptions(_dropdown_b.options);
+            _dropdown_b.value = 0;
+            _dropdown_b.RefreshShownValue();
 
             gameObject.SetActive(true);
             SetElementsActive(true);

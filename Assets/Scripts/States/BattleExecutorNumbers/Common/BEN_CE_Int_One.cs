@@ -19,6 +19,8 @@ namespace Assets.Scripts.States.BattleExecutorNumbers.Common
 
             _dropdown.ClearOptions();
             context.SetMemoryDropDownOptions(_dropdown.options);
+            _dropdown.value = 0;
+            _dropdown.RefreshShownValue();
 
             gameObject.SetActive(true);
             SetElementsActive(true);
