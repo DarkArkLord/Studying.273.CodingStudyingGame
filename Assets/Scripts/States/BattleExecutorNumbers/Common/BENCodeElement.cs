@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts.CommonComponents;
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Assets.Scripts.States.BattleExecutorNumbers.Common
 {
@@ -8,6 +9,11 @@ namespace Assets.Scripts.States.BattleExecutorNumbers.Common
     {
         public BENCodeElement? ListPrevNode { get; set; }
         public BENCodeElement? ListNextNode { get; set; }
+
+        [SerializeField]
+        private Image _elemBackground;
+        public Image ElemBackground => _elemBackground;
+        private Color defaultBackColor;
 
         [SerializeField]
         private BEN_CE_MovingButton _moveUpButton;
@@ -27,10 +33,13 @@ namespace Assets.Scripts.States.BattleExecutorNumbers.Common
 
         [SerializeField]
         private BEN_CE_Int_One _int_1;
+        public BEN_CE_Int_One Interface_1 => _int_1;
         [SerializeField]
         private BEN_CE_Int_Two _int_2;
+        public BEN_CE_Int_Two Interface_2 => _int_2;
         [SerializeField]
         private BEN_CE_Int_Three _int_3;
+        public BEN_CE_Int_Three Interface_3 => _int_3;
 
         public BEN_CodeElementType CodeElementType { get; private set; }
 
@@ -75,6 +84,8 @@ namespace Assets.Scripts.States.BattleExecutorNumbers.Common
                 default:
                     throw new ArgumentException(nameof(elementType));
             }
+
+            defaultBackColor = _elemBackground.color;
         }
 
         public void InitButtons(GameObject onCreateParent, ObjectPoolComponent objectsPool, Action updateCodeTreeRoot, BEN_CodeType_Selector typeSelector)
@@ -183,6 +194,13 @@ namespace Assets.Scripts.States.BattleExecutorNumbers.Common
             _removeButton.OnClick.RemoveAllListeners();
 
             ListPrevNode = ListNextNode = null;
+
+            ResetBackGroundColor();
+        }
+
+        public void ResetBackGroundColor()
+        {
+            _elemBackground.color = defaultBackColor;
         }
 
         public void SetElementsActive(bool active)

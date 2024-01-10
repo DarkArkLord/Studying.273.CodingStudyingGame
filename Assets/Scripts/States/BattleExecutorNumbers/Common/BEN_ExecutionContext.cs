@@ -13,7 +13,6 @@ namespace Assets.Scripts.States.BattleExecutorNumbers.Common
         public int NextInputIndex { get; private set; }
 
         public int[] Outputs { get; private set; }
-        public int[] UserOutputs { get; private set; }
         public int NextOutputIndex { get; private set; }
 
         public const int MaxInstructionBeforeOutput = 1000;
@@ -31,18 +30,20 @@ namespace Assets.Scripts.States.BattleExecutorNumbers.Common
             NextInputIndex = 0;
 
             Outputs = outputs;
-            UserOutputs = new int[outputs.Length];
             NextOutputIndex = 0;
 
             CurrentInstruction = 0;
         }
 
+        public bool NextInputExists() => NextInputIndex < Inputs.Length;
+
         public int NextInput() => Inputs[NextInputIndex++];
+
+        public bool NextOutputExists() => NextOutputIndex < Outputs.Length;
 
         public bool CheckUserOutput(int output)
         {
-            UserOutputs[NextOutputIndex] = output;
-            var isEqual = Outputs[NextOutputIndex] == UserOutputs[NextOutputIndex];
+            var isEqual = Outputs[NextOutputIndex] == output;
             NextOutputIndex++;
             return isEqual;
         }

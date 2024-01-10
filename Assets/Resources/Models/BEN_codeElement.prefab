@@ -5421,6 +5421,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b00a2d9eb833154288276a355923c0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _elemBackground: {fileID: 6042039231148920777}
   _moveUpButton: {fileID: 202332368419990697}
   _moveDownButton: {fileID: 7516867156366761256}
   _removeButton: {fileID: 6433575282327958591}
