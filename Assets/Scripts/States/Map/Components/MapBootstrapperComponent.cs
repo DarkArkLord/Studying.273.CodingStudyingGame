@@ -20,7 +20,7 @@ namespace Assets.Scripts.States.Map.Components
 
         private NPCMasterController _npcController;
 
-        public BattleController BattleController {  get; private set; }
+        public BattleController BattleController { get; private set; }
 
         public void OnMapInit(StatesController<MainStateCode> statesController)
         {
@@ -91,9 +91,9 @@ namespace Assets.Scripts.States.Map.Components
         public void OnMapDestroy()
         {
             IsInited = false;
-            for (int i = 0; i < transform.childCount; i++)
+            foreach (Transform child in transform)
             {
-                Destroy(transform.GetChild(i).gameObject);
+                Destroy(child.gameObject);
             }
         }
 
@@ -110,6 +110,14 @@ namespace Assets.Scripts.States.Map.Components
         {
             _playerMovementController.SetPause(pause);
             _npcController.SetPause(pause);
+        }
+
+        public void SetChildsActive(bool isActive)
+        {
+            foreach (Transform child in transform)
+            {
+                child.gameObject.SetActive(isActive);
+            }
         }
 
         private MoveDirection? GetButtonsDirection()

@@ -1,11 +1,6 @@
 ﻿using Assets.Scripts.States.Map.Components;
 using Assets.Scripts.StatesMachine;
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Assets.Scripts.States.Map
@@ -40,43 +35,30 @@ namespace Assets.Scripts.States.Map
 
         public override IEnumerator OnStateCreating()
         {
-            //yield return Ui.ShowPanelCorutine();
-
-            //Ui.StartButton.OnClick.AddListener(StartButtonClick);
-            //Ui.ContinueButton.OnClick.AddListener(ContinueButtonClick);
-            //Ui.ExitButton.OnClick.AddListener(ExitButtonClick);
-
-            //if (controller.UsingStates.Count < 1)
-            //{
-            //    Ui.ContinueButton.gameObject.SetActive(false);
-            //}
-
             yield return base.OnStateCreating();
             GlobalMapPause = false;
             _bootstrapper.OnMapInit(controller);
             _bootstrapper.SetPause(GlobalMapPause);
+            _bootstrapper.SetChildsActive(!GlobalMapPause);
         }
 
         public override IEnumerator OnStatePush()
         {
             GlobalMapPause = true;
             _bootstrapper.SetPause(GlobalMapPause);
-            //yield return Ui.HidePanelCorutine();
-
-            //
+            _bootstrapper.SetChildsActive(!GlobalMapPause);
 
             yield return base.OnStatePush();
         }
 
         public override IEnumerator OnStatePop()
         {
-            //yield return Ui.ShowPanelCorutine();
-
-            //
-
             yield return base.OnStatePop();
+
             GlobalMapPause = false;
             _bootstrapper.SetPause(GlobalMapPause);
+            _bootstrapper.SetChildsActive(!GlobalMapPause);
+
             _bootstrapper.BattleController.ResolveBattle();
         }
 
@@ -84,12 +66,9 @@ namespace Assets.Scripts.States.Map
         {
             GlobalMapPause = true;
             _bootstrapper.SetPause(GlobalMapPause);
+            _bootstrapper.SetChildsActive(!GlobalMapPause);
             _bootstrapper.OnMapDestroy();
-            //Ui.StartButton.OnClick.RemoveAllListeners();
-            //Ui.ContinueButton.OnClick.RemoveAllListeners();
-            //Ui.ExitButton.OnClick.RemoveAllListeners();
 
-            //yield return Ui.HidePanelCorutine();
             yield return base.OnStateDestroy();
         }
     }
