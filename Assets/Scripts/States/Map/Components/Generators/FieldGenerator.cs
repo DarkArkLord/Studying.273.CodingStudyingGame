@@ -1,12 +1,10 @@
 ﻿using Assets.Scripts.Utils;
-using System;
-using UnityEngine;
 
 namespace Assets.Scripts.States.Map.Components.Generators
 {
     public class FieldGenerator : BaseGenerator
     {
-        public override MapPathConfig GenerateMap(int width, int height)
+        public override MapPathConfig GeneratePathMap(int width, int height)
         {
             var random = RandomUtils.Random;
 
@@ -33,34 +31,34 @@ namespace Assets.Scripts.States.Map.Components.Generators
             };
         }
 
-        private Vector2Int GenerateInputPoint(System.Random random, int width, int height)
+        public override int[,] GenerateMapObjectIndexes(MapPathConfig config, int maxPathIndex, int maxWallIndex)
         {
-            var xPart = width / 10.0;
-            var xBorderLeft = 0;
-            var xBorderRight = (int)Math.Ceiling(xPart) + 1;
-            var x = random.Next(xBorderLeft, xBorderRight);
+            var random = RandomUtils.Random;
 
-            var yPart = height / 10.0;
-            var yBorderTop = (int)Math.Floor(yPart * 9);
-            var yBorderDown = height;
-            var y = random.Next(yBorderTop, yBorderDown);
+            int width = config.Map.GetLength(0);
+            int height = config.Map.GetLength(1);
+            var map = new int[width, height];
 
-            return new Vector2Int(x, y);
-        }
+            for (int x = 0; x < width; x++)
+            {
+                for (int y = 0; y < height; y++)
+                {
+                    if (config.Map[x, y] == MapCellContent.Path)
+                    {
+                        map[x, y] = random.Next(maxPathIndex);
+                    }
+                    else if (config.Map[x, y] == MapCellContent.Wall)
+                    {
+                        map[x, y] = random.Next(maxWallIndex);
+                    }
+                    else
+                    {
+                        map[x, y] = 0;
+                    }
+                }
+            }
 
-        private Vector2Int GenerateOutputPoint(System.Random random, int width, int height)
-        {
-            var xPart = width / 10.0;
-            var xBorderLeft = (int)Math.Floor(xPart * 9);
-            var xBorderRight = width;
-            var x = random.Next(xBorderLeft, xBorderRight);
-
-            var yPart = height / 10.0;
-            var yBorderTop = 0;
-            var yBorderDown = (int)Math.Ceiling(yPart) + 1;
-            var y = random.Next(yBorderTop, yBorderDown);
-
-            return new Vector2Int(x, y);
+            return map;
         }
     }
 }
