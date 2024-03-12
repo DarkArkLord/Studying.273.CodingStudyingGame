@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Scripts.Utils;
+using System;
 using UnityEngine;
 
 namespace Assets.Scripts.States.Map.Components.Generators
@@ -37,6 +38,34 @@ namespace Assets.Scripts.States.Map.Components.Generators
 
         public abstract MapPathConfig GeneratePathMap(int width, int height);
 
-        public abstract int[,] GenerateMapObjectIndexes(MapPathConfig config, int maxPathIndex, int maxWallIndex);
+        public int[,] GenerateMapObjectIndexes(MapPathConfig config, int maxPathIndex, int maxWallIndex)
+        {
+            var random = RandomUtils.Random;
+
+            int width = config.Map.GetLength(0);
+            int height = config.Map.GetLength(1);
+            var map = new int[width, height];
+
+            for (int x = 0; x < width; x++)
+            {
+                for (int y = 0; y < height; y++)
+                {
+                    if (config.Map[x, y] == MapCellContent.Path)
+                    {
+                        map[x, y] = random.Next(maxPathIndex);
+                    }
+                    else if (config.Map[x, y] == MapCellContent.Wall)
+                    {
+                        map[x, y] = random.Next(maxWallIndex);
+                    }
+                    else
+                    {
+                        map[x, y] = 0;
+                    }
+                }
+            }
+
+            return map;
+        }
     }
 }
