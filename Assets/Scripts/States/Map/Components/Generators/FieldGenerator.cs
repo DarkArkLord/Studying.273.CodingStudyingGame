@@ -2,7 +2,7 @@
 
 namespace Assets.Scripts.States.Map.Components.Generators
 {
-    public class FieldGenerator : BaseGenerator
+    public class FieldGenerator : BaseMapGenerator
     {
         public override MapPathConfig GeneratePathMap(int width, int height)
         {
@@ -25,6 +25,8 @@ namespace Assets.Scripts.States.Map.Components.Generators
 
             return new MapPathConfig()
             {
+                Width = width,
+                Height = height,
                 Map = map,
                 InputPosition = input,
                 OutputPosition = output,

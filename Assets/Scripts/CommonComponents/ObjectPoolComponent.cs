@@ -19,17 +19,22 @@ namespace Assets.Scripts.CommonComponents
 
         public bool IsInited { get; private set; } = false;
 
+        [SerializeField]
         private GameObject _prefab;
         private int _startCount;
 
         private List<ObjectPoolItem> items;
 
-        public void Init(GameObject prefab, int startCount = 10)
+        public void SetPrefab(GameObject prefab)
+        {
+            _prefab = prefab;
+        }
+
+        public void Init(int startCount = 10)
         {
             // For repeat init we have lost memory
             if (IsInited) return;
 
-            _prefab = prefab;
             _startCount = startCount;
 
             items = new List<ObjectPoolItem>(_startCount);

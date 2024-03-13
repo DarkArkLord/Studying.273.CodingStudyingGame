@@ -15,7 +15,8 @@ namespace Assets.Scripts.States.BattleExecutorNumbers.Common
 
         public void OnInit()
         {
-            elementsPool.Init(infoElementPrefab.gameObject);
+            elementsPool.SetPrefab(infoElementPrefab.gameObject);
+            elementsPool.Init();
             InfoElements = new List<BEN_Info_Element>();
         }
 

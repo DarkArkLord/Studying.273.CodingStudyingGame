@@ -113,7 +113,8 @@ namespace Assets.Scripts.States.BattleExecutorNumbers
 
         private void InitCodeTree()
         {
-            codeElementsPool.Init(codeElementsPrefab.gameObject, 10);
+            codeElementsPool.SetPrefab(codeElementsPrefab.gameObject);
+            codeElementsPool.Init();
 
             var inputCodeElement = InitCodeElement(BEN_CodeElementType.IO_ReadInput);
             var outputCodeElement = InitCodeElement(BEN_CodeElementType.IO_WriteOutput);

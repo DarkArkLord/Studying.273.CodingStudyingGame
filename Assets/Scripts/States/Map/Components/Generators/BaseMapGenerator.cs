@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.States.Map.Components.Generators
 {
-    public abstract class BaseGenerator : MonoBehaviour
+    public abstract class BaseMapGenerator : MonoBehaviour, IMapGenerator
     {
         protected Vector2Int GenerateInputPoint(System.Random random, int width, int height)
         {
@@ -36,5 +36,10 @@ namespace Assets.Scripts.States.Map.Components.Generators
         }
 
         public abstract MapPathConfig GeneratePathMap(int width, int height);
+    }
+
+    public interface IMapGenerator
+    {
+        public MapPathConfig GeneratePathMap(int width, int height);
     }
 }

@@ -38,16 +38,30 @@ namespace Assets.Scripts.States.Map.Components.Generators
 
     public class MapPathConfig
     {
+
+        public int Width { get; set; }
+        public int Height { get; set; }
+
         public MapCellContent[,] Map { get; set; }
+
         public Vector2Int InputPosition { get; set; }
         public Vector2Int OutputPosition { get; set; }
     }
 
     public enum MapCellContent
     {
+        None = -1,
         Input = 0,
         Path = 1,
         Wall = 2,
         Output = 3,
+    }
+
+    public static class MapCellContentExt
+    {
+        public static bool IsMoveble(this MapCellContent content)
+            => content == MapCellContent.Input
+                || content == MapCellContent.Path
+                || content == MapCellContent.Output;
     }
 }

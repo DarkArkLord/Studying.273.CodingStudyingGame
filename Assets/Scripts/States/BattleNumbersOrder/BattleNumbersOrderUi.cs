@@ -42,7 +42,8 @@ namespace Assets.Scripts.States.BattleNumbersOrder
 
             if (!_buttonsPool.IsInited)
             {
-                _buttonsPool.Init(_buttonPrefab.gameObject, buttonsCount);
+                _buttonsPool.SetPrefab(_buttonPrefab.gameObject);
+                _buttonsPool.Init(buttonsCount);
             }
 
             var buttonLocalScale = new Vector3(1f, 1f, 1f);

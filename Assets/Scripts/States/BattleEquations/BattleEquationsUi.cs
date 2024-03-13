@@ -19,7 +19,9 @@ namespace Assets.Scripts.States.BattleEquations
 
         public void OnInit()
         {
-            equationPool.Init(equationPrefab.gameObject, equationsCount);
+            equationPool.SetPrefab(equationPrefab.gameObject);
+            equationPool.Init(equationsCount);
+
             var verticalOffset = 110f;
             var localScale = new Vector3(1f, 1f, 1f);
 

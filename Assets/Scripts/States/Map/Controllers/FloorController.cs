@@ -1,5 +1,5 @@
-using Assets.Scripts.CommonComponents;
-using System.Collections.Generic;
+using Assets.Scripts.States.Map.Components;
+using Assets.Scripts.States.Map.Components.Generators;
 using UnityEngine;
 
 namespace Assets.Scripts.States.Map.Controllers
@@ -8,18 +8,22 @@ namespace Assets.Scripts.States.Map.Controllers
     {
         public MapController Map { get; private set; }
 
-        private ObjectPoolComponent objectPool;
-        private Material[] materials;
+        private FloorElementsKeeper floorElementsKeeper;
 
         const int VerticalOffset = -1;
 
+        private int[,] floorElement;
         private GameObject[,] floor;
 
-        public FloorController(MapController mapController, ObjectPoolComponent objectPool, Material[] materials)
+        public FloorController(MapController mapController, FloorElementsKeeper floorElementsKeeper)
         {
             Map = mapController;
-            this.objectPool = objectPool;
-            this.materials = materials;
+            this.floorElementsKeeper = floorElementsKeeper;
+            floorElement = Common.GenerateMapObjectIndexes(mapController.MapConfig,
+                floorElementsKeeper.PathMaterials.Length,
+                floorElementsKeeper.WallMaterials.Length);
+
+            floorElementsKeeper.ObjectPool.Init();
 
             Clear();
             Redraw();
@@ -31,7 +35,7 @@ namespace Assets.Scripts.States.Map.Controllers
             {
                 for (int y = 0; y < floor.GetLength(1); y++)
                 {
-                    var obj = objectPool.GetObject();
+                    var obj = floorElementsKeeper.ObjectPool.GetObject();
                     floor[x, y] = obj;
 
                     var cell = Map.GetMapCell(x, y);
@@ -42,10 +46,23 @@ namespace Assets.Scripts.States.Map.Controllers
                         rendererComponent = obj.AddComponent<Renderer>();
                     }
 
-                    rendererComponent.material = materials[cell];
+                    rendererComponent.material = GetFloorElementMaterial(cell, floorElement[x, y]);
                     obj.transform.position = new Vector3(x, VerticalOffset, y);
                     obj.SetActive(true);
                 }
+            }
+        }
+
+        private Material GetFloorElementMaterial(MapCellContent cell, int materialIndex)
+        {
+            switch (cell)
+            {
+                case MapCellContent.None: return floorElementsKeeper.NoneMaterial;
+                case MapCellContent.Input: return floorElementsKeeper.InputMaterial;
+                case MapCellContent.Output: return floorElementsKeeper.OutputMaterial;
+                case MapCellContent.Path: return floorElementsKeeper.PathMaterials[materialIndex];
+                case MapCellContent.Wall: return floorElementsKeeper.WallMaterials[materialIndex];
+                default: return null;
             }
         }
 
@@ -64,7 +81,7 @@ namespace Assets.Scripts.States.Map.Controllers
                         if (floor[x, y] != null)
                         {
                             var obj = floor[x, y];
-                            objectPool.FreeObject(obj);
+                            floorElementsKeeper.ObjectPool.FreeObject(obj);
                             floor[x, y] = null;
                         }
                     }
@@ -72,15 +89,9 @@ namespace Assets.Scripts.States.Map.Controllers
             }
         }
 
-        public IEnumerable<GameObject> GetObjects()
+        public void SetFloorActive(bool active)
         {
-            for (int x = 0; x < floor.GetLength(0); x++)
-            {
-                for (int y = 0; y < floor.GetLength(1); y++)
-                {
-                    yield return floor[x, y];
-                }
-            }
+            floorElementsKeeper.ObjectPool.gameObject.SetActive(active);
         }
     }
 }

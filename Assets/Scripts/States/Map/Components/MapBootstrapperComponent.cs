@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.CommonComponents;
+using Assets.Scripts.States.Map.Components.Generators;
 using Assets.Scripts.States.Map.Controllers;
 using Assets.Scripts.StatesMachine;
 using Unity.VisualScripting;
@@ -9,6 +10,12 @@ namespace Assets.Scripts.States.Map.Components
 {
     public class MapBootstrapperComponent : BaseModel
     {
+        [SerializeField]
+        private BaseMapGenerator MapGenerator;
+
+        [SerializeField]
+        private FloorElementsKeeper floorElementsKeeper;
+
         private StatesController<MainStateCode> statesController;
         private bool IsInited = false;
 
@@ -34,22 +41,8 @@ namespace Assets.Scripts.States.Map.Components
 
         private void InitMap()
         {
-            var mapController = new MapController(20, 20, 3, 3);
-
-            var objectsPool = new GameObject("FloorObjectPool").AddComponent<ObjectPoolComponent>();
-            objectsPool.transform.parent = transform;
-            var floorPrefub = Resources.Load("Models/FloorModel") as GameObject;
-            objectsPool.Init(floorPrefub);
-
-            var floorMaterials = new Material[4]
-            {
-                Resources.Load("Materials/NoFloorMaterial") as Material,
-                Resources.Load("Materials/FloorMaterial_1") as Material,
-                Resources.Load("Materials/FloorMaterial_2") as Material,
-                Resources.Load("Materials/FloorMaterial_3") as Material,
-            };
-
-            _floorController = new FloorController(mapController, objectsPool, floorMaterials);
+            var mapController = new MapController(MapGenerator, 20, 20);
+            _floorController = new FloorController(mapController, floorElementsKeeper);
         }
 
         private void InitPlayer()
@@ -72,7 +65,8 @@ namespace Assets.Scripts.States.Map.Components
             var npcPrefub = Resources.Load("Models/NPCCube") as GameObject;
             var objectsPool = new GameObject("NpcObjectPool").AddComponent<ObjectPoolComponent>();
             objectsPool.transform.parent = transform;
-            objectsPool.Init(npcPrefub);
+            objectsPool.SetPrefab(npcPrefub);
+            objectsPool.Init();
 
             var movablePlayer = _playerElement.GetComponent<JumpComponent>();
 
@@ -91,10 +85,8 @@ namespace Assets.Scripts.States.Map.Components
         public void OnMapDestroy()
         {
             IsInited = false;
-            foreach (Transform child in transform)
-            {
-                Destroy(child.gameObject);
-            }
+            _floorController.Clear();
+            // Destroy player and enemy
         }
 
         public void OnUpdate()
@@ -114,10 +106,8 @@ namespace Assets.Scripts.States.Map.Components
 
         public void SetChildsActive(bool isActive)
         {
-            foreach (Transform child in transform)
-            {
-                child.gameObject.SetActive(isActive);
-            }
+            _floorController.SetFloorActive(isActive);
+            // Set active for player and enemy
         }
 
         private MoveDirection? GetButtonsDirection()
