@@ -11,7 +11,9 @@
         Exit = 10,
         Init = 20,
         MainMenu = 30,
-        Map = 40,
+
+        Map_1_Field = 40,
+
         Battle_test = 50,
         Battle_NumbersOrder = 51,
         Battle_Equations = 52,

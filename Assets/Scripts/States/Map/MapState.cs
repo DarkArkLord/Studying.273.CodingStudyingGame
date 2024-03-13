@@ -8,8 +8,10 @@ namespace Assets.Scripts.States.Map
     public class MapState : BaseState<MainStateCode>
     {
         #region Main info
+        [SerializeField]
+        private MainStateCode mapId;
 
-        public override MainStateCode Id => MainStateCode.Map;
+        public override MainStateCode Id => mapId;
 
         private bool GlobalMapPause = false;
 
