@@ -41,14 +41,14 @@ namespace Assets.Scripts.States.Map
             GlobalMapPause = false;
             _bootstrapper.OnMapInit(controller);
             _bootstrapper.SetPause(GlobalMapPause);
-            _bootstrapper.SetChildsActive(!GlobalMapPause);
+            //_bootstrapper.SetChildsActive(!GlobalMapPause);
         }
 
         public override IEnumerator OnStatePush()
         {
             GlobalMapPause = true;
             _bootstrapper.SetPause(GlobalMapPause);
-            _bootstrapper.SetChildsActive(!GlobalMapPause);
+            //_bootstrapper.SetChildsActive(!GlobalMapPause);
 
             yield return base.OnStatePush();
         }
@@ -59,7 +59,7 @@ namespace Assets.Scripts.States.Map
 
             GlobalMapPause = false;
             _bootstrapper.SetPause(GlobalMapPause);
-            _bootstrapper.SetChildsActive(!GlobalMapPause);
+            //_bootstrapper.SetChildsActive(!GlobalMapPause);
 
             _bootstrapper.BattleController.ResolveBattle();
         }
@@ -68,7 +68,7 @@ namespace Assets.Scripts.States.Map
         {
             GlobalMapPause = true;
             _bootstrapper.SetPause(GlobalMapPause);
-            _bootstrapper.SetChildsActive(!GlobalMapPause);
+            //_bootstrapper.SetChildsActive(!GlobalMapPause);
             _bootstrapper.OnMapDestroy();
 
             yield return base.OnStateDestroy();
