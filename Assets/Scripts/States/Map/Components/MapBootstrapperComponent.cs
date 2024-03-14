@@ -58,6 +58,38 @@ namespace Assets.Scripts.States.Map.Components
 
             _playerMovementController = new PlayerMovementController(movablePlayer, movableCamera, _floorController);
             _playerMovementController.Resurrect();
+
+            _playerMovementController.StandOnInputEvent.AddListener(() =>
+            {
+                if (statesController.UsingStates.Count > 0)
+                {
+                    statesController.PopState();
+                }
+                else
+                {
+                    statesController.ClearStatesStack();
+                    // Add town menu
+                    statesController.UseState(MainStateCode.MainMenu);
+                }
+            });
+
+            _playerMovementController.StandOnOutputEvent.AddListener(() =>
+            {
+                var currentStateCode = statesController.CurrentState.Id;
+                SetChildsActive(false);
+
+                switch (currentStateCode)
+                {
+                    case MainStateCode.Map_Forest_1:
+                        statesController.PushState(MainStateCode.Map_Forest_2);
+                        break;
+                    case MainStateCode.Map_Forest_2:
+                        // Add town menu
+                        statesController.ClearStatesStack();
+                        statesController.UseState(MainStateCode.MainMenu);
+                        break;
+                }
+            });
         }
 
         private void InitEnemies()
@@ -85,8 +117,11 @@ namespace Assets.Scripts.States.Map.Components
         {
             IsInited = false;
             _floorController.Clear();
+            _playerMovementController.StandOnInputEvent.RemoveAllListeners();
+            _playerMovementController.StandOnOutputEvent.RemoveAllListeners();
             Destroy(_playerElement);
             Destroy(_npcController.Pool.gameObject);
+            BattleController.StartBattleEvent.RemoveAllListeners();
         }
 
         public void OnUpdate()

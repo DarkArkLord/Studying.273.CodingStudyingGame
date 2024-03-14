@@ -1,6 +1,8 @@
 ﻿using Assets.Scripts.States.Map.Components;
+using Assets.Scripts.States.Map.Components.Generators;
 using Assets.Scripts.States.Map.Utils;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
 namespace Assets.Scripts.States.Map.Controllers
@@ -20,6 +22,9 @@ namespace Assets.Scripts.States.Map.Controllers
         public Vector2Int Position2D => _player.Position2D;
 
         private Vector3 lastCameraPosition;
+
+        public UnityEvent StandOnInputEvent { get; private set; } = new UnityEvent();
+        public UnityEvent StandOnOutputEvent { get; private set; } = new UnityEvent();
 
         public PlayerMovementController(SmoothMoveComponent player, SmoothMoveComponent camera, FloorController floor)
         {
@@ -61,6 +66,19 @@ namespace Assets.Scripts.States.Map.Controllers
                 var isCameraMoved = _camera.Move();
 
                 IsMoving = isPlayerMoved || isCameraMoved;
+
+                if (!IsMoving)
+                {
+                    var cell = floor.Map.GetMapCell(_player.Position2D);
+                    if (cell == MapCellContent.Input)
+                    {
+                        StandOnInputEvent.Invoke();
+                    }
+                    else if (cell == MapCellContent.Output)
+                    {
+                        StandOnOutputEvent.Invoke();
+                    }
+                }
             }
         }
 

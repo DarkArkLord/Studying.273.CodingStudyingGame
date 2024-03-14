@@ -27,6 +27,11 @@ namespace Assets.Scripts.States.Map.Controllers
             return MapConfig.Map[x, y];
         }
 
+        public MapCellContent GetMapCell(Vector2Int cell)
+        {
+            return GetMapCell(cell.x, cell.y);
+        }
+
         public bool IsCanMove(int x, int y)
         {
             var cell = GetMapCell(x, y);
