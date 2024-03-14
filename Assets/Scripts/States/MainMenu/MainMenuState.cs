@@ -71,7 +71,7 @@ namespace Assets.Scripts.States.MainMenu
         private void StartButtonClick()
         {
             controller.ClearStatesStack();
-            controller.UseState(MainStateCode.Map_1_Field);
+            controller.UseState(MainStateCode.Map_Forest_1);
         }
 
         private void ContinueButtonClick()

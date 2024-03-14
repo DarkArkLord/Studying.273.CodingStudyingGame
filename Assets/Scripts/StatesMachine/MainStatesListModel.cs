@@ -12,7 +12,8 @@
         Init = 20,
         MainMenu = 30,
 
-        Map_1_Field = 40,
+        Map_Forest_1 = 40,
+        Map_Forest_2 = 41,
 
         Battle_test = 50,
         Battle_NumbersOrder = 51,
