@@ -2,13 +2,14 @@
 using Assets.Scripts.States.Map.Utils;
 using Assets.Scripts.Utils;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 namespace Assets.Scripts.States.Map.Controllers
 {
     public class NPCMovementController
     {
         private JumpComponent npc;
-        private JumpComponent player;
+        private PlayerMovementController player;
         private MapController map;
 
         private System.Random random = RandomUtils.Random;
@@ -25,7 +26,7 @@ namespace Assets.Scripts.States.Map.Controllers
 
         public Vector2Int Position2D => npc.Position2D;
 
-        public NPCMovementController(JumpComponent npc, JumpComponent player, MapController map, float timeBeforeSteps = 2, float timeForRespawn = 5)
+        public NPCMovementController(JumpComponent npc, PlayerMovementController player, MapController map, float timeBeforeSteps = 2, float timeForRespawn = 5)
         {
             this.npc = npc;
             this.player = player;
@@ -67,11 +68,6 @@ namespace Assets.Scripts.States.Map.Controllers
             }
         }
 
-        public void SetPause(bool pause)
-        {
-            IsOnPause = pause;
-        }
-
         private void SetMoveTarget()
         {
             while (true)
@@ -111,6 +107,11 @@ namespace Assets.Scripts.States.Map.Controllers
                     break;
                 }
             }
+        }
+
+        public void SetPause(bool pause)
+        {
+            IsOnPause = pause;
         }
     }
 }

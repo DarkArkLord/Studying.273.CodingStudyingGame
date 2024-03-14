@@ -63,14 +63,13 @@ namespace Assets.Scripts.States.Map.Components
         private void InitEnemies()
         {
             var npcPrefub = Resources.Load("Models/NPCCube") as GameObject;
+
             var objectsPool = new GameObject("NpcObjectPool").AddComponent<ObjectPoolComponent>();
             objectsPool.transform.parent = transform;
             objectsPool.SetPrefab(npcPrefub);
             objectsPool.Init();
 
-            var movablePlayer = _playerElement.GetComponent<JumpComponent>();
-
-            _npcController = new NPCMasterController(5, objectsPool, movablePlayer, _floorController.Map);
+            _npcController = new NPCMasterController(5, objectsPool, _playerMovementController, _floorController.Map);
         }
 
         private void InitBattle()
@@ -86,7 +85,8 @@ namespace Assets.Scripts.States.Map.Components
         {
             IsInited = false;
             _floorController.Clear();
-            // Destroy player and enemy
+            Destroy(_playerElement);
+            Destroy(_npcController.Pool.gameObject);
         }
 
         public void OnUpdate()
@@ -107,7 +107,8 @@ namespace Assets.Scripts.States.Map.Components
         public void SetChildsActive(bool isActive)
         {
             _floorController.SetFloorActive(isActive);
-            // Set active for player and enemy
+            _playerMovementController.SetActive(isActive);
+            _npcController.SetActive(isActive);
         }
 
         private MoveDirection? GetButtonsDirection()

@@ -19,10 +19,14 @@ namespace Assets.Scripts.States.Map.Controllers
 
         public Vector2Int Position2D => _player.Position2D;
 
+        private Vector3 lastCameraPosition;
+
         public PlayerMovementController(SmoothMoveComponent player, SmoothMoveComponent camera, FloorController floor)
         {
             _player = player;
             _camera = camera;
+
+            lastCameraPosition = camera.transform.position;
 
             this.floor = floor;
         }
@@ -78,6 +82,21 @@ namespace Assets.Scripts.States.Map.Controllers
             //_camera.Transform.position += offset;
             _player.Transform.position = new Vector3(floor.Map.StartX, 0, floor.Map.StartY);
             _camera.Transform.position = new Vector3(floor.Map.StartX, 5, floor.Map.StartY - 10);
+
+            lastCameraPosition = _camera.transform.position;
+        }
+
+        public void SetActive(bool active)
+        {
+            _player.gameObject.SetActive(active);
+            if (active)
+            {
+                _camera.gameObject.transform.position = lastCameraPosition;
+            }
+            else
+            {
+                lastCameraPosition = _camera.gameObject.transform.position;
+            }
         }
     }
 }

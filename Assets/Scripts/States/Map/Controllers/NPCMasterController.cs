@@ -1,6 +1,8 @@
 ﻿using Assets.Scripts.CommonComponents;
 using Assets.Scripts.States.Map.Components;
 using System.Collections.Generic;
+using static UnityEditor.Experimental.GraphView.GraphView;
+using UnityEngine;
 
 namespace Assets.Scripts.States.Map.Controllers
 {
@@ -9,22 +11,15 @@ namespace Assets.Scripts.States.Map.Controllers
         private int enemyCount;
         private ObjectPoolComponent pool;
         private NPCMovementController[] npcs;
-        private JumpComponent player;
+        private PlayerMovementController player;
+
+        public ObjectPoolComponent Pool => pool;
 
         public bool IsOnPause { get; private set; } = false;
 
         public IReadOnlyList<NPCMovementController> NPCs => npcs;
 
-        public void SetPause(bool pause)
-        {
-            IsOnPause = pause;
-            foreach (var npc in npcs)
-            {
-                npc.SetPause(pause);
-            }
-        }
-
-        public NPCMasterController(int enemyCount, ObjectPoolComponent pool, JumpComponent player, MapController map)
+        public NPCMasterController(int enemyCount, ObjectPoolComponent pool, PlayerMovementController player, MapController map)
         {
             this.player = player;
 
@@ -55,6 +50,20 @@ namespace Assets.Scripts.States.Map.Controllers
             {
                 npc.OnUpdate();
             }
+        }
+
+        public void SetPause(bool pause)
+        {
+            IsOnPause = pause;
+            foreach (var npc in npcs)
+            {
+                npc.SetPause(pause);
+            }
+        }
+
+        public void SetActive(bool active)
+        {
+            Pool.gameObject.SetActive(active);
         }
     }
 }
