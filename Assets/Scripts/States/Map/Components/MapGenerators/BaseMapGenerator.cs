@@ -15,8 +15,8 @@ namespace Assets.Scripts.States.Map.Components.MapGenerators
             var x = random.Next(xBorderLeft, xBorderRight);
 
             var yPart = height / PointPartsCount;
-            var yBorderTop = (int)Math.Floor(yPart * (PointPartsCount - 1));
-            var yBorderDown = height;
+            var yBorderTop = 0;
+            var yBorderDown = (int)Math.Ceiling(yPart) + 1;
             var y = random.Next(yBorderTop, yBorderDown);
 
             return new Vector2Int(x, y);
@@ -30,8 +30,8 @@ namespace Assets.Scripts.States.Map.Components.MapGenerators
             var x = random.Next(xBorderLeft, xBorderRight);
 
             var yPart = height / PointPartsCount;
-            var yBorderTop = 0;
-            var yBorderDown = (int)Math.Ceiling(yPart) + 1;
+            var yBorderTop = (int)Math.Floor(yPart * (PointPartsCount - 1));
+            var yBorderDown = height;
             var y = random.Next(yBorderTop, yBorderDown);
 
             return new Vector2Int(x, y);
