@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace Assets.Scripts.CommonComponents.TextureGenerators
 {
@@ -7,7 +8,7 @@ namespace Assets.Scripts.CommonComponents.TextureGenerators
         [SerializeField]
         private GameObject[] objects;
 
-        public void SetMaterial(Material material)
+        private IEnumerable<Renderer> GetRenderers()
         {
             foreach (var obj in objects)
             {
@@ -17,7 +18,31 @@ namespace Assets.Scripts.CommonComponents.TextureGenerators
                     rendererComponent = obj.AddComponent<Renderer>();
                 }
 
-                rendererComponent.material = material;
+                yield return rendererComponent;
+            }
+        }
+
+        public void SetMaterial(Material material)
+        {
+            foreach (var renderer in GetRenderers())
+            {
+                renderer.material = material;
+            }
+        }
+
+        public void SetTexture(Texture texture)
+        {
+            foreach (var renderer in GetRenderers())
+            {
+                renderer.material.mainTexture = texture;
+            }
+        }
+
+        public void SetColor(Color color)
+        {
+            foreach (var renderer in GetRenderers())
+            {
+                renderer.material.color = color;
             }
         }
     }

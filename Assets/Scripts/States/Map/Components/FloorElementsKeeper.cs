@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.CommonComponents;
+using Assets.Scripts.CommonComponents.TextureGenerators;
 using UnityEngine;
 
 namespace Assets.Scripts.States.Map.Components
@@ -14,23 +15,19 @@ namespace Assets.Scripts.States.Map.Components
         public ObjectPoolComponent WallObjectPool => wallObjectPool;
 
         [SerializeField]
-        private Material[] pathMaterials;
-        public Material[] PathMaterials => pathMaterials;
+        private BaseTextureGenerator pathTextureGenerator;
+        public BaseTextureGenerator PathTextureGenerator => pathTextureGenerator;
 
         [SerializeField]
-        private Material[] wallMaterials;
-        public Material[] WallMaterials => wallMaterials;
+        private BaseTextureGenerator wallTextureGenerator;
+        public BaseTextureGenerator WallTextureGenerator => wallTextureGenerator;
 
         [SerializeField]
-        private Material inputMaterial;
-        public Material InputMaterial => inputMaterial;
+        private Color inputColor;
+        public Color InputColor => inputColor;
 
         [SerializeField]
-        private Material outputMaterial;
-        public Material OutputMaterial => outputMaterial;
-
-        [SerializeField]
-        private Material noneMaterial;
-        public Material NoneMaterial => noneMaterial;
+        private Color outputColor;
+        public Color OutputColor => outputColor;
     }
 }
