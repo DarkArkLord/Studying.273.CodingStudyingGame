@@ -2342,6 +2342,81 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 313590510}
   m_CullTransparentMesh: 1
+--- !u!1 &332373386
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 332373387}
+  - component: {fileID: 332373389}
+  - component: {fileID: 332373388}
+  m_Layer: 0
+  m_Name: wall_pool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &332373387
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 332373386}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1958204251}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &332373388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 332373386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52f4bf8557919e7439bbddc7dbed9e47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colors:
+  - {r: 0, g: 0.6886792, b: 0.11707552, a: 0}
+  - {r: 0.0068084607, g: 0.4811321, b: 0.0877225, a: 0}
+  - {r: 0.00867745, g: 0.6132076, b: 0.29383314, a: 0}
+  - {r: 0, g: 0.46226418, b: 0.21821168, a: 0}
+  - {r: 0.3191619, g: 0.6320754, b: 0.020870427, a: 0}
+  - {r: 0.18511926, g: 0.3773585, b: 0, a: 0}
+  filterMode: 0
+  width: 100
+  height: 100
+  branchColors:
+  - {r: 0.6981132, g: 0.2587288, b: 0, a: 0}
+  - {r: 0.5943396, g: 0.22037311, b: 0, a: 0}
+  - {r: 0.745283, g: 0.28836045, b: 0.024608415, a: 0}
+  - {r: 0.6320754, g: 0.31649965, b: 0.13416697, a: 0}
+  branchesCountFrom: 5
+  branchesCountTo: 15
+--- !u!114 &332373389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 332373386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b71bae6e4d50034d9f144bf9fafd699, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _prefab: {fileID: 4269905547878521643, guid: 0981c6220adc35c47bb403503d25c1cb, type: 3}
 --- !u!1 &373702149
 GameObject:
   m_ObjectHideFlags: 0
@@ -2660,70 +2735,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &389125741
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 389125742}
-  - component: {fileID: 389125744}
-  - component: {fileID: 389125743}
-  m_Layer: 0
-  m_Name: wall_pool
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &389125742
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 389125741}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1958204251}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &389125743
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 389125741}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f72420d98383c3e4cb50841994471c66, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  colors:
-  - {r: 0, g: 0, b: 0, a: 0}
-  - {r: 1, g: 0, b: 0, a: 0}
-  filterMode: 0
-  width: 5
-  height: 5
---- !u!114 &389125744
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 389125741}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b71bae6e4d50034d9f144bf9fafd699, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _prefab: {fileID: 4269905547878521643, guid: 0981c6220adc35c47bb403503d25c1cb, type: 3}
 --- !u!1 &390837123
 GameObject:
   m_ObjectHideFlags: 0
@@ -10566,8 +10577,8 @@ MonoBehaviour:
   - {r: 0.14304964, g: 0.6313726, b: 0.0627451, a: 0}
   - {r: 0.0627451, g: 0.6313726, b: 0.24130315, a: 0}
   filterMode: 1
-  width: 10
-  height: 10
+  width: 25
+  height: 25
 --- !u!114 &1763147908
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11477,9 +11488,9 @@ MonoBehaviour:
   - {r: 0.3659128, g: 0.6320754, b: 0.062611245, a: 0}
   - {r: 0.14304964, g: 0.6313726, b: 0.0627451, a: 0}
   - {r: 0.0627451, g: 0.6313726, b: 0.24130315, a: 0}
-  filterMode: 1
-  width: 10
-  height: 10
+  filterMode: 2
+  width: 25
+  height: 25
 --- !u!1 &1958204250
 GameObject:
   m_ObjectHideFlags: 0
@@ -11510,7 +11521,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1763147906}
-  - {fileID: 389125742}
+  - {fileID: 332373387}
   m_Father: {fileID: 882509561}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -11527,9 +11538,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pathObjectPool: {fileID: 1763147908}
-  wallObjectPool: {fileID: 389125744}
+  wallObjectPool: {fileID: 332373389}
   pathTextureGenerator: {fileID: 1763147907}
-  wallTextureGenerator: {fileID: 389125743}
+  wallTextureGenerator: {fileID: 332373388}
   inputColor: {r: 1, g: 1, b: 0, a: 0}
   outputColor: {r: 0, g: 0, b: 1, a: 0}
 --- !u!1 &1958974332
@@ -12951,15 +12962,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 2113959715}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f72420d98383c3e4cb50841994471c66, type: 3}
+  m_Script: {fileID: 11500000, guid: 52f4bf8557919e7439bbddc7dbed9e47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   colors:
-  - {r: 0, g: 0, b: 0, a: 0}
-  - {r: 1, g: 0, b: 0, a: 0}
+  - {r: 0, g: 0.6886792, b: 0.11707552, a: 0}
+  - {r: 0.0068084607, g: 0.4811321, b: 0.0877225, a: 0}
+  - {r: 0.00867745, g: 0.6132076, b: 0.29383314, a: 0}
+  - {r: 0, g: 0.46226418, b: 0.21821168, a: 0}
+  - {r: 0.3191619, g: 0.6320754, b: 0.020870427, a: 0}
+  - {r: 0.18511926, g: 0.3773585, b: 0, a: 0}
   filterMode: 0
-  width: 5
-  height: 5
+  width: 100
+  height: 100
+  branchColors:
+  - {r: 0.6981132, g: 0.2587288, b: 0, a: 0}
+  - {r: 0.5943396, g: 0.22037311, b: 0, a: 0}
+  - {r: 0.745283, g: 0.28836045, b: 0.024608415, a: 0}
+  - {r: 0.6320754, g: 0.31649965, b: 0.13416697, a: 0}
+  branchesCountFrom: 5
+  branchesCountTo: 15
 --- !u!1 &2122137138
 GameObject:
   m_ObjectHideFlags: 0
