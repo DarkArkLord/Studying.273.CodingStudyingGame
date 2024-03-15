@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Assets.Scripts.States.Map.Components.Generators
+namespace Assets.Scripts.States.Map.Components.MapGenerators
 {
     public abstract class BaseMapGenerator : MonoBehaviour, IMapGenerator
     {

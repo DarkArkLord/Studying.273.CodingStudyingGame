@@ -1,11 +1,9 @@
 ﻿using Assets.Scripts.Utils;
 using System;
 using System.Collections.Generic;
-using System.Numerics;
 using UnityEngine;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
-namespace Assets.Scripts.States.Map.Components.Generators
+namespace Assets.Scripts.States.Map.Components.MapGenerators
 {
     public class Forest_2_Generator : BaseMapGenerator
     {

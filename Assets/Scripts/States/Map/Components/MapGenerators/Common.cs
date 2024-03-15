@@ -1,7 +1,7 @@
 ﻿using Assets.Scripts.Utils;
 using UnityEngine;
 
-namespace Assets.Scripts.States.Map.Components.Generators
+namespace Assets.Scripts.States.Map.Components.MapGenerators
 {
     public static class Common
     {

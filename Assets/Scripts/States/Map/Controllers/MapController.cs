@@ -1,4 +1,4 @@
-using Assets.Scripts.States.Map.Components.Generators;
+using Assets.Scripts.States.Map.Components.MapGenerators;
 using UnityEngine;
 
 namespace Assets.Scripts.States.Map.Controllers

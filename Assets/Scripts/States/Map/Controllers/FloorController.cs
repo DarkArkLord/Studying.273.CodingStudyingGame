@@ -1,5 +1,6 @@
+using Assets.Scripts.CommonComponents.TextureGenerators;
 using Assets.Scripts.States.Map.Components;
-using Assets.Scripts.States.Map.Components.Generators;
+using Assets.Scripts.States.Map.Components.MapGenerators;
 using UnityEngine;
 
 namespace Assets.Scripts.States.Map.Controllers

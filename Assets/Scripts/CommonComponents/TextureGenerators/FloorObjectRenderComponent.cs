@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Assets.Scripts.States.Map.Components
+namespace Assets.Scripts.CommonComponents.TextureGenerators
 {
     public class FloorObjectRenderComponent : MonoBehaviour
     {

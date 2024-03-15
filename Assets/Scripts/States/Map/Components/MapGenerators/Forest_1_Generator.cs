@@ -1,6 +1,6 @@
 ﻿using Assets.Scripts.Utils;
 
-namespace Assets.Scripts.States.Map.Components.Generators
+namespace Assets.Scripts.States.Map.Components.MapGenerators
 {
     public class Forest_1_Generator : BaseMapGenerator
     {

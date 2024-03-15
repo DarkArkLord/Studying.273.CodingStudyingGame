@@ -1,5 +1,5 @@
 ﻿using Assets.Scripts.CommonComponents;
-using Assets.Scripts.States.Map.Components.Generators;
+using Assets.Scripts.States.Map.Components.MapGenerators;
 using Assets.Scripts.States.Map.Controllers;
 using Assets.Scripts.StatesMachine;
 using Unity.VisualScripting;
