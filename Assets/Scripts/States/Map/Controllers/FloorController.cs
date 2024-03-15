@@ -23,7 +23,8 @@ namespace Assets.Scripts.States.Map.Controllers
                 floorElementsKeeper.PathMaterials.Length,
                 floorElementsKeeper.WallMaterials.Length);
 
-            floorElementsKeeper.ObjectPool.Init();
+            floorElementsKeeper.PathObjectPool.Init();
+            floorElementsKeeper.WallObjectPool.Init();
 
             Clear();
             Redraw();
@@ -35,18 +36,25 @@ namespace Assets.Scripts.States.Map.Controllers
             {
                 for (int y = 0; y < floor.GetLength(1); y++)
                 {
-                    var obj = floorElementsKeeper.ObjectPool.GetObject();
-                    floor[x, y] = obj;
-
                     var cell = Map.GetMapCell(x, y);
 
-                    var rendererComponent = obj.GetComponent<Renderer>();
-                    if (rendererComponent is null)
+                    GameObject obj;
+
+                    if (cell == MapCellContent.Wall)
                     {
-                        rendererComponent = obj.AddComponent<Renderer>();
+                        obj = floorElementsKeeper.WallObjectPool.GetObject();
+                    }
+                    else
+                    {
+                        obj = floorElementsKeeper.PathObjectPool.GetObject();
                     }
 
-                    rendererComponent.material = GetFloorElementMaterial(cell, floorElement[x, y]);
+                    floor[x, y] = obj;
+
+                    var material = GetFloorElementMaterial(cell, floorElement[x, y]);
+
+                    var rendererComponent = obj.GetComponent<FloorObjectRenderComponent>();
+                    rendererComponent.SetMaterial(material);
                     obj.transform.position = new Vector3(x, VerticalOffset, y);
                     obj.SetActive(true);
                 }
@@ -81,7 +89,7 @@ namespace Assets.Scripts.States.Map.Controllers
                         if (floor[x, y] != null)
                         {
                             var obj = floor[x, y];
-                            floorElementsKeeper.ObjectPool.FreeObject(obj);
+                            floorElementsKeeper.PathObjectPool.FreeObject(obj);
                             floor[x, y] = null;
                         }
                     }
@@ -91,7 +99,8 @@ namespace Assets.Scripts.States.Map.Controllers
 
         public void SetFloorActive(bool active)
         {
-            floorElementsKeeper.ObjectPool.gameObject.SetActive(active);
+            floorElementsKeeper.PathObjectPool.gameObject.SetActive(active);
+            floorElementsKeeper.WallObjectPool.gameObject.SetActive(active);
         }
     }
 }

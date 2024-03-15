@@ -50,7 +50,7 @@ namespace Assets.Scripts.States.Map.Components
             _camera = Camera.main;
             var movableCamera = _camera.GetOrAddComponent<SmoothMoveComponent>();
 
-            var _playerPrefab = Resources.Load("Models/PlayerModel") as GameObject;
+            var _playerPrefab = Resources.Load("Models/Map/PlayerModel") as GameObject;
             _playerElement = Instantiate(_playerPrefab);
             _playerElement.transform.name = "Player";
             _playerElement.transform.parent = transform;
@@ -94,7 +94,7 @@ namespace Assets.Scripts.States.Map.Components
 
         private void InitEnemies()
         {
-            var npcPrefub = Resources.Load("Models/NPCCube") as GameObject;
+            var npcPrefub = Resources.Load("Models/Map/NPCCube") as GameObject;
 
             var objectsPool = new GameObject("NpcObjectPool").AddComponent<ObjectPoolComponent>();
             objectsPool.transform.parent = transform;

@@ -6,8 +6,12 @@ namespace Assets.Scripts.States.Map.Components
     public class FloorElementsKeeper : MonoBehaviour
     {
         [SerializeField]
-        private ObjectPoolComponent objectPool;
-        public ObjectPoolComponent ObjectPool => objectPool;
+        private ObjectPoolComponent pathObjectPool;
+        public ObjectPoolComponent PathObjectPool => pathObjectPool;
+
+        [SerializeField]
+        private ObjectPoolComponent wallObjectPool;
+        public ObjectPoolComponent WallObjectPool => wallObjectPool;
 
         [SerializeField]
         private Material[] pathMaterials;
