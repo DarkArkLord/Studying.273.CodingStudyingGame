@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 859284ed78404bc4f9c49943f20aedca, type: 3}
-  m_Name: floor_path_config 1
+  m_Name: floor_path_config
   m_EditorClassIdentifier: 
   colors:
   - {r: 0, g: 1, b: 0.0627451, a: 0}
