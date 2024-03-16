@@ -72,11 +72,14 @@ namespace Assets.Scripts.States.Map.Controllers
         {
             while (true)
             {
-                var target = npc.Position2D + random.GetRandomDirection();
-                if (map.IsCanMove(target))
+                var direction = random.GetRandomDirection();
+                var dirVector = direction.DirectionToVector2Int();
+                var moveTarget = npc.Position2D + dirVector;
+                if (map.IsCanMove(moveTarget))
                 {
-                    var target3D = new Vector3(target.x, 0, target.y);
-                    npc.SetTarget(target3D);
+                    var moveTarget3 = new Vector3(moveTarget.x, 0, moveTarget.y);
+                    var rotateTarget3 = new Vector3(dirVector.x, 0, dirVector.y);
+                    npc.SetTarget(moveTarget3, rotateTarget3);
                     return;
                 }
             }

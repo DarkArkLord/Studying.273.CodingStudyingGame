@@ -96,7 +96,7 @@ namespace Assets.Scripts.States.Map.Components
 
         private void InitEnemies()
         {
-            var npcPrefub = Resources.Load("Models/Map/NPCCube") as GameObject;
+            var npcPrefub = Resources.Load("Models/Map/EnemyNpcModel") as GameObject;
 
             var objectsPool = new GameObject("NpcObjectPool").AddComponent<ObjectPoolComponent>();
             objectsPool.transform.parent = transform;

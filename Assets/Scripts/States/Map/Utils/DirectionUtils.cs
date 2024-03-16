@@ -29,17 +29,20 @@ namespace Assets.Scripts.States.Map.Utils
             return Vector2Int.zero;
         }
 
-        public static Vector2Int GetRandomDirection(this System.Random random)
+        public static Vector2Int DirectionToVector2Int(this MoveDirection direction)
+            => ((MoveDirection?)direction).DirectionToVector2Int();
+
+        public static MoveDirection GetRandomDirection(this System.Random random)
         {
             var value = random.Next(4);
             switch (value)
             {
-                case 0: return Vector2Int.left;
-                case 1: return Vector2Int.right;
-                case 2: return Vector2Int.up;
-                case 3: return Vector2Int.down;
+                case 0: return MoveDirection.Left;
+                case 1: return MoveDirection.Right;
+                case 2: return MoveDirection.Up;
+                case 3: return MoveDirection.Down;
             }
-            return Vector2Int.zero;
+            return MoveDirection.None;
         }
     }
 }
