@@ -70,24 +70,23 @@ namespace Assets.Scripts.States.Map.Controllers
 
                 IsMoving = isPlayerMoved || isCameraMoved;
 
-                if (!IsMoving && prevPlayerPosition != _player.Transform.position)
+                if (!IsMoving)
                 {
-                    var cell = floor.Map.GetMapCell(_player.Position2D);
-                    if (cell == MapCellContent.Input)
+                    lastCameraPosition = _camera.gameObject.transform.position;
+                    if (prevPlayerPosition != _player.Transform.position)
                     {
-                        StandOnInputEvent.Invoke();
-                    }
-                    else if (cell == MapCellContent.Output)
-                    {
-                        StandOnOutputEvent.Invoke();
+                        var cell = floor.Map.GetMapCell(_player.Position2D);
+                        if (cell == MapCellContent.Input)
+                        {
+                            StandOnInputEvent.Invoke();
+                        }
+                        else if (cell == MapCellContent.Output)
+                        {
+                            StandOnOutputEvent.Invoke();
+                        }
                     }
                 }
             }
-        }
-
-        public void SetPause(bool pause)
-        {
-            IsOnPause = pause;
         }
 
         public void Kill()
@@ -105,6 +104,11 @@ namespace Assets.Scripts.States.Map.Controllers
             _camera.Transform.position = new Vector3(floor.Map.StartX, 5, floor.Map.StartY - 10);
 
             lastCameraPosition = _camera.transform.position;
+        }
+
+        public void SetPause(bool pause)
+        {
+            IsOnPause = pause;
         }
 
         public void SetActive(bool active)
