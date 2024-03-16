@@ -16,6 +16,9 @@ namespace Assets.Scripts.States.Map.Components
         [SerializeField]
         private FloorElementsKeeper floorElementsKeeper;
 
+        [SerializeField]
+        private GameObject _playerPrefab;
+
         private StatesController<MainStateCode> statesController;
         private bool IsInited = false;
 
@@ -50,7 +53,6 @@ namespace Assets.Scripts.States.Map.Components
             _camera = Camera.main;
             var movableCamera = _camera.GetOrAddComponent<SmoothMoveComponent>();
 
-            var _playerPrefab = Resources.Load("Models/Map/PlayerModel") as GameObject;
             _playerElement = Instantiate(_playerPrefab);
             _playerElement.transform.name = "Player";
             _playerElement.transform.parent = transform;

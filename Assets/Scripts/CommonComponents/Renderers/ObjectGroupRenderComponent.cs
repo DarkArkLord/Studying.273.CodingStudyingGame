@@ -34,6 +34,7 @@ namespace Assets.Scripts.CommonComponents.Renderers
         {
             foreach (var renderer in GetRenderers())
             {
+                renderer.material.color = Color.white;
                 renderer.material.mainTexture = texture;
             }
         }
@@ -42,6 +43,7 @@ namespace Assets.Scripts.CommonComponents.Renderers
         {
             foreach (var renderer in GetRenderers())
             {
+                renderer.material.mainTexture = null;
                 renderer.material.color = color;
             }
         }

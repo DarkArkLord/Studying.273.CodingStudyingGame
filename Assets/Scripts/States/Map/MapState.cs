@@ -39,7 +39,9 @@ namespace Assets.Scripts.States.Map
         {
             yield return base.OnStateCreating();
             GlobalMapPause = false;
+
             _bootstrapper.OnMapInit(controller);
+            _bootstrapper.SetChildsActive(true);
             _bootstrapper.SetPause(GlobalMapPause);
             //_bootstrapper.SetChildsActive(!GlobalMapPause);
         }
