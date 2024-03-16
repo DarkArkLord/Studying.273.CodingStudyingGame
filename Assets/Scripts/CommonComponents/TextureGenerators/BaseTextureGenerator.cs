@@ -6,15 +6,8 @@ namespace Assets.Scripts.CommonComponents.TextureGenerators
     public abstract class BaseTextureGenerator : MonoBehaviour
     {
         [SerializeField]
-        private Color[] colors;
-
-        [SerializeField]
-        private ColorsConfigComponent colorsConfig;
-
-        public IReadOnlyList<Color> Colors
-            => colors != null && colors.Length > 0
-            ? colors
-            : colorsConfig.Colors;
+        private ColorsConfigSO colorsConfig;
+        public IReadOnlyList<Color> Colors => colorsConfig.Colors;
 
         [SerializeField]
         protected FilterMode filterMode;

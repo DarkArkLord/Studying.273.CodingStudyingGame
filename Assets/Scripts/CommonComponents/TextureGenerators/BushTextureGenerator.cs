@@ -6,16 +6,10 @@ namespace Assets.Scripts.CommonComponents.TextureGenerators
 {
     public class BushTextureGenerator : BaseTextureGenerator
     {
-        [SerializeField]
-        private Color[] branchColors;
 
         [SerializeField]
-        private ColorsConfigComponent branchColorsConfig;
-
-        public IReadOnlyList<Color> BranchColors
-            => branchColors != null && branchColors.Length > 0
-            ? branchColors
-            : branchColorsConfig.Colors;
+        private ColorsConfigSO branchColorsConfig;
+        public IReadOnlyList<Color> BranchColors => branchColorsConfig.Colors;
 
         [SerializeField]
         private int branchesCountFrom = 5;

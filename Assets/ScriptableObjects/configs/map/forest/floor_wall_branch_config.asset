@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 859284ed78404bc4f9c49943f20aedca, type: 3}
+  m_Name: floor_wall_branch_config
+  m_EditorClassIdentifier: 
+  colors:
+  - {r: 0.69803923, g: 0.25882354, b: 0, a: 0}
+  - {r: 0.59607846, g: 0.21960784, b: 0, a: 0}
+  - {r: 0.74509805, g: 0.2901961, b: 0.023529412, a: 0}
+  - {r: 0.6313726, g: 0.31764707, b: 0.13333334, a: 0}

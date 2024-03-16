@@ -3,7 +3,8 @@ using UnityEngine;
 
 namespace Assets.Scripts.CommonComponents.TextureGenerators
 {
-    public class ColorsConfigComponent : MonoBehaviour
+    [CreateAssetMenu(fileName = "New ColorsConfig", menuName = "Configs/Colors Config", order = 50)]
+    public class ColorsConfigSO : ScriptableObject
     {
         [SerializeField]
         private Color[] colors;
