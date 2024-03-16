@@ -22,6 +22,7 @@ namespace Assets.Scripts.States.Map.Controllers
         public Vector2Int Position2D => _player.Position2D;
 
         private Vector3 lastCameraPosition;
+        private Vector3 prevPlayerPosition;
 
         public UnityEvent StandOnInputEvent { get; private set; } = new UnityEvent();
         public UnityEvent StandOnOutputEvent { get; private set; } = new UnityEvent();
@@ -45,6 +46,7 @@ namespace Assets.Scripts.States.Map.Controllers
                 var movementVector = moveDirection.DirectionToVector2Int();
                 if (movementVector.magnitude > 0)
                 {
+                    prevPlayerPosition = _player.Transform.position;
                     IsMoving = true;
                     var isCanMove = floor.Map.IsCanMove(_player.Position2D + movementVector);
                     if (isCanMove)
@@ -67,7 +69,7 @@ namespace Assets.Scripts.States.Map.Controllers
 
                 IsMoving = isPlayerMoved || isCameraMoved;
 
-                if (!IsMoving)
+                if (!IsMoving && prevPlayerPosition != _player.Transform.position)
                 {
                     var cell = floor.Map.GetMapCell(_player.Position2D);
                     if (cell == MapCellContent.Input)
