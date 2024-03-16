@@ -44,7 +44,8 @@ namespace Assets.Scripts.States.Map.Components
 
         private void InitMap()
         {
-            var mapController = new MapController(MapGenerator, 20, 20);
+            var mapSize = 50;
+            var mapController = new MapController(MapGenerator, mapSize, mapSize);
             _floorController = new FloorController(mapController, floorElementsKeeper);
         }
 

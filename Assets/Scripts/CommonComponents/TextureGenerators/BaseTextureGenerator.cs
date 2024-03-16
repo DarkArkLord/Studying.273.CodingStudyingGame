@@ -1,11 +1,20 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace Assets.Scripts.CommonComponents.TextureGenerators
 {
     public abstract class BaseTextureGenerator : MonoBehaviour
     {
         [SerializeField]
-        protected Color[] colors;
+        private Color[] colors;
+
+        [SerializeField]
+        private ColorsConfigComponent colorsConfig;
+
+        public IReadOnlyList<Color> Colors
+            => colors != null && colors.Length > 0
+            ? colors
+            : colorsConfig.Colors;
 
         [SerializeField]
         protected FilterMode filterMode;

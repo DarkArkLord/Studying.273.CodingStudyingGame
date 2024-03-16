@@ -16,8 +16,8 @@ namespace Assets.Scripts.CommonComponents.TextureGenerators
             {
                 for (int y = 0; y < height; y++)
                 {
-                    var index = random.Next(colors.Length);
-                    var color = colors[index];
+                    var index = random.Next(Colors.Count);
+                    var color = Colors[index];
                     texture.SetPixel(x, y, color);
                 }
             }

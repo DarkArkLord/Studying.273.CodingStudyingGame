@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Utils;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.CommonComponents.TextureGenerators
@@ -7,6 +8,14 @@ namespace Assets.Scripts.CommonComponents.TextureGenerators
     {
         [SerializeField]
         private Color[] branchColors;
+
+        [SerializeField]
+        private ColorsConfigComponent branchColorsConfig;
+
+        public IReadOnlyList<Color> BranchColors
+            => branchColors != null && branchColors.Length > 0
+            ? branchColors
+            : branchColorsConfig.Colors;
 
         [SerializeField]
         private int branchesCountFrom = 5;
@@ -37,8 +46,8 @@ namespace Assets.Scripts.CommonComponents.TextureGenerators
             {
                 for (int y = 0; y < texture.height; y++)
                 {
-                    var index = random.Next(colors.Length);
-                    var color = colors[index];
+                    var index = random.Next(Colors.Count);
+                    var color = Colors[index];
                     texture.SetPixel(x, y, color);
                 }
             }
@@ -110,8 +119,8 @@ namespace Assets.Scripts.CommonComponents.TextureGenerators
 
         private void PrintBranchPixel(Texture2D texture, System.Random random, int x, int y)
         {
-            var colorIndex = random.Next(branchColors.Length);
-            texture.SetPixel(x, y, branchColors[colorIndex]);
+            var colorIndex = random.Next(BranchColors.Count);
+            texture.SetPixel(x, y, BranchColors[colorIndex]);
         }
 
         private void PrintSubBranch(Texture2D texture, System.Random random, int startPointX, int startPointY, int length, int xDirection)
