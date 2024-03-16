@@ -25,16 +25,15 @@ namespace Assets.Scripts.States.MainMenu
         {
             Ui.SetCanvasAlpha(0);
             Ui.EnableCanvas();
+
+            var hasContinueButton = controller.UsingStates.Count > 0;
+            Ui.ContinueButton.gameObject.SetActive(hasContinueButton);
+
             yield return Ui.ShowPanelCorutine();
 
             Ui.StartButton.OnClick.AddListener(StartButtonClick);
-            if (controller.UsingStates.Count < 1)
+            if (hasContinueButton)
             {
-                Ui.ContinueButton.gameObject.SetActive(false);
-            }
-            else
-            {
-                Ui.ContinueButton.gameObject.SetActive(true);
                 Ui.ContinueButton.OnClick.AddListener(ContinueButtonClick);
             }
             Ui.ExitButton.OnClick.AddListener(ExitButtonClick);
