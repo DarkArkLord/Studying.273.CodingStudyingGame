@@ -2,7 +2,6 @@
 using Assets.Scripts.States.Map.Utils;
 using Assets.Scripts.Utils;
 using UnityEngine;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 namespace Assets.Scripts.States.Map.Controllers
 {
