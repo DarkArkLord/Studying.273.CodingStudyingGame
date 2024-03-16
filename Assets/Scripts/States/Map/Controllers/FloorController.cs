@@ -1,5 +1,5 @@
 using Assets.Scripts.CommonComponents;
-using Assets.Scripts.CommonComponents.TextureGenerators;
+using Assets.Scripts.CommonComponents.Renderers;
 using Assets.Scripts.States.Map.Components;
 using Assets.Scripts.States.Map.Components.MapGenerators;
 using Assets.Scripts.Utils;
@@ -60,9 +60,8 @@ namespace Assets.Scripts.States.Map.Controllers
                     var pool = GetPool(cell);
 
                     var obj = floor[x, y] = pool.GetObject();
-                    var rendererComponent = obj.GetComponent<FloorObjectRenderComponent>();
 
-                    SetRenderContent(cell, rendererComponent, random);
+                    SetRenderContent(cell, obj, random);
 
                     obj.transform.position = new Vector3(x, VerticalOffset, y);
                     obj.SetActive(true);
@@ -80,22 +79,26 @@ namespace Assets.Scripts.States.Map.Controllers
             return floorElementsKeeper.PathObjectPool;
         }
 
-        private void SetRenderContent(MapCellContent cell, FloorObjectRenderComponent obj, System.Random random)
+        private void SetRenderContent(MapCellContent cell, GameObject obj, System.Random random)
         {
-            var textureIndex = random.Next(texturesCount);
+            var textureIndex1 = random.Next(texturesCount);
+            var ogr = obj.GetComponent<ObjectGroupRenderComponent>();
+            var sor = obj.GetComponent<SomeObjectsRenderComponent>();
             switch (cell)
             {
                 case MapCellContent.Path:
-                    obj.SetTexture(pathTextures[textureIndex]);
+                    ogr.SetTexture(pathTextures[textureIndex1]);
                     return;
                 case MapCellContent.Wall:
-                    obj.SetTexture(wallTextures[textureIndex]);
+                    sor.SetTexture(0, pathTextures[textureIndex1]);
+                    var textureIndex2 = random.Next(texturesCount);
+                    sor.SetTexture(1, wallTextures[textureIndex2]);
                     return;
                 case MapCellContent.Input:
-                    obj.SetColor(floorElementsKeeper.InputColor);
+                    ogr.SetColor(floorElementsKeeper.InputColor);
                     return;
                 case MapCellContent.Output:
-                    obj.SetColor(floorElementsKeeper.OutputColor);
+                    ogr.SetColor(floorElementsKeeper.OutputColor);
                     return;
             }
         }

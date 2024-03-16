@@ -2416,7 +2416,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b71bae6e4d50034d9f144bf9fafd699, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _prefab: {fileID: 4269905547878521643, guid: 0981c6220adc35c47bb403503d25c1cb, type: 3}
+  _prefab: {fileID: 5866389714318713086, guid: f095ddbe855b0b045b800f8c4097bb67, type: 3}
 --- !u!1 &373702149
 GameObject:
   m_ObjectHideFlags: 0
@@ -10576,6 +10576,8 @@ MonoBehaviour:
   - {r: 0.3659128, g: 0.6320754, b: 0.062611245, a: 0}
   - {r: 0.14304964, g: 0.6313726, b: 0.0627451, a: 0}
   - {r: 0.0627451, g: 0.6313726, b: 0.24130315, a: 0}
+  - {r: 0.41568628, g: 0.23921569, b: 0.09803922, a: 0}
+  - {r: 0.32941177, g: 0.3137255, b: 0.29803923, a: 0}
   filterMode: 1
   width: 25
   height: 25
@@ -11488,6 +11490,8 @@ MonoBehaviour:
   - {r: 0.3659128, g: 0.6320754, b: 0.062611245, a: 0}
   - {r: 0.14304964, g: 0.6313726, b: 0.0627451, a: 0}
   - {r: 0.0627451, g: 0.6313726, b: 0.24130315, a: 0}
+  - {r: 0.41509432, g: 0.24007219, b: 0.09985758, a: 0}
+  - {r: 0.3301887, g: 0.31201792, b: 0.29748133, a: 0}
   filterMode: 2
   width: 25
   height: 25
@@ -12952,7 +12956,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b71bae6e4d50034d9f144bf9fafd699, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _prefab: {fileID: 4269905547878521643, guid: 0981c6220adc35c47bb403503d25c1cb, type: 3}
+  _prefab: {fileID: 5866389714318713086, guid: f095ddbe855b0b045b800f8c4097bb67, type: 3}
 --- !u!114 &2113959718
 MonoBehaviour:
   m_ObjectHideFlags: 0

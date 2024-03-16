@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.Scripts.CommonComponents.TextureGenerators
+namespace Assets.Scripts.CommonComponents.Renderers
 {
-    public class FloorObjectRenderComponent : MonoBehaviour
+    public class ObjectGroupRenderComponent : MonoBehaviour
     {
         [SerializeField]
         private GameObject[] objects;
