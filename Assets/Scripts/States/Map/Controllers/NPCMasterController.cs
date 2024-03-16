@@ -8,7 +8,7 @@ namespace Assets.Scripts.States.Map.Controllers
 {
     public class NPCMasterController
     {
-        private int enemyCount;
+        private int npcCount;
         private ObjectPoolComponent pool;
         private NPCMovementController[] npcs;
         private PlayerMovementController player;
@@ -19,14 +19,14 @@ namespace Assets.Scripts.States.Map.Controllers
 
         public IReadOnlyList<NPCMovementController> NPCs => npcs;
 
-        public NPCMasterController(int enemyCount, ObjectPoolComponent pool, PlayerMovementController player, MapController map)
+        public NPCMasterController(int npcCount, ObjectPoolComponent pool, PlayerMovementController player, MapController map)
         {
             this.player = player;
 
-            this.enemyCount = enemyCount;
+            this.npcCount = npcCount;
             this.pool = pool;
 
-            npcs = new NPCMovementController[enemyCount];
+            npcs = new NPCMovementController[npcCount];
             for (int i = 0; i < npcs.Length; i++)
             {
                 var npc = pool.GetObject();
