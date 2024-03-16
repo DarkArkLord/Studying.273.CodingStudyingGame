@@ -69,69 +69,96 @@ namespace Assets.Scripts.CommonComponents.TextureGenerators
             {
                 var step = random.Next(100) + 1;
 
+                var subBranchLin = (int)System.Math.Round((endBorder - y) * random.Next(50, 100) / 100.0);
+
                 if (step <= 20)
                 {
-                    if (x - 1 < 0) continue;
-
-                    if(random.Next() % 20 == 0)
+                    if (x - 1 >= 0)
                     {
-                        PrintSubBranch(texture, random, x, y, endBorder);
-                    }
+                        if (random.Next() % 10 == 0)
+                        {
+                            PrintSubBranch(texture, random, x, y, subBranchLin, 1);
+                        }
 
-                    x--;
+                        x--;
+                        PrintBranchPixel(texture, random, x, y);
+                    }
                 }
                 else if (step >= 80)
                 {
-                    if (x + 1 >= texture.width) continue;
-
-                    if (random.Next() % 20 == 0)
+                    if (x + 1 < texture.width)
                     {
-                        PrintSubBranch(texture, random, x, y, endBorder);
-                    }
+                        if (random.Next() % 10 == 0)
+                        {
+                            PrintSubBranch(texture, random, x, y, subBranchLin, -1);
+                        }
 
-                    x++;
+                        x++;
+                        PrintBranchPixel(texture, random, x, y);
+                    }
                 }
                 else
                 {
                     y++;
+                    PrintBranchPixel(texture, random, x, y);
                 }
 
-                var colorIndex = random.Next(branchColors.Length);
-                texture.SetPixel(x, y, branchColors[colorIndex]);
+                y++;
+                PrintBranchPixel(texture, random, x, y);
             }
         }
 
-        private void PrintSubBranch(Texture2D texture, System.Random random, int startPointX, int startPointY, int endPoint)
+        private void PrintBranchPixel(Texture2D texture, System.Random random, int x, int y)
         {
-            var heightPart = texture.height / 10;
-            var endPointOffset = random.Next(-heightPart, heightPart);
-            endPoint += endPointOffset;
+            var colorIndex = random.Next(branchColors.Length);
+            texture.SetPixel(x, y, branchColors[colorIndex]);
+        }
 
+        private void PrintSubBranch(Texture2D texture, System.Random random, int startPointX, int startPointY, int length, int xDirection)
+        {
             int x = startPointX;
             int y = startPointY;
-            while (y < endPoint)
+            while (length > 0)
             {
                 var step = random.Next(100) + 1;
 
-                if (step <= 20)
+                if (step <= 50)
                 {
-                    if (x - 1 < 0) continue;
-
-                    x--;
+                    if (x + xDirection >= 0 && x + xDirection < texture.width)
+                    {
+                        x += xDirection;
+                        PrintBranchPixel(texture, random, x, y);
+                        length--;
+                    }
                 }
                 else if (step >= 80)
                 {
-                    if (x + 1 >= texture.width) continue;
-
-                    x++;
+                    if (x - xDirection >= 0 && x - xDirection < texture.width)
+                    {
+                        x -= xDirection;
+                        PrintBranchPixel(texture, random, x, y);
+                        length--;
+                    }
                 }
                 else
                 {
                     y++;
+                    PrintBranchPixel(texture, random, x, y);
+                    length--;
                 }
 
-                var colorIndex = random.Next(branchColors.Length);
-                texture.SetPixel(x, y, branchColors[colorIndex]);
+                if (random.Next() % 2 == 0 && x + xDirection >= 0 && x + xDirection < texture.width)
+                {
+                    x += xDirection;
+                    PrintBranchPixel(texture, random, x, y);
+                    length--;
+                }
+                else
+                {
+                    y++;
+                    PrintBranchPixel(texture, random, x, y);
+                    length--;
+                }
             }
         }
     }
