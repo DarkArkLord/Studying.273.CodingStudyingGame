@@ -3,6 +3,7 @@ using Assets.Scripts.CommonComponents.Renderers;
 using Assets.Scripts.States.Map.Components;
 using Assets.Scripts.States.Map.Components.MapGenerators;
 using Assets.Scripts.Utils;
+using System;
 using UnityEngine;
 
 namespace Assets.Scripts.States.Map.Controllers
@@ -20,6 +21,7 @@ namespace Assets.Scripts.States.Map.Controllers
         private Texture[] pathTextures;
         private Texture[] wallTextures;
 
+        private int[,] floorTextures;
         private GameObject[,] floor;
 
         public FloorController(MapController mapController, FloorElementsKeeper floorElementsKeeper)
@@ -52,19 +54,37 @@ namespace Assets.Scripts.States.Map.Controllers
         {
             var random = RandomUtils.Random;
 
+            if (floorTextures == null)
+            {
+                InitFloorTextures(random);
+            }
+
             for (int x = 0; x < floor.GetLength(0); x++)
             {
                 for (int y = 0; y < floor.GetLength(1); y++)
                 {
                     var cell = Map.GetMapCell(x, y);
                     var pool = GetPool(cell);
-
                     var obj = floor[x, y] = pool.GetObject();
+                    var textureIndex = floorTextures[x, y];
 
-                    SetRenderContent(cell, obj, random);
+                    SetRenderContent(cell, obj, textureIndex);
 
                     obj.transform.position = new Vector3(x, VerticalOffset, y);
                     obj.SetActive(true);
+                }
+            }
+        }
+
+        private void InitFloorTextures(System.Random random)
+        {
+            floorTextures = new int[Map.Width, Map.Height];
+            for (int x = 0; x < floorTextures.GetLength(0); x++)
+            {
+                for (int y = 0; y < floorTextures.GetLength(1); y++)
+                {
+                    var textureIndex = random.Next(texturesCount);
+                    floorTextures[x, y] = textureIndex;
                 }
             }
         }
@@ -79,20 +99,21 @@ namespace Assets.Scripts.States.Map.Controllers
             return floorElementsKeeper.PathObjectPool;
         }
 
-        private void SetRenderContent(MapCellContent cell, GameObject obj, System.Random random)
+        private void SetRenderContent(MapCellContent cell, GameObject obj, int textureIndex)
         {
-            var textureIndex1 = random.Next(texturesCount);
+            if (cell == MapCellContent.Wall)
+            {
+                var sor = obj.GetComponent<SomeObjectsRenderComponent>();
+                sor.SetTexture(0, pathTextures[textureIndex]);
+                sor.SetTexture(1, wallTextures[textureIndex]);
+                return;
+            }
+
             var ogr = obj.GetComponent<ObjectGroupRenderComponent>();
-            var sor = obj.GetComponent<SomeObjectsRenderComponent>();
             switch (cell)
             {
                 case MapCellContent.Path:
-                    ogr.SetTexture(pathTextures[textureIndex1]);
-                    return;
-                case MapCellContent.Wall:
-                    sor.SetTexture(0, pathTextures[textureIndex1]);
-                    var textureIndex2 = random.Next(texturesCount);
-                    sor.SetTexture(1, wallTextures[textureIndex2]);
+                    ogr.SetTexture(pathTextures[textureIndex]);
                     return;
                 case MapCellContent.Input:
                     ogr.SetColor(floorElementsKeeper.InputColor);
