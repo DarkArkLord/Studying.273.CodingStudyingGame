@@ -5,7 +5,7 @@ namespace Assets.Scripts.States.Map.Utils
 {
     public static class DirectionUtils
     {
-        public static Vector2 DirectionToVector(this MoveDirection direction)
+        public static Vector2 DirectionToVector2(this MoveDirection direction)
         {
             switch (direction)
             {
@@ -17,7 +17,7 @@ namespace Assets.Scripts.States.Map.Utils
             return Vector2.zero;
         }
 
-        public static Vector2Int DirectionToVectorInt(this MoveDirection? direction)
+        public static Vector2Int DirectionToVector2Int(this MoveDirection? direction)
         {
             switch (direction)
             {

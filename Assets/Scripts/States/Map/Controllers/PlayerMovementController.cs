@@ -42,7 +42,7 @@ namespace Assets.Scripts.States.Map.Controllers
 
             if (!IsMoving)
             {
-                var movementVector = moveDirection.DirectionToVectorInt();
+                var movementVector = moveDirection.DirectionToVector2Int();
                 if (movementVector.magnitude > 0)
                 {
                     IsMoving = true;
@@ -51,7 +51,7 @@ namespace Assets.Scripts.States.Map.Controllers
                     {
                         var offset = new Vector3(movementVector.x, 0, movementVector.y);
 
-                        _player.SetTarget(_player.Transform.position + offset);
+                        _player.SetTarget(_player.Transform.position + offset, offset);
                         _camera.SetTarget(_camera.Transform.position + offset);
                     }
                     else
