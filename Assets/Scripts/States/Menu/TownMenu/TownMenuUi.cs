@@ -1,7 +1,7 @@
 ﻿using Assets.Scripts.CommonComponents;
 using UnityEngine;
 
-namespace Assets.Scripts.States.TownMenu
+namespace Assets.Scripts.States.Menu.TownMenu
 {
     public class TownMenuUi : BaseUiModel
     {

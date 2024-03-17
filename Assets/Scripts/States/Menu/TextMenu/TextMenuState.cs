@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace Assets.Scripts.States.TextMenu
+namespace Assets.Scripts.States.Menu.TextMenu
 {
     public class TextMenuState : BaseState<MainStateCode>
     {

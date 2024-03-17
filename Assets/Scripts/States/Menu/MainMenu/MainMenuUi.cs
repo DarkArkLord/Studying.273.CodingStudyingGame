@@ -1,7 +1,7 @@
 ﻿using Assets.Scripts.CommonComponents;
 using UnityEngine;
 
-namespace Assets.Scripts.States.MainMenu
+namespace Assets.Scripts.States.Menu.MainMenu
 {
     public class MainMenuUi : BaseUiModel
     {

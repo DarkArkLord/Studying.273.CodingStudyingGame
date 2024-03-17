@@ -2,7 +2,7 @@
 using TMPro;
 using UnityEngine;
 
-namespace Assets.Scripts.States.TextMenu
+namespace Assets.Scripts.States.Menu.TextMenu
 {
     public class TextMenuUi : BaseUiModel
     {
