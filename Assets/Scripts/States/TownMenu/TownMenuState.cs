@@ -2,40 +2,39 @@
 using System.Collections;
 using UnityEngine;
 
-namespace Assets.Scripts.States.MainMenu
+namespace Assets.Scripts.States.TownMenu
 {
-    public class MainMenuState : BaseState<MainStateCode>
+    public class TownMenuState : BaseState<MainStateCode>
     {
         #region Main info
 
-        public override MainStateCode Id => MainStateCode.MainMenu;
+        public override MainStateCode Id => MainStateCode.TownMenu;
 
         public override void OnUpdate()
         {
-            //
+            if (Input.GetKeyDown(KeyCode.Escape) && controller.CurrentState.Id == Id)
+            {
+                controller.PushState(MainStateCode.MainMenu);
+                return;
+            }
         }
 
         #endregion
 
         [SerializeField]
-        private MainMenuUi _ui;
-        public MainMenuUi Ui => _ui;
+        private TownMenuUi _ui;
+        public TownMenuUi Ui => _ui;
 
         public override IEnumerator OnStateCreating()
         {
             Ui.SetCanvasAlpha(0);
             Ui.EnableCanvas();
 
-            var hasContinueButton = controller.UsingStates.Count > 0;
-            Ui.ContinueButton.gameObject.SetActive(hasContinueButton);
-
             yield return Ui.ShowPanelCorutine();
 
-            Ui.StartButton.OnClick.AddListener(StartButtonClick);
-            if (hasContinueButton)
-            {
-                Ui.ContinueButton.OnClick.AddListener(ContinueButtonClick);
-            }
+            Ui.GoButton.OnClick.AddListener(GoButtonClick);
+            Ui.TalkButton.OnClick.AddListener(TalkButtonClick);
+            Ui.SaveButton.OnClick.AddListener(SaveButtonClick);
             Ui.ExitButton.OnClick.AddListener(ExitButtonClick);
 
             yield return base.OnStateCreating();
@@ -58,8 +57,9 @@ namespace Assets.Scripts.States.MainMenu
 
         public override IEnumerator OnStateDestroy()
         {
-            Ui.StartButton.OnClick.RemoveAllListeners();
-            Ui.ContinueButton.OnClick.RemoveAllListeners();
+            Ui.GoButton.OnClick.RemoveAllListeners();
+            Ui.TalkButton.OnClick.RemoveAllListeners();
+            Ui.SaveButton.OnClick.RemoveAllListeners();
             Ui.ExitButton.OnClick.RemoveAllListeners();
 
             yield return Ui.HidePanelCorutine();
@@ -67,15 +67,20 @@ namespace Assets.Scripts.States.MainMenu
             yield return base.OnStateDestroy();
         }
 
-        private void StartButtonClick()
+        private void GoButtonClick()
         {
             controller.ClearStatesStack();
-            controller.UseState(MainStateCode.TownMenu);
+            controller.UseState(MainStateCode.Map_Forest_1);
         }
 
-        private void ContinueButtonClick()
+        private void TalkButtonClick()
         {
-            controller.PopState();
+            //
+        }
+
+        private void SaveButtonClick()
+        {
+            //
         }
 
         private void ExitButtonClick()

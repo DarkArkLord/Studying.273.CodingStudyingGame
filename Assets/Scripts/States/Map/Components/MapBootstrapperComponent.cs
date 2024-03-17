@@ -79,8 +79,7 @@ namespace Assets.Scripts.States.Map.Components
                 else
                 {
                     statesController.ClearStatesStack();
-                    // Add town menu
-                    statesController.UseState(MainStateCode.MainMenu);
+                    statesController.UseState(MainStateCode.TownMenu);
                 }
             });
 
@@ -95,9 +94,8 @@ namespace Assets.Scripts.States.Map.Components
                         statesController.PushState(MainStateCode.Map_Forest_2);
                         break;
                     case MainStateCode.Map_Forest_2:
-                        // Add town menu
                         statesController.ClearStatesStack();
-                        statesController.UseState(MainStateCode.MainMenu);
+                        statesController.UseState(MainStateCode.TownMenu);
                         break;
                 }
             });

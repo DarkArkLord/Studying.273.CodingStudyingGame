@@ -8,17 +8,19 @@
     public enum MainStateCode
     {
         None = 0,
-        Exit = 10,
-        Init = 20,
-        MainMenu = 30,
+        Init = 1,
+        Exit = 2,
 
-        Map_Forest_1 = 40,
-        Map_Forest_2 = 41,
+        MainMenu = 10,
+        TownMenu = 11,
 
-        Battle_test = 50,
-        Battle_NumbersOrder = 51,
-        Battle_Equations = 52,
-        Battle_WeightBalancer = 53,
-        Battle_ExecutorNumbers = 54,
+        Map_Forest_1 = 20,
+        Map_Forest_2 = 21,
+
+        Battle_test = 30,
+        Battle_NumbersOrder = 31,
+        Battle_Equations = 32,
+        Battle_WeightBalancer = 33,
+        Battle_ExecutorNumbers = 34,
     }
 }
