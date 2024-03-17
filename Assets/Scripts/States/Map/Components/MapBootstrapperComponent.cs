@@ -60,7 +60,7 @@ namespace Assets.Scripts.States.Map.Components
         {
             _camera = Camera.main;
             var movableCamera = _camera.gameObject.GetComponent<SmoothMoveComponent>();
-            if (movableCamera != null)
+            if (movableCamera is null)
             {
                 movableCamera = _camera.gameObject.AddComponent<SmoothMoveComponent>();
             }
