@@ -13,6 +13,7 @@
 
         MainMenu = 10,
         TownMenu = 11,
+        TextMenu = 12,
 
         Map_Forest_1 = 20,
         Map_Forest_2 = 21,

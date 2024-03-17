@@ -75,7 +75,7 @@ namespace Assets.Scripts.States.TownMenu
 
         private void TalkButtonClick()
         {
-            //
+            controller.PushState(MainStateCode.TextMenu);
         }
 
         private void SaveButtonClick()
