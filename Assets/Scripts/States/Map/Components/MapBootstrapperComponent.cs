@@ -2,7 +2,6 @@
 using Assets.Scripts.States.Map.Components.MapGenerators;
 using Assets.Scripts.States.Map.Controllers;
 using Assets.Scripts.StatesMachine;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -60,7 +59,11 @@ namespace Assets.Scripts.States.Map.Components
         private void InitPlayer()
         {
             _camera = Camera.main;
-            var movableCamera = _camera.GetOrAddComponent<SmoothMoveComponent>();
+            var movableCamera = _camera.gameObject.GetComponent<SmoothMoveComponent>();
+            if (movableCamera != null)
+            {
+                movableCamera = _camera.gameObject.AddComponent<SmoothMoveComponent>();
+            }
 
             _playerElement = Instantiate(_playerPrefab);
             _playerElement.transform.name = "Player";

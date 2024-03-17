@@ -3,7 +3,6 @@ using Assets.Scripts.CommonComponents.Renderers;
 using Assets.Scripts.States.Map.Components;
 using Assets.Scripts.States.Map.Components.MapGenerators;
 using Assets.Scripts.Utils;
-using System;
 using UnityEngine;
 
 namespace Assets.Scripts.States.Map.Controllers
