@@ -37,8 +37,9 @@ namespace Assets.Scripts.States.Map.Controllers
 
             foreach (var enemy in enemies.NPCs)
             {
-                if (enemy.Position2D == player.Position2D && enemy.IsAlive && player.IsAlive)
+                if (enemy.Position2D == player.Position2D && enemy.IsInteractive && player.IsInteractive)
                 {
+                    enemy.SetInteractive(false);
                     dataKeeper.NpcInteraction = new NpcInteractionInfo { Npc = enemy, NpcType = InteractedNpcType.Enemy, };
                     EnemyInteractionEvent.Invoke(MainStateCode.Battle_ExecutorNumbers);
                     return;
@@ -46,7 +47,7 @@ namespace Assets.Scripts.States.Map.Controllers
 
                 foreach (var friend in friends.NPCs)
                 {
-                    if (friend.Position2D == enemy.Position2D && friend.IsAlive && enemy.IsAlive)
+                    if (friend.Position2D == enemy.Position2D && friend.IsInteractive && enemy.IsInteractive)
                     {
                         if (random.Next() % 2 == 0)
                         {
@@ -62,9 +63,10 @@ namespace Assets.Scripts.States.Map.Controllers
 
             foreach (var friend in friends.NPCs)
             {
-                if (friend.Position2D == player.Position2D && friend.IsAlive && player.IsAlive)
+                if (friend.Position2D == player.Position2D && friend.IsInteractive && player.IsInteractive)
                 {
                     //dataKeeper.NpcInteraction = new NpcInteractionInfo { Npc = friend, NpcType = InteractedNpcType.Friend, };
+                    friend.SetInteractive(false);
                     dataKeeper.TextMenuText = "Привет :з";
                     EnemyInteractionEvent.Invoke(MainStateCode.TextMenu);
                     return;

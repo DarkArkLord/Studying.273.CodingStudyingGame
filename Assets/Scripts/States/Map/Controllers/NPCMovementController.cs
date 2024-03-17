@@ -31,8 +31,11 @@ namespace Assets.Scripts.States.Map.Controllers
         public float RespawnWaitingTime { get; private set; }
         private float moveWaitingTime;
 
+        private bool isInteractive = false;
+
         public bool IsMoving { get; private set; } = false;
         public bool IsAlive { get; private set; } = false;
+        public bool IsInteractive => IsAlive && !IsMoving && isInteractive;
         public bool IsOnPause { get; private set; } = false;
 
         public Vector2Int Position2D => npc.Position2D;
@@ -61,6 +64,7 @@ namespace Assets.Scripts.States.Map.Controllers
                     moveWaitingTime -= Time.deltaTime;
                     if (moveWaitingTime < 0)
                     {
+                        isInteractive = true;
                         IsMoving = true;
                         SetMoveTarget();
                         moveWaitingTime = timeBeforeSteps;
@@ -106,6 +110,7 @@ namespace Assets.Scripts.States.Map.Controllers
         {
             IsAlive = true;
             var playerPos = player.Position2D;
+
             while (true)
             {
                 var x = random.Next(map.Width);
@@ -120,11 +125,18 @@ namespace Assets.Scripts.States.Map.Controllers
                     break;
                 }
             }
+
+            isInteractive = true;
         }
 
         public void SetPause(bool pause)
         {
             IsOnPause = pause;
+        }
+
+        public void SetInteractive(bool interactive)
+        {
+            isInteractive = interactive;
         }
     }
 }

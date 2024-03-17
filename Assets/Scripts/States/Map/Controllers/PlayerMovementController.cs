@@ -19,6 +19,7 @@ namespace Assets.Scripts.States.Map.Controllers
         public bool IsMoving { get; private set; } = false;
 
         public bool IsAlive => true;
+        public bool IsInteractive => IsAlive && !IsMoving;
 
         public Vector2Int Position2D => _player.Position2D;
 

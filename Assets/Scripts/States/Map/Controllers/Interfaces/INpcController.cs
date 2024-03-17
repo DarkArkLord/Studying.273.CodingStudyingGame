@@ -2,6 +2,7 @@
 {
     public interface INpcController : IMapEntityController
     {
+        public void SetInteractive(bool interactive);
         public void OnUpdate();
     }
 }
