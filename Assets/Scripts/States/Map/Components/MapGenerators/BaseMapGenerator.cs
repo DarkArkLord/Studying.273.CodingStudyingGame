@@ -37,11 +37,11 @@ namespace Assets.Scripts.States.Map.Components.MapGenerators
             return new Vector2Int(x, y);
         }
 
-        public abstract MapPathConfig GeneratePathMap(int width, int height);
+        public abstract MapPathConfig GeneratePathMap(int width, int height, bool hasInput = true, bool hasOutput = true);
     }
 
     public interface IMapGenerator
     {
-        public MapPathConfig GeneratePathMap(int width, int height);
+        public MapPathConfig GeneratePathMap(int width, int height, bool hasInput = true, bool hasOutput = true);
     }
 }

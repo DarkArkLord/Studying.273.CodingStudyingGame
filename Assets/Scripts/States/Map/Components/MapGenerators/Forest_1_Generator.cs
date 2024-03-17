@@ -10,7 +10,7 @@ namespace Assets.Scripts.States.Map.Components.MapGenerators
         [SerializeField]
         private int antiProbability = 5;
 
-        public override MapPathConfig GeneratePathMap(int width, int height)
+        public override MapPathConfig GeneratePathMap(int width, int height, bool hasInput = true, bool hasOutput = true)
         {
             var random = RandomUtils.Random;
 
@@ -31,10 +31,16 @@ namespace Assets.Scripts.States.Map.Components.MapGenerators
             }
 
             var input = GenerateInputPoint(random, width, height);
-            map[input.x, input.y] = MapCellContent.Input;
+            if (hasInput)
+            {
+                map[input.x, input.y] = MapCellContent.Input;
+            }
 
             var output = GenerateOutputPoint(random, width, height);
-            map[output.x, output.y] = MapCellContent.Output;
+            if (hasOutput)
+            {
+                map[output.x, output.y] = MapCellContent.Output;
+            }
 
             while (true)
             {
