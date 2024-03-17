@@ -34,7 +34,7 @@ namespace Assets.Scripts.StatesMachine
 
         public void ClearStatesStack()
         {
-            while(UsingStates.Count > 0)
+            while (UsingStates.Count > 0)
             {
                 var state = UsingStates.Pop();
                 model.StartCoroutine(state.OnStateDestroy());
@@ -58,6 +58,7 @@ namespace Assets.Scripts.StatesMachine
             if (CurrentState)
             {
                 yield return CurrentState.OnStateDestroy();
+                //model.StartCoroutine(CurrentState.OnStateDestroy());
             }
 
             CurrentState = newState;
@@ -78,6 +79,7 @@ namespace Assets.Scripts.StatesMachine
             if (CurrentState)
             {
                 yield return CurrentState.OnStatePush();
+                //model.StartCoroutine(CurrentState.OnStatePush());
                 UsingStates.Push(CurrentState);
             }
 
@@ -99,6 +101,7 @@ namespace Assets.Scripts.StatesMachine
             newState.SetController(this);
 
             yield return oldState.OnStateDestroy();
+            //model.StartCoroutine(oldState.OnStateDestroy());
             yield return newState.OnStatePop();
         }
     }
