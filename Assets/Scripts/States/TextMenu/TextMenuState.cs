@@ -23,6 +23,8 @@ namespace Assets.Scripts.States.TextMenu
 
         public override IEnumerator OnStateCreating()
         {
+            Ui.Text.text = Root.Data.TextMenuText ?? string.Empty;
+
             Ui.SetCanvasAlpha(0);
             Ui.EnableCanvas();
 

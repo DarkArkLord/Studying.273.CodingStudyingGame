@@ -75,6 +75,7 @@ namespace Assets.Scripts.States.TownMenu
 
         private void TalkButtonClick()
         {
+            Root.Data.TextMenuText = "Текст из лагеря";
             controller.PushState(MainStateCode.TextMenu);
         }
 

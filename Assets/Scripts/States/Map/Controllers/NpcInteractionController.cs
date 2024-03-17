@@ -64,8 +64,9 @@ namespace Assets.Scripts.States.Map.Controllers
             {
                 if (friend.Position2D == player.Position2D && friend.IsAlive && player.IsAlive)
                 {
-                    dataKeeper.NpcInteraction = new NpcInteractionInfo { Npc = friend, NpcType = InteractedNpcType.Friend, };
-                    EnemyInteractionEvent.Invoke(MainStateCode.Battle_ExecutorNumbers);
+                    //dataKeeper.NpcInteraction = new NpcInteractionInfo { Npc = friend, NpcType = InteractedNpcType.Friend, };
+                    dataKeeper.TextMenuText = "Привет :з";
+                    EnemyInteractionEvent.Invoke(MainStateCode.TextMenu);
                     return;
                 }
             }
