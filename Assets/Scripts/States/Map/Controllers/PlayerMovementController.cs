@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.States.Map.Components;
 using Assets.Scripts.States.Map.Components.MapGenerators;
+using Assets.Scripts.States.Map.Controllers.Interfaces;
 using Assets.Scripts.States.Map.Utils;
 using UnityEngine;
 using UnityEngine.Events;
@@ -7,7 +8,7 @@ using UnityEngine.EventSystems;
 
 namespace Assets.Scripts.States.Map.Controllers
 {
-    public class PlayerMovementController
+    public class PlayerMovementController : IMapEntityController
     {
         private SmoothMoveComponent _player;
         private SmoothMoveComponent _camera;

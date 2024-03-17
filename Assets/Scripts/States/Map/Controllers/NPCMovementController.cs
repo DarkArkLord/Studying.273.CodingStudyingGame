@@ -1,20 +1,32 @@
 ﻿using Assets.Scripts.States.Map.Components;
+using Assets.Scripts.States.Map.Controllers.Interfaces;
 using Assets.Scripts.States.Map.Utils;
 using Assets.Scripts.Utils;
 using UnityEngine;
 
 namespace Assets.Scripts.States.Map.Controllers
 {
-    public class NPCMovementController
+    public class NpcMovementController : INpcController
     {
+        public static INpcController Create(GameObject obj, IObjectWithPosition2D player, MapController map)
+        {
+            var movableNpc = obj.GetComponent<JumpComponent>();
+            if (movableNpc is null)
+            {
+                movableNpc = obj.AddComponent<JumpComponent>();
+            }
+
+            return new NpcMovementController(movableNpc, player, map);
+        }
+
         private JumpComponent npc;
-        private PlayerMovementController player;
+        private IObjectWithPosition2D player;
         private MapController map;
 
         private System.Random random = RandomUtils.Random;
 
-        private readonly float timeBeforeSteps;
-        private readonly float timeForRespawn;
+        private readonly float timeBeforeSteps = 2;
+        private readonly float timeForRespawn = 5;
 
         public float RespawnWaitingTime { get; private set; }
         private float moveWaitingTime;
@@ -25,13 +37,12 @@ namespace Assets.Scripts.States.Map.Controllers
 
         public Vector2Int Position2D => npc.Position2D;
 
-        public NPCMovementController(JumpComponent npc, PlayerMovementController player, MapController map, float timeBeforeSteps = 2, float timeForRespawn = 5)
+        public NpcMovementController(JumpComponent npc, IObjectWithPosition2D player, MapController map)
         {
             this.npc = npc;
             this.player = player;
             this.map = map;
-            this.timeBeforeSteps = timeBeforeSteps;
-            this.timeForRespawn = timeForRespawn;
+
             moveWaitingTime = timeBeforeSteps;
         }
 

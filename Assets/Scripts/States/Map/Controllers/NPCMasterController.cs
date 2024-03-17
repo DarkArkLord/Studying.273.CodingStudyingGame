@@ -1,41 +1,47 @@
 ﻿using Assets.Scripts.CommonComponents;
-using Assets.Scripts.States.Map.Components;
+using Assets.Scripts.States.Map.Controllers.Interfaces;
 using System.Collections.Generic;
+
+using NpcInitFunc = System.Func<UnityEngine.GameObject,
+    Assets.Scripts.States.Map.Controllers.Interfaces.IObjectWithPosition2D,
+    Assets.Scripts.States.Map.Controllers.MapController,
+    Assets.Scripts.States.Map.Controllers.Interfaces.INpcController>;
 
 namespace Assets.Scripts.States.Map.Controllers
 {
-    public class NPCMasterController
+    public class NpcMasterController
     {
         private int npcCount;
         private ObjectPoolComponent pool;
-        private NPCMovementController[] npcs;
-        private PlayerMovementController player;
+        private INpcController[] npcs;
+        private IObjectWithPosition2D player;
 
         public ObjectPoolComponent Pool => pool;
 
         public bool IsOnPause { get; private set; } = false;
 
-        public IReadOnlyList<NPCMovementController> NPCs => npcs;
+        public IReadOnlyList<INpcController> NPCs => npcs;
 
-        public NPCMasterController(int npcCount, ObjectPoolComponent pool, PlayerMovementController player, MapController map)
+        public NpcMasterController(int npcCount, ObjectPoolComponent pool, IObjectWithPosition2D player, MapController map, NpcInitFunc initFunc)
         {
             this.player = player;
 
             this.npcCount = npcCount;
             this.pool = pool;
 
-            npcs = new NPCMovementController[npcCount];
+            npcs = new INpcController[npcCount];
             for (int i = 0; i < npcs.Length; i++)
             {
                 var npc = pool.GetObject();
-                var movableNpc = npc.GetComponent<JumpComponent>();
-                if (movableNpc is null)
-                {
-                    movableNpc = npc.AddComponent<JumpComponent>();
-                }
+                //var movableNpc = npc.GetComponent<JumpComponent>();
+                //if (movableNpc is null)
+                //{
+                //    movableNpc = npc.AddComponent<JumpComponent>();
+                //}
 
-                npcs[i] = new NPCMovementController(movableNpc, player, map);
+                //new NpcMovementController(movableNpc, player, map);
 
+                npcs[i] = initFunc(npc, player, map);
                 npcs[i].Resurrect();
             }
         }

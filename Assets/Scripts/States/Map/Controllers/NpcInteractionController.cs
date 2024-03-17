@@ -9,8 +9,8 @@ namespace Assets.Scripts.States.Map.Controllers
     {
         private PlayerMovementController player;
 
-        private NPCMasterController enemies;
-        private NPCMasterController friends;
+        private NpcMasterController enemies;
+        private NpcMasterController friends;
 
         private MainDataKeeper dataKeeper;
 
@@ -19,7 +19,7 @@ namespace Assets.Scripts.States.Map.Controllers
 
         private System.Random random;
 
-        public NpcInteractionController(PlayerMovementController player, NPCMasterController enemies, NPCMasterController friends, MainDataKeeper dataKeeper)
+        public NpcInteractionController(PlayerMovementController player, NpcMasterController enemies, NpcMasterController friends, MainDataKeeper dataKeeper)
         {
             this.player = player;
 

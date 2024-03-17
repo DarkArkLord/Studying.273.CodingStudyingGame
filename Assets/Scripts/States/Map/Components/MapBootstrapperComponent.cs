@@ -34,8 +34,8 @@ namespace Assets.Scripts.States.Map.Components
         private GameObject _playerElement;
         private PlayerMovementController _playerMovementController;
 
-        private NPCMasterController _enemyNpcController;
-        private NPCMasterController _friendNpcController;
+        private NpcMasterController _enemyNpcController;
+        private NpcMasterController _friendNpcController;
 
         public NpcInteractionController InteractionController { get; private set; }
 
@@ -105,14 +105,26 @@ namespace Assets.Scripts.States.Map.Components
 
         private void InitEnemies()
         {
+            var emeniesCount = 5;
             _enemyNpcPool.Init();
-            _enemyNpcController = new NPCMasterController(5, _enemyNpcPool, _playerMovementController, _floorController.Map);
+            _enemyNpcController = new NpcMasterController(
+                emeniesCount,
+                _enemyNpcPool,
+                _playerMovementController,
+                _floorController.Map,
+                NpcMovementController.Create);
         }
 
         private void InitFriends()
         {
+            var friendsCount = 5;
             _friendlyNpcPool.Init();
-            _friendNpcController = new NPCMasterController(5, _friendlyNpcPool, _playerMovementController, _floorController.Map);
+            _friendNpcController = new NpcMasterController(
+                friendsCount,
+                _friendlyNpcPool,
+                _playerMovementController,
+                _floorController.Map,
+                NpcMovementController.Create);
         }
 
         private void InitNpcInteraction()
