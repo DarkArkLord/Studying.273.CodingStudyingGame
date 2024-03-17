@@ -80,6 +80,7 @@ namespace Assets.Scripts.States.Map.Controllers
 
             if (dataKeeper.NpcInteraction.IsPlayerWin)
             {
+                dataKeeper.KilledEmeniesCounter++;
                 dataKeeper.NpcInteraction.Npc.Kill();
             }
             else

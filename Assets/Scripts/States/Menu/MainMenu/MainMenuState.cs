@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.StatesMachine;
+﻿using Assets.Scripts.DataKeeper;
+using Assets.Scripts.StatesMachine;
 using System.Collections;
 using UnityEngine;
 
@@ -26,13 +27,14 @@ namespace Assets.Scripts.States.Menu.MainMenu
             Ui.SetCanvasAlpha(0);
             Ui.EnableCanvas();
 
-            var hasContinueButton = controller.UsingStates.Count > 0;
-            Ui.ContinueButton.gameObject.SetActive(hasContinueButton);
+            var hasStatesInStack = controller.UsingStates.Count > 0;
+            var hasSaveFile = SaveLoadController.IsSaveFileExists;
+            Ui.ContinueButton.gameObject.SetActive(hasStatesInStack || hasSaveFile);
 
             yield return Ui.ShowPanelCorutine();
 
             Ui.StartButton.OnClick.AddListener(StartButtonClick);
-            if (hasContinueButton)
+            if (hasStatesInStack || hasSaveFile)
             {
                 Ui.ContinueButton.OnClick.AddListener(ContinueButtonClick);
             }
@@ -77,7 +79,15 @@ namespace Assets.Scripts.States.Menu.MainMenu
 
         private void ContinueButtonClick()
         {
-            controller.PopState();
+            if (controller.UsingStates.Count > 0)
+            {
+                controller.PopState();
+            }
+            else if (SaveLoadController.IsSaveFileExists)
+            {
+                SaveLoadController.Load(Root.Data);
+                controller.UseState(MainStateCode.TownMenu);
+            }
         }
 
         private void ExitButtonClick()

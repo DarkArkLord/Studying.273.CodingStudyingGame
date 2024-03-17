@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.StatesMachine;
+﻿using Assets.Scripts.DataKeeper;
+using Assets.Scripts.StatesMachine;
 using System.Collections;
 using UnityEngine;
 
@@ -75,13 +76,14 @@ namespace Assets.Scripts.States.Menu.TownMenu
 
         private void TalkButtonClick()
         {
-            Root.Data.TextMenuText = "Текст из лагеря";
+            Root.Data.TextMenuText = "Текст из лагеря.\n"
+                + $"Убито {Root.Data.KilledEmeniesCounter} врагов.";
             controller.PushState(MainStateCode.TextMenu);
         }
 
         private void SaveButtonClick()
         {
-            //
+            SaveLoadController.Save(Root.Data);
         }
 
         private void ExitButtonClick()
