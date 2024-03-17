@@ -60,12 +60,12 @@ namespace Assets.Scripts.States.Battles.BattleWeightBalancer
                 || !int.TryParse(inputText, out int inputValue)
                 || inputValue != correctResult)
                 {
-                    Root.Data.Battle.IsPlayerWin = false;
+                    Root.Data.NpcInteraction.IsPlayerWin = false;
                     ShowResultUi("Неверно");
                 }
                 else
                 {
-                    Root.Data.Battle.IsPlayerWin = true;
+                    Root.Data.NpcInteraction.IsPlayerWin = true;
                     ShowResultUi("Верно");
                 }
             });

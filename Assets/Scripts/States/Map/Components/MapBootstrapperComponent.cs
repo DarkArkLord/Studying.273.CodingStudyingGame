@@ -19,6 +19,12 @@ namespace Assets.Scripts.States.Map.Components
         [SerializeField]
         private GameObject _playerPrefab;
 
+        [SerializeField]
+        private ObjectPoolComponent _enemyNpcPool;
+
+        [SerializeField]
+        private ObjectPoolComponent _friendlyNpcPool;
+
         private StatesController<MainStateCode> statesController;
         private bool IsInited = false;
 
@@ -28,9 +34,10 @@ namespace Assets.Scripts.States.Map.Components
         private GameObject _playerElement;
         private PlayerMovementController _playerMovementController;
 
-        private NPCMasterController _npcController;
+        private NPCMasterController _enemyNpcController;
+        private NPCMasterController _friendNpcController;
 
-        public BattleController BattleController { get; private set; }
+        public NpcInteractionController InteractionController { get; private set; }
 
         public void OnMapInit(StatesController<MainStateCode> statesController)
         {
@@ -38,7 +45,8 @@ namespace Assets.Scripts.States.Map.Components
             InitMap();
             InitPlayer();
             InitEnemies();
-            InitBattle();
+            InitFriends();
+            InitNpcInteraction();
             IsInited = true;
         }
 
@@ -97,20 +105,26 @@ namespace Assets.Scripts.States.Map.Components
 
         private void InitEnemies()
         {
-            var npcPrefub = Resources.Load("Models/Map/EnemyNpcModel") as GameObject;
-
-            var objectsPool = new GameObject("NpcObjectPool").AddComponent<ObjectPoolComponent>();
-            objectsPool.transform.parent = transform;
-            objectsPool.SetPrefab(npcPrefub);
-            objectsPool.Init();
-
-            _npcController = new NPCMasterController(5, objectsPool, _playerMovementController, _floorController.Map);
+            _enemyNpcPool.Init();
+            _enemyNpcController = new NPCMasterController(5, _enemyNpcPool, _playerMovementController, _floorController.Map);
         }
 
-        private void InitBattle()
+        private void InitFriends()
         {
-            BattleController = new BattleController(_playerMovementController, _npcController, Root.Data);
-            BattleController.StartBattleEvent.AddListener((stateCode) =>
+            _friendlyNpcPool.Init();
+            _friendNpcController = new NPCMasterController(5, _friendlyNpcPool, _playerMovementController, _floorController.Map);
+        }
+
+        private void InitNpcInteraction()
+        {
+            InteractionController = new NpcInteractionController(_playerMovementController, _enemyNpcController, _friendNpcController, Root.Data);
+
+            InteractionController.EnemyInteractionEvent.AddListener((stateCode) =>
+            {
+                statesController.PushState(stateCode);
+            });
+
+            InteractionController.FriendInteractionEvent.AddListener((stateCode) =>
             {
                 statesController.PushState(stateCode);
             });
@@ -119,34 +133,48 @@ namespace Assets.Scripts.States.Map.Components
         public void OnMapDestroy()
         {
             IsInited = false;
+
             _floorController.Clear();
+
             _playerMovementController.StandOnInputEvent.RemoveAllListeners();
             _playerMovementController.StandOnOutputEvent.RemoveAllListeners();
+
             Destroy(_playerElement);
-            Destroy(_npcController.Pool.gameObject);
-            BattleController.StartBattleEvent.RemoveAllListeners();
+
+            _enemyNpcController.OnDestroy();
+            _friendNpcController.OnDestroy();
+
+            InteractionController.EnemyInteractionEvent.RemoveAllListeners();
+            InteractionController.FriendInteractionEvent.RemoveAllListeners();
         }
 
         public void OnUpdate()
         {
             if (!IsInited) return;
+
             var buttonDirection = GetButtonsDirection();
+
             _playerMovementController.OnUpdate(buttonDirection);
-            _npcController.OnUpdate();
-            BattleController.OnUpdate();
+
+            _enemyNpcController.OnUpdate();
+            _friendNpcController.OnUpdate();
+
+            InteractionController.OnUpdate();
         }
 
         public void SetPause(bool pause)
         {
             _playerMovementController.SetPause(pause);
-            _npcController.SetPause(pause);
+            _enemyNpcController.SetPause(pause);
+            _friendNpcController.SetPause(pause);
         }
 
         public void SetChildsActive(bool isActive)
         {
             _floorController.SetFloorActive(isActive);
             _playerMovementController.SetActive(isActive);
-            _npcController.SetActive(isActive);
+            _enemyNpcController.SetActive(isActive);
+            _friendNpcController.SetActive(isActive);
         }
 
         private MoveDirection? GetButtonsDirection()

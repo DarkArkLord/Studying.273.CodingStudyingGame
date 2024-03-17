@@ -35,7 +35,7 @@ namespace Assets.Scripts.States.Battles.BattleEquations
 
             yield return base.OnStateCreating();
 
-            if (Root.Data.Battle == null)
+            if (Root.Data.NpcInteraction == null)
             {
                 Debug.LogError("Start battle container without battle info");
                 controller.UseState(MainStateCode.Exit);

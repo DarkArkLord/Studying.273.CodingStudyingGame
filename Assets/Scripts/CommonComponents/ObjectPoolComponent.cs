@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 namespace Assets.Scripts.CommonComponents
 {
@@ -122,6 +123,18 @@ namespace Assets.Scripts.CommonComponents
             else
             {
                 Debug.LogError($"No object with id {id} for freeing");
+            }
+        }
+
+        public void FreeAllObjects()
+        {
+            foreach (var obj in items)
+            {
+                if (!obj.IsFree)
+                {
+                    obj.IsFree = true;
+                    obj.Item.SetActive(false);
+                }
             }
         }
     }

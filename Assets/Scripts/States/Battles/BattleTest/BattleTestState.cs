@@ -34,7 +34,7 @@ namespace Assets.Scripts.States.Battles.BattleTest
 
             yield return base.OnStateCreating();
 
-            if (Root.Data.Battle == null)
+            if (Root.Data.NpcInteraction == null)
             {
                 Debug.LogError("Start battle container without battle info");
                 controller.UseState(MainStateCode.Exit);
@@ -76,13 +76,13 @@ namespace Assets.Scripts.States.Battles.BattleTest
 
         private void Win()
         {
-            Root.Data.Battle.IsPlayerWin = true;
+            Root.Data.NpcInteraction.IsPlayerWin = true;
             Ui.ShowResultUi("Победа");
         }
 
         private void Lose()
         {
-            Root.Data.Battle.IsPlayerWin = false;
+            Root.Data.NpcInteraction.IsPlayerWin = false;
             Ui.ShowResultUi("Поражение");
         }
 

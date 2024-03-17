@@ -133,7 +133,7 @@ namespace Assets.Scripts.States.Battles.BattleNumbersOrder
                 }
             }
 
-            Root.Data.Battle.IsPlayerWin = isCorrect;
+            Root.Data.NpcInteraction.IsPlayerWin = isCorrect;
             if (isCorrect)
             {
                 ShowResultUi("Верно");

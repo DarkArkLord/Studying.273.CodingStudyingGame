@@ -1,8 +1,6 @@
 ﻿using Assets.Scripts.CommonComponents;
 using Assets.Scripts.States.Map.Components;
 using System.Collections.Generic;
-using static UnityEditor.Experimental.GraphView.GraphView;
-using UnityEngine;
 
 namespace Assets.Scripts.States.Map.Controllers
 {
@@ -64,6 +62,11 @@ namespace Assets.Scripts.States.Map.Controllers
         public void SetActive(bool active)
         {
             Pool.gameObject.SetActive(active);
+        }
+
+        public void OnDestroy()
+        {
+            Pool.FreeAllObjects();
         }
     }
 }

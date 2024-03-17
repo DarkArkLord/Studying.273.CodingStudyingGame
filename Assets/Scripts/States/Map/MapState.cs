@@ -64,7 +64,7 @@ namespace Assets.Scripts.States.Map
             GlobalMapPause = false;
             _bootstrapper.SetPause(GlobalMapPause);
 
-            _bootstrapper.BattleController.ResolveBattle();
+            _bootstrapper.InteractionController.ResolveInteraction();
         }
 
         public override IEnumerator OnStateDestroy()

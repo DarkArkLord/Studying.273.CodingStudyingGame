@@ -2,6 +2,6 @@
 {
     public class MainDataKeeper : BaseModel
     {
-        public BattleInfo Battle { get; set; }
+        public NpcInteractionInfo NpcInteraction { get; set; }
     }
 }

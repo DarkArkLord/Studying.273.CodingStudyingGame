@@ -40,7 +40,7 @@ namespace Assets.Scripts.States.Battles.BattleEquations
             checkButton.OnClick.AddListener(() =>
             {
                 var isCorrect = equations.Select(e => e.CheckCorection()).Aggregate((a, b) => a && b);
-                Root.Data.Battle.IsPlayerWin = isCorrect;
+                Root.Data.NpcInteraction.IsPlayerWin = isCorrect;
                 if (isCorrect)
                 {
                     ShowResultUi("Верно");
