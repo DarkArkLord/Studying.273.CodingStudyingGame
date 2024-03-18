@@ -23,7 +23,7 @@ namespace Assets.Scripts.States.Menu.TextMenu
 
         public override IEnumerator OnStateCreating()
         {
-            Ui.Text.text = Root.Data.TextMenuText ?? string.Empty;
+            Ui.Text.text = Root.Data.TextMenuData.Text ?? string.Empty;
 
             Ui.SetCanvasAlpha(0);
             Ui.EnableCanvas();
@@ -61,7 +61,18 @@ namespace Assets.Scripts.States.Menu.TextMenu
 
         private void NextButtonButtonClick()
         {
-            controller.PopState();
+            var nextState = Root.Data.TextMenuData.NextState ?? MainStateCode.None;
+
+            Root.Data.TextMenuData.Clear();
+
+            if (nextState == MainStateCode.None)
+            {
+                controller.PopState();
+            }
+            else
+            {
+                controller.UseState(nextState);
+            }
         }
     }
 }

@@ -17,7 +17,6 @@ namespace Assets.Scripts
         private MainStatesListModel _statesModel;
         public MainStatesListModel States => _statesModel;
 
-        [SerializeField]
         private MainDataKeeper _dataKeeper;
         public MainDataKeeper Data => _dataKeeper;
 
@@ -25,6 +24,8 @@ namespace Assets.Scripts
 
         private void Awake()
         {
+            _dataKeeper = new MainDataKeeper();
+
             // Entry point
             States.OnInit();
         }

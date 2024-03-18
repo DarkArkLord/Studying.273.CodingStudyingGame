@@ -76,14 +76,32 @@ namespace Assets.Scripts.States.Menu.TownMenu
 
         private void TalkButtonClick()
         {
-            Root.Data.TextMenuText = "Текст из лагеря.\n"
-                + $"Убито {Root.Data.KilledEmeniesCounter} врагов.";
+            var text = "Текст из лагеря.\n"
+                + $"Убито {Root.Data.Progress.KilledEmeniesCounter} врагов.";
+            Root.Data.TextMenuData.SetText(text);
             controller.PushState(MainStateCode.TextMenu);
         }
 
         private void SaveButtonClick()
         {
-            SaveLoadController.Save(Root.Data);
+            var hasError = false;
+
+            try
+            {
+                SaveLoadController.Save(Root.Data);
+            }
+            catch (System.Exception e)
+            {
+                hasError = true;
+                Root.Data.TextMenuData.SetText(e.Message, MainStateCode.Exit);
+                controller.PushState(MainStateCode.TextMenu);
+            }
+
+            if (!hasError)
+            {
+                Root.Data.TextMenuData.SetText("Данные сохранены");
+                controller.PushState(MainStateCode.TextMenu);
+            }
         }
 
         private void ExitButtonClick()

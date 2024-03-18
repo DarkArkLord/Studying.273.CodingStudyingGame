@@ -67,7 +67,7 @@ namespace Assets.Scripts.States.Map.Controllers
                 {
                     //dataKeeper.NpcInteraction = new NpcInteractionInfo { Npc = friend, NpcType = InteractedNpcType.Friend, };
                     friend.SetInteractive(false);
-                    dataKeeper.TextMenuText = "Привет :з";
+                    dataKeeper.TextMenuData.SetText("Привет :з");
                     EnemyInteractionEvent.Invoke(MainStateCode.TextMenu);
                     return;
                 }
@@ -80,7 +80,7 @@ namespace Assets.Scripts.States.Map.Controllers
 
             if (dataKeeper.NpcInteraction.IsPlayerWin)
             {
-                dataKeeper.KilledEmeniesCounter++;
+                dataKeeper.Progress.KilledEmeniesCounter++;
                 dataKeeper.NpcInteraction.Npc.Kill();
             }
             else

@@ -28,7 +28,7 @@ namespace Assets.Scripts.States.Menu.MainMenu
             Ui.EnableCanvas();
 
             var hasStatesInStack = controller.UsingStates.Count > 0;
-            var hasSaveFile = SaveLoadController.IsSaveFileExists;
+            var hasSaveFile = SaveLoadController.HasSaveFile;
             Ui.ContinueButton.gameObject.SetActive(hasStatesInStack || hasSaveFile);
 
             yield return Ui.ShowPanelCorutine();
@@ -71,7 +71,7 @@ namespace Assets.Scripts.States.Menu.MainMenu
 
         private void StartButtonClick()
         {
-            Root.Data.KilledEmeniesCounter = 0;
+            Root.Data.Progress.KilledEmeniesCounter = 0;
 
             controller.ClearStatesStack();
             controller.UseState(MainStateCode.TownMenu);
@@ -83,10 +83,19 @@ namespace Assets.Scripts.States.Menu.MainMenu
             {
                 controller.PopState();
             }
-            else if (SaveLoadController.IsSaveFileExists)
+            else if (SaveLoadController.HasSaveFile)
             {
-                SaveLoadController.Load(Root.Data);
-                controller.UseState(MainStateCode.TownMenu);
+                var progress = SaveLoadController.Load();
+                if (progress == null)
+                {
+                    Root.Data.TextMenuData.SetText("Некорректная загрузка.", MainStateCode.Exit);
+                    controller.UseState(MainStateCode.TextMenu);
+                }
+                else
+                {
+                    Root.Data.Progress = progress;
+                    controller.UseState(MainStateCode.TownMenu);
+                }
             }
         }
 
