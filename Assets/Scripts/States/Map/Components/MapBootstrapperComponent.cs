@@ -24,6 +24,9 @@ namespace Assets.Scripts.States.Map.Components
         [SerializeField]
         private ObjectPoolComponent _friendlyNpcPool;
 
+        [SerializeField]
+        private ObjectPoolComponent _interactiveItemsPool;
+
         private StatesController<MainStateCode> statesController;
         private bool IsInited = false;
 
@@ -35,6 +38,7 @@ namespace Assets.Scripts.States.Map.Components
 
         private NpcMasterController _enemyNpcController;
         private NpcMasterController _friendNpcController;
+        private NpcMasterController _interactiveItemsController;
 
         public NpcInteractionController InteractionController { get; private set; }
 
@@ -42,9 +46,13 @@ namespace Assets.Scripts.States.Map.Components
         {
             this.statesController = statesController;
             InitMap();
+
             InitPlayer();
+
             InitEnemies();
             InitFriends();
+            InitInteractiveItems();
+
             InitNpcInteraction();
             IsInited = true;
         }
@@ -128,9 +136,21 @@ namespace Assets.Scripts.States.Map.Components
                 NpcMovementController.Create);
         }
 
+        private void InitInteractiveItems()
+        {
+            var itemsCount = 5;
+            _interactiveItemsPool.Init();
+            _interactiveItemsController = new NpcMasterController(
+                itemsCount,
+                _interactiveItemsPool,
+                _playerMovementController,
+                _floorController.Map,
+                ItemsMovementController.Create);
+        }
+
         private void InitNpcInteraction()
         {
-            InteractionController = new NpcInteractionController(_playerMovementController, _enemyNpcController, _friendNpcController, Root.Data);
+            InteractionController = new NpcInteractionController(_playerMovementController, _enemyNpcController, _friendNpcController, _interactiveItemsController, Root.Data);
 
             InteractionController.EnemyInteractionEvent.AddListener((stateCode) =>
             {

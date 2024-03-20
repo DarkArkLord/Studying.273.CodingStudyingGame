@@ -11,6 +11,7 @@ namespace Assets.Scripts.States.Map.Controllers
 
         private NpcMasterController enemies;
         private NpcMasterController friends;
+        private NpcMasterController interactiveItems;
 
         private MainDataKeeper dataKeeper;
 
@@ -19,12 +20,13 @@ namespace Assets.Scripts.States.Map.Controllers
 
         private System.Random random;
 
-        public NpcInteractionController(PlayerMovementController player, NpcMasterController enemies, NpcMasterController friends, MainDataKeeper dataKeeper)
+        public NpcInteractionController(PlayerMovementController player, NpcMasterController enemies, NpcMasterController friends, NpcMasterController interactiveItems, MainDataKeeper dataKeeper)
         {
             this.player = player;
 
             this.enemies = enemies;
             this.friends = friends;
+            this.interactiveItems = interactiveItems;
 
             this.dataKeeper = dataKeeper;
 
@@ -69,6 +71,16 @@ namespace Assets.Scripts.States.Map.Controllers
                     friend.SetInteractive(false);
                     dataKeeper.TextMenuData.SetText("Привет :з");
                     EnemyInteractionEvent.Invoke(MainStateCode.TextMenu);
+                    return;
+                }
+            }
+
+            foreach (var item in interactiveItems.NPCs)
+            {
+                if (item.Position2D == player.Position2D && item.IsInteractive && player.IsInteractive)
+                {
+                    dataKeeper.NpcInteraction = new NpcInteractionInfo { Npc = item, NpcType = InteractedNpcType.Object, };
+                    EnemyInteractionEvent.Invoke(MainStateCode.Battle_ExecutorNumbers);
                     return;
                 }
             }

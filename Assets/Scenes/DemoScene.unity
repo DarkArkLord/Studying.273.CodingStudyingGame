@@ -1582,6 +1582,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 164509103}
   m_CullTransparentMesh: 1
+--- !u!1 &166507536
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 166507537}
+  - component: {fileID: 166507538}
+  m_Layer: 0
+  m_Name: flowers_pool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &166507537
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 166507536}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1171426524}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &166507538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 166507536}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b71bae6e4d50034d9f144bf9fafd699, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _prefab: {fileID: 5012245019295978213, guid: e5a52150b37e8df4d8d20101c7bc685e, type: 3}
 --- !u!1 &203199734
 GameObject:
   m_ObjectHideFlags: 0
@@ -4290,6 +4335,7 @@ Transform:
   m_Children:
   - {fileID: 1215834345}
   - {fileID: 474954202}
+  - {fileID: 2072681902}
   m_Father: {fileID: 646500900}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4310,6 +4356,7 @@ MonoBehaviour:
   _playerPrefab: {fileID: 4526510196920796569, guid: db4e1e8942acb1f43b34a52332ae42da, type: 3}
   _enemyNpcPool: {fileID: 1215834346}
   _friendlyNpcPool: {fileID: 474954203}
+  _interactiveItemsPool: {fileID: 2072681903}
 --- !u!1 &552014635
 GameObject:
   m_ObjectHideFlags: 0
@@ -8837,6 +8884,7 @@ Transform:
   m_Children:
   - {fileID: 1753333187}
   - {fileID: 1258628368}
+  - {fileID: 166507537}
   m_Father: {fileID: 882509561}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -8857,6 +8905,7 @@ MonoBehaviour:
   _playerPrefab: {fileID: 4526510196920796569, guid: db4e1e8942acb1f43b34a52332ae42da, type: 3}
   _enemyNpcPool: {fileID: 1753333188}
   _friendlyNpcPool: {fileID: 1258628369}
+  _interactiveItemsPool: {fileID: 166507538}
 --- !u!1 &1176457183
 GameObject:
   m_ObjectHideFlags: 0
@@ -14658,6 +14707,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2034251652}
   m_CullTransparentMesh: 1
+--- !u!1 &2072681901
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2072681902}
+  - component: {fileID: 2072681903}
+  m_Layer: 0
+  m_Name: flowers_pool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2072681902
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2072681901}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 497048207}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2072681903
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2072681901}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b71bae6e4d50034d9f144bf9fafd699, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _prefab: {fileID: 5012245019295978213, guid: e5a52150b37e8df4d8d20101c7bc685e, type: 3}
 --- !u!1 &2079488984
 GameObject:
   m_ObjectHideFlags: 0
