@@ -1662,14 +1662,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 0525793900d728a42936791a8a6de63b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9330f18764bdde6438f877dbd1d2bc31, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2937,7 +2937,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   _buttomImage: {fileID: 8639651015457450201}
-  _enableColor: {r: 1, g: 0, b: 0, a: 1}
+  _enableColor: {r: 1, g: 1, b: 1, a: 1}
   _disableColor: {r: 0.53333336, g: 0.53333336, b: 0.53333336, a: 1}
 --- !u!1 &4343779314834112620
 GameObject:
@@ -7916,7 +7916,7 @@ MonoBehaviour:
       m_Calls: []
   _buttomImage: {fileID: 8789848404056055276}
   _enableColor: {r: 1, g: 1, b: 1, a: 1}
-  _disableColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
+  _disableColor: {r: 0.2830189, g: 0.2830189, b: 0.2830189, a: 1}
 --- !u!1 &9176770396149931077
 GameObject:
   m_ObjectHideFlags: 0
@@ -8059,7 +8059,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 02800fb9cff14da47a04572790384d8b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3a518a6abf9946e41a0bcb363d6c2363, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
