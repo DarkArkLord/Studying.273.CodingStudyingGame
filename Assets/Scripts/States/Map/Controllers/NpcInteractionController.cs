@@ -101,57 +101,52 @@ namespace Assets.Scripts.States.Map.Controllers
         private UnityAction EnemyInteractAction(INpcController npc)
             => () =>
             {
-                //if (dataKeeper.NpcInteraction == null) return;
+                if (dataKeeper.NpcInteraction == null) return;
 
-                //if (dataKeeper.NpcInteraction.IsPlayerWin)
-                //{
-                //    dataKeeper.Progress.KilledEmeniesCounter++;
-                //    dataKeeper.NpcInteraction.Npc.Kill();
-                //}
-                //else
-                //{
-                //    player.Kill();
-                //}
+                if (dataKeeper.NpcInteraction.IsPlayerWin)
+                {
+                    dataKeeper.Progress.KilledEmeniesCounter++;
+                    npc.Kill();
+                }
+                else
+                {
+                    player.Kill();
+                }
 
-                //dataKeeper.NpcInteraction = null;
                 ResolveInteractionEvent.RemoveAllListeners();
             };
 
         private UnityAction FriendInteractAction(INpcController npc)
             => () =>
             {
-                //if (dataKeeper.NpcInteraction == null) return;
+                if (dataKeeper.NpcInteraction == null) return;
 
-                //if (dataKeeper.NpcInteraction.IsPlayerWin)
-                //{
-                //    dataKeeper.Progress.KilledEmeniesCounter++;
-                //    dataKeeper.NpcInteraction.Npc.Kill();
-                //}
-                //else
-                //{
-                //    player.Kill();
-                //}
+                if (dataKeeper.NpcInteraction.IsPlayerWin)
+                {
+                    npc.Kill();
+                }
+                else
+                {
+                    player.Kill();
+                }
 
-                //dataKeeper.NpcInteraction = null;
                 ResolveInteractionEvent.RemoveAllListeners();
             };
 
         private UnityAction ObjectInteractAction(INpcController npc)
             => () =>
             {
-                //if (dataKeeper.NpcInteraction == null) return;
+                if (dataKeeper.NpcInteraction == null) return;
 
-                //if (dataKeeper.NpcInteraction.IsPlayerWin)
-                //{
-                //    dataKeeper.Progress.KilledEmeniesCounter++;
-                //    dataKeeper.NpcInteraction.Npc.Kill();
-                //}
-                //else
-                //{
-                //    player.Kill();
-                //}
+                if (dataKeeper.NpcInteraction.IsPlayerWin)
+                {
+                    npc.Kill();
+                }
+                else
+                {
+                    player.Kill();
+                }
 
-                //dataKeeper.NpcInteraction = null;
                 ResolveInteractionEvent.RemoveAllListeners();
             };
     }
