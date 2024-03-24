@@ -4,7 +4,7 @@
     {
         public MainDataKeeper()
         {
-            NpcInteraction = null;
+            NpcInteraction = new NpcInteractionInfo();
             Progress = new ProgressStateKeeper();
             TextMenuData = new TextMenuDataKeeper();
         }

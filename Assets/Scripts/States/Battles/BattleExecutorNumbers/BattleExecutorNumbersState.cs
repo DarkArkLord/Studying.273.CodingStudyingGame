@@ -29,17 +29,9 @@ namespace Assets.Scripts.States.Battles.BattleExecutorNumbers
             Ui.OnInit();
             yield return Ui.ShowPanelCorutine();
 
-            //Ui.WinButton.OnClick.AddListener(Win);
-            //Ui.LoseButton.OnClick.AddListener(Lose);
             Ui.CloseButton.OnClick.AddListener(CloseBattle);
 
             yield return base.OnStateCreating();
-
-            if (Root.Data.NpcInteraction == null)
-            {
-                Debug.LogError("Start battle container without battle info");
-                controller.UseState(MainStateCode.Exit);
-            }
         }
 
         public override IEnumerator OnStatePush()
@@ -66,8 +58,6 @@ namespace Assets.Scripts.States.Battles.BattleExecutorNumbers
 
         public override IEnumerator OnStateDestroy()
         {
-            //Ui.WinButton.OnClick.RemoveAllListeners();
-            //Ui.LoseButton.OnClick.RemoveAllListeners();
             Ui.CloseButton.OnClick.RemoveAllListeners();
 
             yield return Ui.HidePanelCorutine();

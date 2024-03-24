@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.DataKeeper;
+using Assets.Scripts.States.Map.Controllers.Interfaces;
 using Assets.Scripts.StatesMachine;
 using Assets.Scripts.Utils;
 using UnityEngine.Events;
@@ -38,16 +39,16 @@ namespace Assets.Scripts.States.Map.Controllers
 
         public void OnUpdate()
         {
-            if (dataKeeper.NpcInteraction != null) return;
-
             foreach (var enemy in enemies.NPCs)
             {
                 if (enemy.Position2D == player.Position2D && enemy.IsInteractive && player.IsInteractive)
                 {
                     enemy.SetInteractive(false);
-                    dataKeeper.NpcInteraction = new NpcInteractionInfo { Npc = enemy, NpcType = InteractedNpcType.Enemy, };
-                    ResolveInteractionEvent.AddListener(Test());
-                    EnemyInteractionEvent.Invoke(MainStateCode.Battle_ExecutorNumbers);
+
+                    ResolveInteractionEvent.AddListener(EnemyInteractAction(enemy));
+
+                    EnemyInteractionEvent.Invoke(MainStateCode.Battle_Test);
+
                     return;
                 }
 
@@ -71,10 +72,13 @@ namespace Assets.Scripts.States.Map.Controllers
             {
                 if (friend.Position2D == player.Position2D && friend.IsInteractive && player.IsInteractive)
                 {
-                    //dataKeeper.NpcInteraction = new NpcInteractionInfo { Npc = friend, NpcType = InteractedNpcType.Friend, };
                     friend.SetInteractive(false);
+
+                    ResolveInteractionEvent.AddListener(FriendInteractAction(friend));
+
                     dataKeeper.TextMenuData.SetText("Привет :з");
                     EnemyInteractionEvent.Invoke(MainStateCode.TextMenu);
+
                     return;
                 }
             }
@@ -83,30 +87,72 @@ namespace Assets.Scripts.States.Map.Controllers
             {
                 if (item.Position2D == player.Position2D && item.IsInteractive && player.IsInteractive)
                 {
-                    dataKeeper.NpcInteraction = new NpcInteractionInfo { Npc = item, NpcType = InteractedNpcType.Object, };
-                    ResolveInteractionEvent.AddListener(Test());
-                    EnemyInteractionEvent.Invoke(MainStateCode.Battle_ExecutorNumbers);
+                    item.SetInteractive(false);
+
+                    ResolveInteractionEvent.AddListener(ObjectInteractAction(item));
+
+                    EnemyInteractionEvent.Invoke(MainStateCode.Battle_Test);
+
                     return;
                 }
             }
         }
 
-        private UnityAction Test()
+        private UnityAction EnemyInteractAction(INpcController npc)
             => () =>
             {
-                if (dataKeeper.NpcInteraction == null) return;
+                //if (dataKeeper.NpcInteraction == null) return;
 
-                if (dataKeeper.NpcInteraction.IsPlayerWin)
-                {
-                    dataKeeper.Progress.KilledEmeniesCounter++;
-                    dataKeeper.NpcInteraction.Npc.Kill();
-                }
-                else
-                {
-                    player.Kill();
-                }
+                //if (dataKeeper.NpcInteraction.IsPlayerWin)
+                //{
+                //    dataKeeper.Progress.KilledEmeniesCounter++;
+                //    dataKeeper.NpcInteraction.Npc.Kill();
+                //}
+                //else
+                //{
+                //    player.Kill();
+                //}
 
-                dataKeeper.NpcInteraction = null;
+                //dataKeeper.NpcInteraction = null;
+                ResolveInteractionEvent.RemoveAllListeners();
+            };
+
+        private UnityAction FriendInteractAction(INpcController npc)
+            => () =>
+            {
+                //if (dataKeeper.NpcInteraction == null) return;
+
+                //if (dataKeeper.NpcInteraction.IsPlayerWin)
+                //{
+                //    dataKeeper.Progress.KilledEmeniesCounter++;
+                //    dataKeeper.NpcInteraction.Npc.Kill();
+                //}
+                //else
+                //{
+                //    player.Kill();
+                //}
+
+                //dataKeeper.NpcInteraction = null;
+                ResolveInteractionEvent.RemoveAllListeners();
+            };
+
+        private UnityAction ObjectInteractAction(INpcController npc)
+            => () =>
+            {
+                //if (dataKeeper.NpcInteraction == null) return;
+
+                //if (dataKeeper.NpcInteraction.IsPlayerWin)
+                //{
+                //    dataKeeper.Progress.KilledEmeniesCounter++;
+                //    dataKeeper.NpcInteraction.Npc.Kill();
+                //}
+                //else
+                //{
+                //    player.Kill();
+                //}
+
+                //dataKeeper.NpcInteraction = null;
+                ResolveInteractionEvent.RemoveAllListeners();
             };
     }
 }

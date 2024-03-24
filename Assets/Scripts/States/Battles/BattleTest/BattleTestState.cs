@@ -8,7 +8,7 @@ namespace Assets.Scripts.States.Battles.BattleTest
     {
         #region Main info
 
-        public override MainStateCode Id => MainStateCode.Battle_test;
+        public override MainStateCode Id => MainStateCode.Battle_Test;
 
         public override void OnUpdate()
         {
@@ -33,12 +33,6 @@ namespace Assets.Scripts.States.Battles.BattleTest
             Ui.CloseButton.OnClick.AddListener(CloseBattle);
 
             yield return base.OnStateCreating();
-
-            if (Root.Data.NpcInteraction == null)
-            {
-                Debug.LogError("Start battle container without battle info");
-                controller.UseState(MainStateCode.Exit);
-            }
         }
 
         public override IEnumerator OnStatePush()

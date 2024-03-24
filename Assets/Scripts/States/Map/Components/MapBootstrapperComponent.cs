@@ -184,6 +184,7 @@ namespace Assets.Scripts.States.Map.Components
 
             InteractionController.EnemyInteractionEvent.RemoveAllListeners();
             InteractionController.FriendInteractionEvent.RemoveAllListeners();
+            InteractionController.ItemInteractionEvent.RemoveAllListeners();
         }
 
         public void OnUpdate()

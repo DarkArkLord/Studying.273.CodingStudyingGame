@@ -29,8 +29,6 @@ namespace Assets.Scripts.States.Battles.BattleEquations
             Ui.OnInit();
             yield return Ui.ShowPanelCorutine();
 
-            //Ui.WinButton.OnClick.AddListener(Win);
-            //Ui.LoseButton.OnClick.AddListener(Lose);
             Ui.CloseButton.OnClick.AddListener(CloseBattle);
 
             yield return base.OnStateCreating();
@@ -66,8 +64,6 @@ namespace Assets.Scripts.States.Battles.BattleEquations
 
         public override IEnumerator OnStateDestroy()
         {
-            //Ui.WinButton.OnClick.RemoveAllListeners();
-            //Ui.LoseButton.OnClick.RemoveAllListeners();
             Ui.CloseButton.OnClick.RemoveAllListeners();
 
             yield return Ui.HidePanelCorutine();
