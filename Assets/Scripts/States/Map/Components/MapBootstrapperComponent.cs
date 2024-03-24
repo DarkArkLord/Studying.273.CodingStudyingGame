@@ -161,6 +161,11 @@ namespace Assets.Scripts.States.Map.Components
             {
                 statesController.PushState(stateCode);
             });
+
+            InteractionController.ItemInteractionEvent.AddListener((stateCode) =>
+            {
+                statesController.PushState(stateCode);
+            });
         }
 
         public void OnMapDestroy()

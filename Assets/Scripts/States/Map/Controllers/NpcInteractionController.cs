@@ -17,6 +17,9 @@ namespace Assets.Scripts.States.Map.Controllers
 
         public UnityEvent<MainStateCode> EnemyInteractionEvent { get; private set; } = new UnityEvent<MainStateCode>();
         public UnityEvent<MainStateCode> FriendInteractionEvent { get; private set; } = new UnityEvent<MainStateCode>();
+        public UnityEvent<MainStateCode> ItemInteractionEvent { get; private set; } = new UnityEvent<MainStateCode>();
+
+        public UnityEvent ResolveInteractionEvent { get; private set; } = new UnityEvent();
 
         private System.Random random;
 
@@ -43,6 +46,7 @@ namespace Assets.Scripts.States.Map.Controllers
                 {
                     enemy.SetInteractive(false);
                     dataKeeper.NpcInteraction = new NpcInteractionInfo { Npc = enemy, NpcType = InteractedNpcType.Enemy, };
+                    ResolveInteractionEvent.AddListener(Test());
                     EnemyInteractionEvent.Invoke(MainStateCode.Battle_ExecutorNumbers);
                     return;
                 }
@@ -80,27 +84,29 @@ namespace Assets.Scripts.States.Map.Controllers
                 if (item.Position2D == player.Position2D && item.IsInteractive && player.IsInteractive)
                 {
                     dataKeeper.NpcInteraction = new NpcInteractionInfo { Npc = item, NpcType = InteractedNpcType.Object, };
+                    ResolveInteractionEvent.AddListener(Test());
                     EnemyInteractionEvent.Invoke(MainStateCode.Battle_ExecutorNumbers);
                     return;
                 }
             }
         }
 
-        public void ResolveInteraction()
-        {
-            if (dataKeeper.NpcInteraction == null) return;
-
-            if (dataKeeper.NpcInteraction.IsPlayerWin)
+        private UnityAction Test()
+            => () =>
             {
-                dataKeeper.Progress.KilledEmeniesCounter++;
-                dataKeeper.NpcInteraction.Npc.Kill();
-            }
-            else
-            {
-                player.Kill();
-            }
+                if (dataKeeper.NpcInteraction == null) return;
 
-            dataKeeper.NpcInteraction = null;
-        }
+                if (dataKeeper.NpcInteraction.IsPlayerWin)
+                {
+                    dataKeeper.Progress.KilledEmeniesCounter++;
+                    dataKeeper.NpcInteraction.Npc.Kill();
+                }
+                else
+                {
+                    player.Kill();
+                }
+
+                dataKeeper.NpcInteraction = null;
+            };
     }
 }
