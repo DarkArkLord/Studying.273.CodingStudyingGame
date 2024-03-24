@@ -77,7 +77,7 @@ namespace Assets.Scripts.States.Map.Controllers
                     ResolveInteractionEvent.AddListener(FriendInteractAction(friend));
 
                     dataKeeper.TextMenuData.SetText("Привет :з");
-                    EnemyInteractionEvent.Invoke(MainStateCode.TextMenu);
+                    FriendInteractionEvent.Invoke(MainStateCode.TextMenu);
 
                     return;
                 }
@@ -91,7 +91,7 @@ namespace Assets.Scripts.States.Map.Controllers
 
                     ResolveInteractionEvent.AddListener(ObjectInteractAction(item));
 
-                    EnemyInteractionEvent.Invoke(MainStateCode.Battle_Test);
+                    ItemInteractionEvent.Invoke(MainStateCode.Battle_Test);
 
                     return;
                 }
@@ -138,14 +138,14 @@ namespace Assets.Scripts.States.Map.Controllers
             {
                 if (dataKeeper.NpcInteraction == null) return;
 
-                if (dataKeeper.NpcInteraction.IsPlayerWin)
-                {
-                    npc.Kill();
-                }
-                else
-                {
-                    player.Kill();
-                }
+                //if (dataKeeper.NpcInteraction.IsPlayerWin)
+                //{
+                //    npc.Kill();
+                //}
+                //else
+                //{
+                //    player.Kill();
+                //}
 
                 ResolveInteractionEvent.RemoveAllListeners();
             };
