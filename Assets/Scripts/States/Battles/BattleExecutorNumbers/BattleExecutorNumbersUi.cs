@@ -15,8 +15,6 @@ namespace Assets.Scripts.States.Battles.BattleExecutorNumbers
         [SerializeField]
         private ObjectPoolComponent codeElementsPool;
         [SerializeField]
-        private BENCodeElement codeElementsPrefab;
-        [SerializeField]
         private GameObject codeElementsParent;
         [SerializeField]
         private BEN_CodeType_Selector codeElementsTypeSelector;
@@ -112,16 +110,19 @@ namespace Assets.Scripts.States.Battles.BattleExecutorNumbers
 
         private void InitCodeTree()
         {
-            codeElementsPool.SetPrefab(codeElementsPrefab.gameObject);
             codeElementsPool.Init();
 
             var inputCodeElement = InitCodeElement(BEN_CodeElementType.IO_ReadInput);
             var outputCodeElement = InitCodeElement(BEN_CodeElementType.IO_WriteOutput);
 
+            inputCodeElement.ListPrevNode = null;
             inputCodeElement.ListNextNode = outputCodeElement;
             inputCodeElement.SetButtonsActivity();
+
             outputCodeElement.ListPrevNode = inputCodeElement;
+            outputCodeElement.ListNextNode = null;
             outputCodeElement.SetButtonsActivity();
+
             codeElementsTree = inputCodeElement;
         }
 
@@ -142,7 +143,8 @@ namespace Assets.Scripts.States.Battles.BattleExecutorNumbers
 
         private void MoveTreeToRoot()
         {
-            while (codeElementsTree.ListPrevNode != null)
+            var t = 1000;
+            while (codeElementsTree.ListPrevNode != null && t-- > 0)
             {
                 codeElementsTree = codeElementsTree.ListPrevNode;
             }

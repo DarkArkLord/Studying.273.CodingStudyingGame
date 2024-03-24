@@ -47,7 +47,7 @@ namespace Assets.Scripts.States.Map.Controllers
 
                     ResolveInteractionEvent.AddListener(EnemyInteractAction(enemy));
 
-                    EnemyInteractionEvent.Invoke(MainStateCode.Battle_Test);
+                    EnemyInteractionEvent.Invoke(MainStateCode.Battle_ExecutorNumbers);
 
                     return;
                 }

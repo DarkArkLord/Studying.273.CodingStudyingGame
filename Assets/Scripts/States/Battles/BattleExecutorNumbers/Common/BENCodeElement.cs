@@ -41,6 +41,8 @@ namespace Assets.Scripts.States.Battles.BattleExecutorNumbers.Common
         private BEN_CE_Int_Three _int_3;
         public BEN_CE_Int_Three Interface_3 => _int_3;
 
+        public int ELEMENT_INDEX;
+
         public BEN_CodeElementType CodeElementType { get; private set; }
 
         private BEN_ExecutionContext executionContext;
@@ -91,6 +93,7 @@ namespace Assets.Scripts.States.Battles.BattleExecutorNumbers.Common
         public void InitButtons(GameObject onCreateParent, ObjectPoolComponent objectsPool, Action updateCodeTreeRoot, BEN_CodeType_Selector typeSelector)
         {
             SetButtonsActivity();
+
             _moveUpButton.OnClick.AddListener(() =>
             {
                 if (ListPrevNode == null) return;
@@ -106,9 +109,18 @@ namespace Assets.Scripts.States.Battles.BattleExecutorNumbers.Common
                 curPrev.ListPrevNode = this;
                 curPrev.ListNextNode = curNext;
 
-                transform.SetSiblingIndex(transform.GetSiblingIndex() - 1);
-                SetButtonsActivity();
+                if (curNext != null)
+                {
+                    curNext.ListPrevNode = curPrev;
+                }
+                if (prevPrev != null)
+                {
+                    prevPrev.ListNextNode = this;
+                }
 
+                transform.SetSiblingIndex(transform.GetSiblingIndex() - 1);
+
+                this.SetButtonsActivity();
                 curPrev?.SetButtonsActivity();
                 curNext?.SetButtonsActivity();
                 prevPrev?.SetButtonsActivity();
@@ -118,7 +130,7 @@ namespace Assets.Scripts.States.Battles.BattleExecutorNumbers.Common
 
             _moveDownButton.OnClick.AddListener(() =>
             {
-                if (ListPrevNode == null) return;
+                if (ListNextNode == null) return;
 
                 var curPrev = ListPrevNode;
                 var curNext = ListNextNode;
@@ -131,9 +143,18 @@ namespace Assets.Scripts.States.Battles.BattleExecutorNumbers.Common
                 curNext.ListPrevNode = curPrev;
                 curNext.ListNextNode = this;
 
-                transform.SetSiblingIndex(transform.GetSiblingIndex() + 1);
-                SetButtonsActivity();
+                if (curPrev != null)
+                {
+                    curPrev.ListNextNode = curNext;
+                }
+                if (nextNext != null)
+                {
+                    nextNext.ListPrevNode = this;
+                }
 
+                transform.SetSiblingIndex(transform.GetSiblingIndex() + 1);
+
+                this.SetButtonsActivity();
                 curPrev?.SetButtonsActivity();
                 curNext?.SetButtonsActivity();
                 nextNext?.SetButtonsActivity();
@@ -153,8 +174,10 @@ namespace Assets.Scripts.States.Battles.BattleExecutorNumbers.Common
 
                 element.transform.SetParent(onCreateParent.transform);
                 element.transform.SetSiblingIndex(transform.GetSiblingIndex() + 1);
+
                 element.InitType(typeSelector.SelectedButton.ElementType, executionContext);
                 element.InitButtons(onCreateParent, objectsPool, updateCodeTreeRoot, typeSelector);
+
                 element.gameObject.SetActive(true);
 
                 SetButtonsActivity();
@@ -179,11 +202,10 @@ namespace Assets.Scripts.States.Battles.BattleExecutorNumbers.Common
                 }
 
                 OnElementDestory();
+
                 transform.SetParent(objectsPool.transform);
                 objectsPool.FreeObject(gameObject);
             });
-
-            SetElementsActive(true);
         }
 
         public void OnElementDestory()
