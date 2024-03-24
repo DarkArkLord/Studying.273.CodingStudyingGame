@@ -59,12 +59,12 @@ namespace Assets.Scripts.States.Map
         {
             yield return base.OnStatePop();
 
+            _bootstrapper.InteractionController.ResolveInteractionEvent.Invoke();
+
             _bootstrapper.SetChildsActive(true);
 
             GlobalMapPause = false;
             _bootstrapper.SetPause(GlobalMapPause);
-
-            _bootstrapper.InteractionController.ResolveInteractionEvent.Invoke();
         }
 
         public override IEnumerator OnStateDestroy()
