@@ -9,7 +9,7 @@ namespace Assets.Scripts
         private CanvasGroup _canvasGroup;
         public CanvasGroup CurrentCanvas => _canvasGroup;
 
-        public virtual float TimeToShowHide => 1f;
+        public virtual float TimeToShowHide => 0.5f;
 
         public void SetCanvasAlpha(float alpha)
         {
