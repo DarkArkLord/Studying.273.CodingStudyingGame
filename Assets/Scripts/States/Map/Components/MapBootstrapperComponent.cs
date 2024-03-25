@@ -152,17 +152,7 @@ namespace Assets.Scripts.States.Map.Components
         {
             InteractionController = new NpcInteractionController(_playerMovementController, _enemyNpcController, _friendNpcController, _interactiveItemsController, Root.Data);
 
-            InteractionController.EnemyInteractionEvent.AddListener((stateCode) =>
-            {
-                statesController.PushState(stateCode);
-            });
-
-            InteractionController.FriendInteractionEvent.AddListener((stateCode) =>
-            {
-                statesController.PushState(stateCode);
-            });
-
-            InteractionController.ItemInteractionEvent.AddListener((stateCode) =>
+            InteractionController.ChangeStateEvent.AddListener((stateCode) =>
             {
                 statesController.PushState(stateCode);
             });
@@ -182,9 +172,7 @@ namespace Assets.Scripts.States.Map.Components
             _enemyNpcController.OnDestroy();
             _friendNpcController.OnDestroy();
 
-            InteractionController.EnemyInteractionEvent.RemoveAllListeners();
-            InteractionController.FriendInteractionEvent.RemoveAllListeners();
-            InteractionController.ItemInteractionEvent.RemoveAllListeners();
+            InteractionController.ChangeStateEvent.RemoveAllListeners();
         }
 
         public void OnUpdate()

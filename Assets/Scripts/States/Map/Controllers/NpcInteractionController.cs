@@ -3,6 +3,7 @@ using Assets.Scripts.States.Map.Controllers.Interfaces;
 using Assets.Scripts.StatesMachine;
 using Assets.Scripts.Utils;
 using UnityEngine.Events;
+using static UnityEditor.Progress;
 
 namespace Assets.Scripts.States.Map.Controllers
 {
@@ -16,9 +17,7 @@ namespace Assets.Scripts.States.Map.Controllers
 
         private MainDataKeeper dataKeeper;
 
-        public UnityEvent<MainStateCode> EnemyInteractionEvent { get; private set; } = new UnityEvent<MainStateCode>();
-        public UnityEvent<MainStateCode> FriendInteractionEvent { get; private set; } = new UnityEvent<MainStateCode>();
-        public UnityEvent<MainStateCode> ItemInteractionEvent { get; private set; } = new UnityEvent<MainStateCode>();
+        public UnityEvent<MainStateCode> ChangeStateEvent { get; private set; } = new UnityEvent<MainStateCode>();
 
         public UnityEvent ResolveInteractionEvent { get; private set; } = new UnityEvent();
 
@@ -43,12 +42,7 @@ namespace Assets.Scripts.States.Map.Controllers
             {
                 if (enemy.Position2D == player.Position2D && enemy.IsInteractive && player.IsInteractive)
                 {
-                    enemy.SetInteractive(false);
-
-                    ResolveInteractionEvent.AddListener(EnemyInteractAction(enemy));
-
-                    EnemyInteractionEvent.Invoke(MainStateCode.Battle_Test);
-
+                    OnEnemyInteraction(enemy);
                     return;
                 }
 
@@ -56,14 +50,7 @@ namespace Assets.Scripts.States.Map.Controllers
                 {
                     if (friend.Position2D == enemy.Position2D && friend.IsInteractive && enemy.IsInteractive)
                     {
-                        if (random.Next() % 2 == 0)
-                        {
-                            friend.Kill();
-                        }
-                        else
-                        {
-                            enemy.Kill();
-                        }
+                        OnEnemyAndFriendInteract(enemy, friend);
                     }
                 }
             }
@@ -72,13 +59,7 @@ namespace Assets.Scripts.States.Map.Controllers
             {
                 if (friend.Position2D == player.Position2D && friend.IsInteractive && player.IsInteractive)
                 {
-                    friend.SetInteractive(false);
-
-                    ResolveInteractionEvent.AddListener(FriendInteractAction(friend));
-
-                    dataKeeper.TextMenuData.SetText("Привет :з");
-                    FriendInteractionEvent.Invoke(MainStateCode.TextMenu);
-
+                    OnFriendInteraction(friend);
                     return;
                 }
             }
@@ -87,15 +68,50 @@ namespace Assets.Scripts.States.Map.Controllers
             {
                 if (item.Position2D == player.Position2D && item.IsInteractive && player.IsInteractive)
                 {
-                    item.SetInteractive(false);
-
-                    ResolveInteractionEvent.AddListener(ObjectInteractAction(item));
-
-                    ItemInteractionEvent.Invoke(MainStateCode.Battle_Test);
-
+                    OnItemInteraction(item);
                     return;
                 }
             }
+        }
+
+        private void OnEnemyInteraction(INpcController npc)
+        {
+            npc.SetInteractive(false);
+
+            ResolveInteractionEvent.AddListener(EnemyInteractAction(npc));
+
+            ChangeStateEvent.Invoke(MainStateCode.Battle_Test);
+        }
+
+        private void OnEnemyAndFriendInteract(INpcController enemy, INpcController friend)
+        {
+            if (random.Next() % 2 == 0)
+            {
+                friend.Kill();
+            }
+            else
+            {
+                enemy.Kill();
+            }
+        }
+
+        private void OnFriendInteraction(INpcController npc)
+        {
+            npc.SetInteractive(false);
+
+            ResolveInteractionEvent.AddListener(FriendInteractAction(npc));
+
+            dataKeeper.TextMenuData.SetText("Привет :з");
+            ChangeStateEvent.Invoke(MainStateCode.TextMenu);
+        }
+
+        private void OnItemInteraction(INpcController npc)
+        {
+            npc.SetInteractive(false);
+
+            ResolveInteractionEvent.AddListener(ObjectInteractAction(npc));
+
+            ChangeStateEvent.Invoke(MainStateCode.Battle_Test);
         }
 
         private UnityAction EnemyInteractAction(INpcController npc)
@@ -121,14 +137,14 @@ namespace Assets.Scripts.States.Map.Controllers
             {
                 if (dataKeeper.NpcInteraction == null) return;
 
-                if (dataKeeper.NpcInteraction.IsPlayerWin)
-                {
-                    npc.Kill();
-                }
-                else
-                {
-                    player.Kill();
-                }
+                //if (dataKeeper.NpcInteraction.IsPlayerWin)
+                //{
+                //    npc.Kill();
+                //}
+                //else
+                //{
+                //    player.Kill();
+                //}
 
                 ResolveInteractionEvent.RemoveAllListeners();
             };
@@ -138,14 +154,14 @@ namespace Assets.Scripts.States.Map.Controllers
             {
                 if (dataKeeper.NpcInteraction == null) return;
 
-                //if (dataKeeper.NpcInteraction.IsPlayerWin)
-                //{
-                //    npc.Kill();
-                //}
-                //else
-                //{
-                //    player.Kill();
-                //}
+                if (dataKeeper.NpcInteraction.IsPlayerWin)
+                {
+                    npc.Kill();
+                }
+                else
+                {
+                    player.Kill();
+                }
 
                 ResolveInteractionEvent.RemoveAllListeners();
             };
