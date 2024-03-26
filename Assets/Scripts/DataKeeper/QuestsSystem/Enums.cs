@@ -5,6 +5,7 @@
         Q1_GatherFlowers = 0,
         Q2_HealFriends = 1,
         Q3_KillEnemies = 2,
+        Q4_KillWolfes2 = 3,
     }
 
     public enum QuestState
