@@ -121,6 +121,7 @@ namespace Assets.Scripts.States.Map.Components
                 _enemyNpcPool,
                 _playerMovementController,
                 _floorController.Map,
+                NpcType.Enemy_Wolf,
                 NpcMovementController.Create);
         }
 
@@ -133,6 +134,7 @@ namespace Assets.Scripts.States.Map.Components
                 _friendlyNpcPool,
                 _playerMovementController,
                 _floorController.Map,
+                NpcType.Friend_Elf,
                 NpcMovementController.Create);
         }
 
@@ -145,6 +147,7 @@ namespace Assets.Scripts.States.Map.Components
                 _interactiveItemsPool,
                 _playerMovementController,
                 _floorController.Map,
+                NpcType.Item_Flower,
                 ItemsMovementController.Create);
         }
 

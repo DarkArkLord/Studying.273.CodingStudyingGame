@@ -8,7 +8,7 @@ namespace Assets.Scripts.States.Map.Controllers
 {
     public class NpcMovementController : INpcController
     {
-        public static INpcController Create(GameObject obj, IObjectWithPosition2D player, MapController map)
+        public static INpcController Create(GameObject obj, IObjectWithPosition2D player, MapController map, NpcType type)
         {
             var movableNpc = obj.GetComponent<JumpComponent>();
             if (movableNpc is null)
@@ -16,7 +16,7 @@ namespace Assets.Scripts.States.Map.Controllers
                 movableNpc = obj.AddComponent<JumpComponent>();
             }
 
-            return new NpcMovementController(movableNpc, player, map);
+            return new NpcMovementController(movableNpc, player, map, type);
         }
 
         private JumpComponent npc;
@@ -38,13 +38,16 @@ namespace Assets.Scripts.States.Map.Controllers
         public bool IsInteractive => IsAlive && !IsMoving && isInteractive;
         public bool IsOnPause { get; private set; } = false;
 
+        public NpcType Type { get; private set; }
+
         public Vector2Int Position2D => npc.Position2D;
 
-        public NpcMovementController(JumpComponent npc, IObjectWithPosition2D player, MapController map)
+        public NpcMovementController(JumpComponent npc, IObjectWithPosition2D player, MapController map, NpcType type)
         {
             this.npc = npc;
             this.player = player;
             this.map = map;
+            Type = type;
 
             moveWaitingTime = timeBeforeSteps;
         }
@@ -138,5 +141,96 @@ namespace Assets.Scripts.States.Map.Controllers
         {
             isInteractive = interactive;
         }
+    }
+
+    public class ItemsMovementController : INpcController
+    {
+        public static INpcController Create(GameObject obj, IObjectWithPosition2D player, MapController map, NpcType type)
+        {
+            var movableItem = obj.GetComponent<JumpComponent>();
+            if (movableItem is null)
+            {
+                movableItem = obj.AddComponent<JumpComponent>();
+            }
+
+            return new ItemsMovementController(movableItem, player, map, type);
+        }
+
+        private JumpComponent item;
+        private IObjectWithPosition2D player;
+        private MapController map;
+
+        private System.Random random = RandomUtils.Random;
+
+        private bool isInteractive = false;
+
+        public bool IsAlive { get; private set; } = false;
+        public bool IsInteractive => IsAlive && isInteractive;
+        public bool IsOnPause { get; private set; } = false;
+
+        public NpcType Type { get; private set; }
+
+        public Vector2Int Position2D => item.Position2D;
+
+        public ItemsMovementController(JumpComponent item, IObjectWithPosition2D player, MapController map, NpcType type)
+        {
+            this.item = item;
+            this.player = player;
+            this.map = map;
+            Type = type;
+        }
+
+        public void OnUpdate()
+        {
+            //
+        }
+
+        public void Kill()
+        {
+            IsAlive = false;
+            item.GameObject.SetActive(false);
+        }
+
+        public void Resurrect()
+        {
+            IsAlive = true;
+            var playerPos = player.Position2D;
+
+            while (true)
+            {
+                var x = random.Next(map.Width);
+                var y = random.Next(map.Height);
+                // if can move
+                // and not current player position
+                // and not start player position
+                if (map.IsCanMove(x, y) && (playerPos.x != x || playerPos.y != y) && (map.StartX != x || map.StartY != y))
+                {
+                    item.Transform.position = new Vector3(x, 0, y);
+                    item.GameObject.SetActive(true);
+                    break;
+                }
+            }
+
+            isInteractive = true;
+        }
+
+        public void SetPause(bool pause)
+        {
+            IsOnPause = pause;
+        }
+
+        public void SetInteractive(bool interactive)
+        {
+            isInteractive = interactive;
+        }
+    }
+
+    public enum NpcType
+    {
+        Enemy_Wolf = 0,
+
+        Friend_Elf = 10,
+
+        Item_Flower = 20,
     }
 }

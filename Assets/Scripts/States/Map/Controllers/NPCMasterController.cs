@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using NpcInitFunc = System.Func<UnityEngine.GameObject,
     Assets.Scripts.States.Map.Controllers.Interfaces.IObjectWithPosition2D,
     Assets.Scripts.States.Map.Controllers.MapController,
+    Assets.Scripts.States.Map.Controllers.NpcType,
     Assets.Scripts.States.Map.Controllers.Interfaces.INpcController>;
 
 namespace Assets.Scripts.States.Map.Controllers
@@ -15,6 +16,7 @@ namespace Assets.Scripts.States.Map.Controllers
         private ObjectPoolComponent pool;
         private INpcController[] npcs;
         private IObjectWithPosition2D player;
+        private NpcType npcType;
 
         public ObjectPoolComponent Pool => pool;
 
@@ -22,12 +24,14 @@ namespace Assets.Scripts.States.Map.Controllers
 
         public IReadOnlyList<INpcController> NPCs => npcs;
 
-        public NpcMasterController(int npcCount, ObjectPoolComponent pool, IObjectWithPosition2D player, MapController map, NpcInitFunc initFunc)
+        public NpcMasterController(int npcCount, ObjectPoolComponent pool, IObjectWithPosition2D player, MapController map, NpcType type, NpcInitFunc initFunc)
         {
             this.player = player;
 
             this.npcCount = npcCount;
             this.pool = pool;
+
+            this.npcType = type;
 
             npcs = new INpcController[npcCount];
             for (int i = 0; i < npcs.Length; i++)
@@ -41,7 +45,7 @@ namespace Assets.Scripts.States.Map.Controllers
 
                 //new NpcMovementController(movableNpc, player, map);
 
-                npcs[i] = initFunc(npc, player, map);
+                npcs[i] = initFunc(npc, player, map, type);
                 npcs[i].Resurrect();
             }
         }
