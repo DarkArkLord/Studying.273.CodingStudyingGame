@@ -1,5 +1,7 @@
 using Assets.Scripts.DataKeeper;
+using Assets.Scripts.DataKeeper.QuestsSystem;
 using Assets.Scripts.StatesMachine;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts
@@ -19,6 +21,10 @@ namespace Assets.Scripts
 
         private MainDataKeeper _dataKeeper;
         public MainDataKeeper Data => _dataKeeper;
+
+        [SerializeField]
+        private MissionConfigSO[] missionConfigs;
+        public IReadOnlyList<MissionConfigSO> MissionConfigs => missionConfigs;
 
         // Some data
 
