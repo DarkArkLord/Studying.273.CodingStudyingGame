@@ -76,8 +76,12 @@ namespace Assets.Scripts.States.Menu.TownMenu
 
         private void TalkButtonClick()
         {
+            TownQuestController.UpdateQuestStates();
+
             var text = "Текст из лагеря.\n"
-                + $"Убито {Root.Data.Progress.KilledEmeniesCounter} врагов.";
+                + $"Убито {Root.Data.Progress.KilledEmeniesCounter} врагов."
+                + TownQuestController.GetQuestsText();
+
             Root.Data.TextMenuData.SetText(text);
             controller.PushState(MainStateCode.TextMenu);
         }
