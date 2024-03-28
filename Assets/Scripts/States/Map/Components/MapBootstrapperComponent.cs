@@ -184,6 +184,7 @@ namespace Assets.Scripts.States.Map.Components
 
             _enemyNpcController.OnDestroy();
             _friendNpcController.OnDestroy();
+            _interactiveItemsController.OnDestroy();
 
             InteractionController.ChangeStateEvent.RemoveAllListeners();
         }
@@ -198,6 +199,7 @@ namespace Assets.Scripts.States.Map.Components
 
             _enemyNpcController.OnUpdate();
             _friendNpcController.OnUpdate();
+            _interactiveItemsController.OnUpdate();
 
             InteractionController.OnUpdate();
         }
@@ -207,6 +209,7 @@ namespace Assets.Scripts.States.Map.Components
             _playerMovementController.SetPause(pause);
             _enemyNpcController.SetPause(pause);
             _friendNpcController.SetPause(pause);
+            _interactiveItemsController.SetPause(pause);
         }
 
         public void SetChildsActive(bool isActive)
@@ -215,6 +218,7 @@ namespace Assets.Scripts.States.Map.Components
             _playerMovementController.SetActive(isActive);
             _enemyNpcController.SetActive(isActive);
             _friendNpcController.SetActive(isActive);
+            _interactiveItemsController.SetActive(isActive);
         }
 
         private MoveDirection? GetButtonsDirection()

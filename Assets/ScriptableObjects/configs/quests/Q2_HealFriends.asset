@@ -20,5 +20,5 @@ MonoBehaviour:
     \u041A\u043E\u043D\u0435\u0446."
   questsForAvailable: 00000000
   onMap: 20
-  npcType: 20
+  npcType: 10
   interactionsCount: 5

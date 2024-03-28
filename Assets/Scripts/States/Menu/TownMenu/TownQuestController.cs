@@ -20,7 +20,7 @@ namespace Assets.Scripts.States.Menu.TownMenu
                 if (questsInfo.QuestStates[quest] == QuestState.InProgress)
                 {
                     var questConfig = Root.Instance.MissionConfigs.FirstOrDefault(x => x.Id == quest) as MissionConfig_InteractNpc_SO;
-                    if (questConfig != null && questsInfo.QuestProgress[quest] > questConfig.InteractionsCount)
+                    if (questConfig != null && questsInfo.QuestProgress[quest] >= questConfig.InteractionsCount)
                     {
                         questsInfo.QuestStates[quest] = QuestState.Complete;
                         questsInfo.QuestsForCompleting.Add(quest);
