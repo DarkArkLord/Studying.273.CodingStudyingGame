@@ -18,6 +18,10 @@ namespace Assets.Scripts.DataKeeper.QuestsSystem
         public string OnStartText => onStartText;
 
         [SerializeField]
+        private string inProgressText;
+        public string InProgressText => inProgressText;
+
+        [SerializeField]
         private string onCompleteText;
         public string OnCompleteText => onCompleteText;
 

@@ -88,7 +88,7 @@ namespace Assets.Scripts.States.Menu.TownMenu
                 {
                     var questConfig = Root.Instance.MissionConfigs.FirstOrDefault(x => x.Id == quest) as MissionConfig_InteractNpc_SO;
                     var progress = questsInfo.QuestProgress[quest];
-                    result.Add($"{questConfig.Title}\nВыполнено {progress} из {questConfig.InteractionsCount}");
+                    result.Add($"{questConfig.Title}\n{questConfig.InProgressText}\nВыполнено {progress} из {questConfig.InteractionsCount}");
                 }
             }
 
