@@ -71,7 +71,7 @@ namespace Assets.Scripts.States.Menu.MainMenu
 
         private void StartButtonClick()
         {
-            Root.Data.Progress.KilledEmeniesCounter = 0;
+            Root.Data.Progress = new ProgressStateKeeper();
 
             controller.ClearStatesStack();
             controller.UseState(MainStateCode.TownMenu);
