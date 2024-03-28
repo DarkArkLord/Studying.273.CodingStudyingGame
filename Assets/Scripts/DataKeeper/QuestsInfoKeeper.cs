@@ -28,5 +28,10 @@ namespace Assets.Scripts.DataKeeper
         public List<QuestIdEnum> QuestsForCompleting { get; set; }
         public Dictionary<QuestIdEnum, QuestState> QuestStates { get; set; }
         public Dictionary<QuestIdEnum, int> QuestProgress { get; set; }
+
+        public bool IsQuestInState(QuestIdEnum quest, QuestState state)
+        {
+            return QuestStates[quest] == state;
+        }
     }
 }

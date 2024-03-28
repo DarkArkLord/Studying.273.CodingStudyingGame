@@ -40,6 +40,8 @@ namespace Assets.Scripts.States.Map.Components
         private NpcMasterController _friendNpcController;
         private NpcMasterController _interactiveItemsController;
 
+        private QuestController questController;
+
         public NpcInteractionController InteractionController { get; private set; }
 
         public void OnMapInit(StatesController<MainStateCode> statesController)
@@ -52,6 +54,8 @@ namespace Assets.Scripts.States.Map.Components
             InitEnemies();
             InitFriends();
             InitInteractiveItems();
+
+            InitQuests();
 
             InitNpcInteraction();
             IsInited = true;
@@ -151,9 +155,15 @@ namespace Assets.Scripts.States.Map.Components
                 ItemsMovementController.Create);
         }
 
+        private void InitQuests()
+        {
+            questController = new QuestController(statesController.CurrentState.Id);
+            questController.Init();
+        }
+
         private void InitNpcInteraction()
         {
-            InteractionController = new NpcInteractionController(_playerMovementController, _enemyNpcController, _friendNpcController, _interactiveItemsController, Root.Data);
+            InteractionController = new NpcInteractionController(_playerMovementController, _enemyNpcController, _friendNpcController, _interactiveItemsController, questController);
 
             InteractionController.ChangeStateEvent.AddListener((stateCode) =>
             {
