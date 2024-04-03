@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.CommonComponents;
+using Assets.Scripts.DataKeeper.QuestsSystem;
 using Assets.Scripts.States.Map.Components.MapGenerators;
 using Assets.Scripts.States.Map.Controllers;
 using Assets.Scripts.StatesMachine;
@@ -43,6 +44,8 @@ namespace Assets.Scripts.States.Map.Components
         private QuestController questController;
 
         public NpcInteractionController InteractionController { get; private set; }
+
+        private MainStateCode CurrentState => statesController.CurrentState.Id;
 
         public void OnMapInit(StatesController<MainStateCode> statesController)
         {
@@ -100,25 +103,38 @@ namespace Assets.Scripts.States.Map.Components
 
             _playerMovementController.StandOnOutputEvent.AddListener(() =>
             {
-                var currentStateCode = statesController.CurrentState.Id;
-                SetChildsActive(false);
+                var data = Root.Instance.Data;
+                var quests = data.Progress.QuestsInfo;
 
-                switch (currentStateCode)
+                if (CurrentState == MainStateCode.Map_Forest_1)
                 {
-                    case MainStateCode.Map_Forest_1:
+                    var wolfesKilled = quests.IsQuestInState(QuestIdEnum.Q3_KillEnemies, QuestState.Complete);
+                    var friendsHealed = quests.IsQuestInState(QuestIdEnum.Q2_HealFriends, QuestState.Complete);
+
+                    if (wolfesKilled && friendsHealed)
+                    {
+                        SetChildsActive(false);
                         statesController.PushState(MainStateCode.Map_Forest_2);
-                        break;
-                    case MainStateCode.Map_Forest_2:
-                        statesController.ClearStatesStack();
-                        statesController.UseState(MainStateCode.TownMenu);
-                        break;
+                    }
+                    else
+                    {
+                        data.TextMenuData.SetText("Сперва нужно решить все дела здесь.");
+                        statesController.PushState(MainStateCode.TextMenu);
+                    }
+                }
+                else if (CurrentState == MainStateCode.Map_Forest_2)
+                {
+                    SetChildsActive(false);
+                    data.TextMenuData.SetText("Дальше идти некуда, вы возвращаетесь в деревню.", MainStateCode.TownMenu);
+                    statesController.ClearStatesStack();
+                    statesController.UseState(MainStateCode.TextMenu);
                 }
             });
         }
 
         private void InitEnemies()
         {
-            var emeniesCount = 5;
+            var emeniesCount = GetEnemiesCount();
             _enemyNpcPool.Init();
             _enemyNpcController = new NpcMasterController(
                 emeniesCount,
@@ -129,9 +145,42 @@ namespace Assets.Scripts.States.Map.Components
                 NpcMovementController.Create);
         }
 
+        private int GetEnemiesCount()
+        {
+            var data = Root.Instance.Data;
+            var quests = data.Progress.QuestsInfo;
+
+            if (CurrentState == MainStateCode.Map_Forest_1)
+            {
+                var wolfesKilled = quests.IsQuestInState(QuestIdEnum.Q3_KillEnemies, QuestState.Complete);
+                if (wolfesKilled)
+                {
+                    return 5;
+                }
+                else
+                {
+                    return 10;
+                }
+            }
+            else if (CurrentState == MainStateCode.Map_Forest_2)
+            {
+                var wolfesKilled = quests.IsQuestInState(QuestIdEnum.Q4_KillWolfes2, QuestState.Complete);
+                if (wolfesKilled)
+                {
+                    return 5;
+                }
+                else
+                {
+                    return 10;
+                }
+            }
+
+            return 1;
+        }
+
         private void InitFriends()
         {
-            var friendsCount = 5;
+            var friendsCount = GetFriendsCount();
             _friendlyNpcPool.Init();
             _friendNpcController = new NpcMasterController(
                 friendsCount,
@@ -142,9 +191,34 @@ namespace Assets.Scripts.States.Map.Components
                 NpcMovementController.Create);
         }
 
+        private int GetFriendsCount()
+        {
+            var data = Root.Instance.Data;
+            var quests = data.Progress.QuestsInfo;
+
+            if (CurrentState == MainStateCode.Map_Forest_1)
+            {
+                var friendsHealed = quests.IsQuestInState(QuestIdEnum.Q2_HealFriends, QuestState.Complete);
+                if (friendsHealed)
+                {
+                    return 10;
+                }
+                else
+                {
+                    return 5;
+                }
+            }
+            else if (CurrentState == MainStateCode.Map_Forest_2)
+            {
+                return 5;
+            }
+
+            return 1;
+        }
+
         private void InitInteractiveItems()
         {
-            var itemsCount = 5;
+            var itemsCount = GetInteractiveItemsCount();
             _interactiveItemsPool.Init();
             _interactiveItemsController = new NpcMasterController(
                 itemsCount,
@@ -155,15 +229,40 @@ namespace Assets.Scripts.States.Map.Components
                 ItemsMovementController.Create);
         }
 
+        private int GetInteractiveItemsCount()
+        {
+            var data = Root.Instance.Data;
+            var quests = data.Progress.QuestsInfo;
+
+            if (CurrentState == MainStateCode.Map_Forest_1)
+            {
+                var flowersGathered = quests.IsQuestInState(QuestIdEnum.Q1_GatherFlowers, QuestState.Complete);
+                if (flowersGathered)
+                {
+                    return 5;
+                }
+                else
+                {
+                    return 10;
+                }
+            }
+            else if (CurrentState == MainStateCode.Map_Forest_2)
+            {
+                return 5;
+            }
+
+            return 1;
+        }
+
         private void InitQuests()
         {
-            questController = new QuestController(statesController.CurrentState.Id);
+            questController = new QuestController(CurrentState);
             questController.Init();
         }
 
         private void InitNpcInteraction()
         {
-            InteractionController = new NpcInteractionController(_playerMovementController, _enemyNpcController, _friendNpcController, _interactiveItemsController, questController);
+            InteractionController = new NpcInteractionController(_playerMovementController, _enemyNpcController, _friendNpcController, _interactiveItemsController, questController, CurrentState);
 
             InteractionController.ChangeStateEvent.AddListener((stateCode) =>
             {

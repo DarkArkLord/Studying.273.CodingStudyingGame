@@ -2,6 +2,7 @@
 using Assets.Scripts.States.Map.Components.MapGenerators;
 using Assets.Scripts.States.Map.Controllers.Interfaces;
 using Assets.Scripts.States.Map.Utils;
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
@@ -111,6 +112,14 @@ namespace Assets.Scripts.States.Map.Controllers
         public void SetPause(bool pause)
         {
             IsOnPause = pause;
+            if (!pause)
+            {
+                _camera.gameObject.transform.position = lastCameraPosition;
+            }
+            else
+            {
+                lastCameraPosition = _camera.gameObject.transform.position;
+            }
         }
 
         public void SetActive(bool active)
