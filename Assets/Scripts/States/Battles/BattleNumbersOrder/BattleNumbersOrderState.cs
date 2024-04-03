@@ -4,18 +4,9 @@ using UnityEngine;
 
 namespace Assets.Scripts.States.Battles.BattleNumbersOrder
 {
-    public class BattleNumbersOrderState : BaseState<MainStateCode>
+    public class BattleNumbersOrderState : BaseBattleState
     {
-        #region Main info
-
         public override MainStateCode Id => MainStateCode.Battle_NumbersOrder;
-
-        public override void OnUpdate()
-        {
-            //
-        }
-
-        #endregion
 
         [SerializeField]
         private BattleNumbersOrderUi _ui;
@@ -32,6 +23,8 @@ namespace Assets.Scripts.States.Battles.BattleNumbersOrder
             Ui.CloseButton.OnClick.AddListener(CloseBattle);
 
             yield return base.OnStateCreating();
+
+            CheckBattleResultData();
         }
 
         public override IEnumerator OnStatePush()

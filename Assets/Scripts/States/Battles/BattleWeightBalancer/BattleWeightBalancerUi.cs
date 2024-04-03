@@ -55,17 +55,18 @@ namespace Assets.Scripts.States.Battles.BattleWeightBalancer
             _checkButton.OnClick.AddListener(() =>
             {
                 var inputText = _input.text;
-                if (inputText == null
-                || inputText.Length < 1
-                || !int.TryParse(inputText, out int inputValue)
-                || inputValue != correctResult)
+                var isIncorrect = inputText == null
+                    || inputText.Length < 1
+                    || !int.TryParse(inputText, out int inputValue)
+                    || inputValue != correctResult;
+
+                Root.Data.BattleResult.IsPlayerWin = !isIncorrect;
+                if (isIncorrect)
                 {
-                    Root.Data.NpcInteraction.IsPlayerWin = false;
                     ShowResultUi("Неверно");
                 }
                 else
                 {
-                    Root.Data.NpcInteraction.IsPlayerWin = true;
                     ShowResultUi("Верно");
                 }
             });

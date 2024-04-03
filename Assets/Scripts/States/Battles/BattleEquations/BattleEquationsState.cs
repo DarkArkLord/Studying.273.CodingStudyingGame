@@ -4,18 +4,9 @@ using UnityEngine;
 
 namespace Assets.Scripts.States.Battles.BattleEquations
 {
-    public class BattleEquationsState : BaseState<MainStateCode>
+    public class BattleEquationsState : BaseBattleState
     {
-        #region Main info
-
         public override MainStateCode Id => MainStateCode.Battle_Equations;
-
-        public override void OnUpdate()
-        {
-            //
-        }
-
-        #endregion
 
         [SerializeField]
         private BattleEquationsUi _ui;
@@ -33,11 +24,7 @@ namespace Assets.Scripts.States.Battles.BattleEquations
 
             yield return base.OnStateCreating();
 
-            if (Root.Data.NpcInteraction == null)
-            {
-                Debug.LogError("Start battle container without battle info");
-                controller.UseState(MainStateCode.Exit);
-            }
+            CheckBattleResultData();
         }
 
         public override IEnumerator OnStatePush()

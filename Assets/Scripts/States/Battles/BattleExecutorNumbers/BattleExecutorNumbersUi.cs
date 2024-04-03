@@ -183,7 +183,7 @@ namespace Assets.Scripts.States.Battles.BattleExecutorNumbers
                 node.SetElementsActive(false);
             }
 
-            Root.Data.NpcInteraction.IsPlayerWin = false;
+            Root.Data.BattleResult.IsPlayerWin = false;
 
             yield return null;
 
@@ -225,7 +225,7 @@ namespace Assets.Scripts.States.Battles.BattleExecutorNumbers
                 currentElement = currentElement.ListNextNode;
             }
 
-            Root.Data.NpcInteraction.IsPlayerWin = true;
+            Root.Data.BattleResult.IsPlayerWin = true;
             ShowResultUi("Верно");
         }
 

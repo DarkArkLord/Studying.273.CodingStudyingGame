@@ -4,18 +4,9 @@ using UnityEngine;
 
 namespace Assets.Scripts.States.Battles.BattleTest
 {
-    public class BattleTestState : BaseState<MainStateCode>
+    public class BattleTestState : BaseBattleState
     {
-        #region Main info
-
         public override MainStateCode Id => MainStateCode.Battle_Test;
-
-        public override void OnUpdate()
-        {
-            //
-        }
-
-        #endregion
 
         [SerializeField]
         private BattleTestUi _ui;
@@ -33,6 +24,8 @@ namespace Assets.Scripts.States.Battles.BattleTest
             Ui.CloseButton.OnClick.AddListener(CloseBattle);
 
             yield return base.OnStateCreating();
+
+            CheckBattleResultData();
         }
 
         public override IEnumerator OnStatePush()
@@ -70,13 +63,13 @@ namespace Assets.Scripts.States.Battles.BattleTest
 
         private void Win()
         {
-            Root.Data.NpcInteraction.IsPlayerWin = true;
+            Root.Data.BattleResult.IsPlayerWin = true;
             Ui.ShowResultUi("Победа");
         }
 
         private void Lose()
         {
-            Root.Data.NpcInteraction.IsPlayerWin = false;
+            Root.Data.BattleResult.IsPlayerWin = false;
             Ui.ShowResultUi("Поражение");
         }
 

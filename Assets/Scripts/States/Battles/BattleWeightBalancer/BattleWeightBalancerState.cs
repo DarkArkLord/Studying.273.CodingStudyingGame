@@ -4,18 +4,9 @@ using UnityEngine;
 
 namespace Assets.Scripts.States.Battles.BattleWeightBalancer
 {
-    public class BattleWeightBalancerState : BaseState<MainStateCode>
+    public class BattleWeightBalancerState : BaseBattleState
     {
-        #region Main info
-
         public override MainStateCode Id => MainStateCode.Battle_WeightBalancer;
-
-        public override void OnUpdate()
-        {
-            //
-        }
-
-        #endregion
 
         [SerializeField]
         private BattleWeightBalancerUi _ui;
@@ -32,6 +23,8 @@ namespace Assets.Scripts.States.Battles.BattleWeightBalancer
             Ui.CloseButton.OnClick.AddListener(CloseBattle);
 
             yield return base.OnStateCreating();
+
+            CheckBattleResultData();
         }
 
         public override IEnumerator OnStatePush()

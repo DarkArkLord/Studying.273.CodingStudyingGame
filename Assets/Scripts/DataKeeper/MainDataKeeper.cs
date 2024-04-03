@@ -4,12 +4,12 @@
     {
         public MainDataKeeper()
         {
-            NpcInteraction = new NpcInteractionInfo();
+            BattleResult = null;
             Progress = new ProgressStateKeeper();
             TextMenuData = new TextMenuDataKeeper();
         }
 
-        public NpcInteractionInfo NpcInteraction { get; set; }
+        public BattleResultInfo BattleResult { get; set; }
 
         public TextMenuDataKeeper TextMenuData { get; set; }
 

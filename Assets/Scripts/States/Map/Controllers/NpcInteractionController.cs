@@ -1,10 +1,8 @@
-﻿using Assets.Scripts.DataKeeper;
-using Assets.Scripts.DataKeeper.QuestsSystem;
+﻿using Assets.Scripts.DataKeeper.QuestsSystem;
 using Assets.Scripts.States.Map.Controllers.Interfaces;
 using Assets.Scripts.StatesMachine;
 using Assets.Scripts.Utils;
 using UnityEngine.Events;
-using static UnityEditor.Progress;
 
 namespace Assets.Scripts.States.Map.Controllers
 {
@@ -83,7 +81,6 @@ namespace Assets.Scripts.States.Map.Controllers
             npc.SetInteractive(false);
 
             ResolveInteractionEvent.AddListener(KillingInteractAction(npc));
-            data.NpcInteraction = new NpcInteractionInfo();
             ChangeStateEvent.Invoke(MainStateCode.Battle_Test);
         }
 
@@ -114,7 +111,6 @@ namespace Assets.Scripts.States.Map.Controllers
             else if (questsInfo.IsQuestInState(QuestIdEnum.Q2_HealFriends, QuestState.InProgress))
             {
                 ResolveInteractionEvent.AddListener(KillingInteractAction(npc));
-                data.NpcInteraction = new NpcInteractionInfo();
                 ChangeStateEvent.Invoke(MainStateCode.Battle_Test);
             }
             else if (questsInfo.IsQuestInState(QuestIdEnum.Q2_HealFriends, QuestState.Complete))
@@ -134,7 +130,6 @@ namespace Assets.Scripts.States.Map.Controllers
             if (questsInfo.IsQuestInState(QuestIdEnum.Q1_GatherFlowers, QuestState.InProgress))
             {
                 ResolveInteractionEvent.AddListener(KillingInteractAction(npc));
-                data.NpcInteraction = new NpcInteractionInfo();
                 ChangeStateEvent.Invoke(MainStateCode.Battle_Test);
             }
         }
@@ -143,7 +138,7 @@ namespace Assets.Scripts.States.Map.Controllers
             => () =>
             {
                 var data = Root.Instance.Data;
-                var interaction = data.NpcInteraction;
+                var interaction = data.BattleResult;
 
                 if (interaction == null) return;
 
@@ -159,7 +154,7 @@ namespace Assets.Scripts.States.Map.Controllers
 
                 ResolveInteractionEvent.RemoveAllListeners();
 
-                data.NpcInteraction = null;
+                data.BattleResult = null;
             };
     }
 }
