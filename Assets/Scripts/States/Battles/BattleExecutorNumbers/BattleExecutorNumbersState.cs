@@ -58,10 +58,5 @@ namespace Assets.Scripts.States.Battles.BattleExecutorNumbers
             Ui.DisableCanvas();
             yield return base.OnStateDestroy();
         }
-
-        private void CloseBattle()
-        {
-            controller.PopState();
-        }
     }
 }

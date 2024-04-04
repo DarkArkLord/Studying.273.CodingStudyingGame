@@ -80,10 +80,5 @@ namespace Assets.Scripts.States.Battles.BattleTest
             Root.Data.BattleResult.IsPlayerWin = false;
             Ui.ShowResultUi("Поражение");
         }
-
-        private void CloseBattle()
-        {
-            controller.PopState();
-        }
     }
 }

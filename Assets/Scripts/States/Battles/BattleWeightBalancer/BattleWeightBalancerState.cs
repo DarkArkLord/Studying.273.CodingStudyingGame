@@ -58,10 +58,5 @@ namespace Assets.Scripts.States.Battles.BattleWeightBalancer
             Ui.OnClose();
             yield return base.OnStateDestroy();
         }
-
-        private void CloseBattle()
-        {
-            controller.PopState();
-        }
     }
 }

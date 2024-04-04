@@ -40,5 +40,10 @@ namespace Assets.Scripts.States.Battles
                 Root.Data.BattleResult.BattleTime += Time.deltaTime;
             }
         }
+
+        protected void CloseBattle()
+        {
+            controller.PopState();
+        }
     }
 }
