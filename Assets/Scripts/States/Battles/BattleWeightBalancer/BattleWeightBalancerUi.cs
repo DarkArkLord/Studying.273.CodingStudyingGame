@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts.CommonComponents;
 using Assets.Scripts.States.Battles.BattleWeightBalancer.Common;
 using Assets.Scripts.Utils;
+using System;
 using TMPro;
 using UnityEngine;
 
@@ -22,8 +23,10 @@ namespace Assets.Scripts.States.Battles.BattleWeightBalancer
 
         private System.Random random = RandomUtils.Random;
 
-        public void OnInit()
+        public override void OnInit(Action<bool> setAccumulateTimeFlag)
         {
+            base.OnInit(setAccumulateTimeFlag);
+
             _input.text = "";
 
             var maxValue = 0;
@@ -54,6 +57,8 @@ namespace Assets.Scripts.States.Battles.BattleWeightBalancer
 
             _checkButton.OnClick.AddListener(() =>
             {
+                setAccumulateTimeFlag(false);
+
                 var inputText = _input.text;
                 var isIncorrect = inputText == null
                     || inputText.Length < 1

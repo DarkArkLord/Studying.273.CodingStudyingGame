@@ -1,7 +1,9 @@
-﻿using TMPro;
+﻿using Assets.Scripts.CommonComponents;
+using System;
+using TMPro;
 using UnityEngine;
 
-namespace Assets.Scripts.CommonComponents
+namespace Assets.Scripts.States.Battles
 {
     public class BaseBattleUiComponent : BaseUiModel
     {
@@ -29,6 +31,13 @@ namespace Assets.Scripts.CommonComponents
             _mainBattleUi.SetActive(false);
             _resultUi.SetActive(true);
             _resultText.text = text;
+        }
+
+        protected Action<bool> setAccumulateTimeFlag;
+
+        public virtual void OnInit(Action<bool> setAccumulateTimeFlag)
+        {
+            this.setAccumulateTimeFlag = setAccumulateTimeFlag;
         }
     }
 }

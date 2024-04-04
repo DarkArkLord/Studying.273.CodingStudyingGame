@@ -5,9 +5,14 @@ namespace Assets.Scripts.States.Battles
 {
     public abstract class BaseBattleState : BaseState<MainStateCode>
     {
-        public override void OnUpdate()
+        protected bool accumulateTimeFlag;
+
+        protected void OnInit()
         {
-            //
+            CheckBattleResultData();
+
+            SetAccumulateTimeFlag(true);
+            Root.Data.BattleResult.BattleTime = 0;
         }
 
         protected void CheckBattleResultData()
@@ -20,6 +25,19 @@ namespace Assets.Scripts.States.Battles
             else
             {
                 Root.Data.BattleResult = new DataKeeper.BattleResultInfo();
+            }
+        }
+
+        protected void SetAccumulateTimeFlag(bool flag)
+        {
+            accumulateTimeFlag = flag;
+        }
+
+        public override void OnUpdate()
+        {
+            if (accumulateTimeFlag)
+            {
+                Root.Data.BattleResult.BattleTime += Time.deltaTime;
             }
         }
     }

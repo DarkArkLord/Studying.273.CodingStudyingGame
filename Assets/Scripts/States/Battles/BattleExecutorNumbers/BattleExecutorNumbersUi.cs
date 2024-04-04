@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.CommonComponents;
 using Assets.Scripts.States.Battles.BattleExecutorNumbers.Common;
+using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -35,8 +36,10 @@ namespace Assets.Scripts.States.Battles.BattleExecutorNumbers
         [SerializeField]
         private ButtonComponent runButton;
 
-        public void OnInit()
+        public override void OnInit(Action<bool> setAccumulateTimeFlag)
         {
+            base.OnInit(setAccumulateTimeFlag);
+
             // Task configure
             ConfigTask();
             // End task configure
@@ -48,6 +51,7 @@ namespace Assets.Scripts.States.Battles.BattleExecutorNumbers
 
             runButton.OnClick.AddListener(() =>
             {
+                setAccumulateTimeFlag(false);
                 StartCoroutine(RunExecuteCorutine());
             });
             runButton.SetButtonActive(true);

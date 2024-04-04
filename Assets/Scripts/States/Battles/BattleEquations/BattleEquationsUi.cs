@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.CommonComponents;
 using Assets.Scripts.States.Battles.BattleEquations.Common;
+using System;
 using System.Linq;
 using UnityEngine;
 
@@ -17,8 +18,10 @@ namespace Assets.Scripts.States.Battles.BattleEquations
         private const int equationsCount = 3;
         private BEEquationComponent[] equations = new BEEquationComponent[equationsCount];
 
-        public void OnInit()
+        public override void OnInit(Action<bool> setAccumulateTimeFlag)
         {
+            base.OnInit(setAccumulateTimeFlag);
+
             equationPool.SetPrefab(equationPrefab.gameObject);
             equationPool.Init(equationsCount);
 
@@ -39,6 +42,8 @@ namespace Assets.Scripts.States.Battles.BattleEquations
 
             checkButton.OnClick.AddListener(() =>
             {
+                setAccumulateTimeFlag(false);
+
                 var isCorrect = equations.Select(e => e.CheckCorection()).Aggregate((a, b) => a && b);
                 Root.Data.BattleResult.IsPlayerWin = isCorrect;
                 if (isCorrect)

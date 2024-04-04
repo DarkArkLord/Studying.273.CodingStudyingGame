@@ -17,6 +17,7 @@ namespace Assets.Scripts.States.Battles.BattleTest
             Ui.SetCanvasAlpha(0);
             Ui.EnableCanvas();
             Ui.ShowBattleUi();
+            Ui.OnInit(SetAccumulateTimeFlag);
             yield return Ui.ShowPanelCorutine();
 
             Ui.WinButton.OnClick.AddListener(Win);
@@ -25,7 +26,7 @@ namespace Assets.Scripts.States.Battles.BattleTest
 
             yield return base.OnStateCreating();
 
-            CheckBattleResultData();
+            OnInit();
         }
 
         public override IEnumerator OnStatePush()
@@ -43,11 +44,14 @@ namespace Assets.Scripts.States.Battles.BattleTest
             Ui.SetCanvasAlpha(0);
             Ui.EnableCanvas();
             Ui.ShowBattleUi();
+            Ui.OnInit(SetAccumulateTimeFlag);
             yield return Ui.ShowPanelCorutine();
 
             //
 
             yield return base.OnStatePop();
+
+            OnInit();
         }
 
         public override IEnumerator OnStateDestroy()
@@ -63,12 +67,16 @@ namespace Assets.Scripts.States.Battles.BattleTest
 
         private void Win()
         {
+            SetAccumulateTimeFlag(false);
+
             Root.Data.BattleResult.IsPlayerWin = true;
             Ui.ShowResultUi("Победа");
         }
 
         private void Lose()
         {
+            SetAccumulateTimeFlag(false);
+
             Root.Data.BattleResult.IsPlayerWin = false;
             Ui.ShowResultUi("Поражение");
         }

@@ -17,14 +17,14 @@ namespace Assets.Scripts.States.Battles.BattleExecutorNumbers
             Ui.SetCanvasAlpha(0);
             Ui.EnableCanvas();
             Ui.ShowBattleUi();
-            Ui.OnInit();
+            Ui.OnInit(SetAccumulateTimeFlag);
             yield return Ui.ShowPanelCorutine();
 
             Ui.CloseButton.OnClick.AddListener(CloseBattle);
 
             yield return base.OnStateCreating();
 
-            CheckBattleResultData();
+            OnInit();
         }
 
         public override IEnumerator OnStatePush()

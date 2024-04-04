@@ -26,8 +26,10 @@ namespace Assets.Scripts.States.Battles.BattleNumbersOrder
 
         private System.Random _random = RandomUtils.Random;
 
-        public void OnInit()
+        public override void OnInit(Action<bool> setAccumulateTimeFlag)
         {
+            base.OnInit(setAccumulateTimeFlag);
+
             // variants
             if (_random.Next() % 2 == 0)
             {
@@ -109,6 +111,8 @@ namespace Assets.Scripts.States.Battles.BattleNumbersOrder
 
         private void CheckCorrectOrder()
         {
+            setAccumulateTimeFlag(false);
+
             var buttons = pressedButtonsStack.Reverse().ToArray();
             var isCorrect = true;
 

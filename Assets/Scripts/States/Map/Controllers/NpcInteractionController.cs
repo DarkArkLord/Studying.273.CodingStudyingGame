@@ -152,11 +152,11 @@ namespace Assets.Scripts.States.Map.Controllers
             => () =>
             {
                 var data = Root.Instance.Data;
-                var interaction = data.BattleResult;
+                var result = data.BattleResult;
 
-                if (interaction == null) return;
+                if (result == null) return;
 
-                if (interaction.IsPlayerWin)
+                if (result.IsPlayerWin)
                 {
                     questController.RegisterWinInteraction(npc.Type);
                     npc.Kill();
