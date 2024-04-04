@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.CommonComponents;
 using Assets.Scripts.States.Battles.BattleNumbersOrder.Common;
+using Assets.Scripts.StatesMachine;
 using Assets.Scripts.Utils;
 using System;
 using System.Collections.Generic;
@@ -26,9 +27,9 @@ namespace Assets.Scripts.States.Battles.BattleNumbersOrder
 
         private System.Random _random = RandomUtils.Random;
 
-        public override void OnInit(Action<bool> setAccumulateTimeFlag)
+        public override void OnInit(Action<bool> setAccumulateTimeFlag, MainStateCode currentState)
         {
-            base.OnInit(setAccumulateTimeFlag);
+            base.OnInit(setAccumulateTimeFlag, currentState);
 
             // variants
             if (_random.Next() % 2 == 0)

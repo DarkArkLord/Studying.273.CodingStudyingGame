@@ -1,15 +1,15 @@
-﻿using Newtonsoft.Json;
+﻿using Assets.Scripts.StatesMachine;
+using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace Assets.Scripts.DataKeeper.Progress
 {
     public class ProgressStateKeeper
     {
-        public ProgressStateKeeper()
-        {
-            QuestsInfo = new QuestsInfoKeeper();
-        }
+        [JsonProperty]
+        public QuestsInfoKeeper QuestsInfo { get; set; } = new QuestsInfoKeeper();
 
         [JsonProperty]
-        public QuestsInfoKeeper QuestsInfo { get; set; }
+        public Dictionary<MainStateCode, BattleStatistic> BattleStatistics { get; set; } = new Dictionary<MainStateCode, BattleStatistic>();
     }
 }

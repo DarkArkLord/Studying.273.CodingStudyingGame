@@ -17,7 +17,7 @@ namespace Assets.Scripts.States.Battles.BattleWeightBalancer
             Ui.SetCanvasAlpha(0);
             Ui.EnableCanvas();
             Ui.ShowBattleUi();
-            Ui.OnInit(SetAccumulateTimeFlag);
+            Ui.OnInit(SetAccumulateTimeFlag, Id);
             yield return Ui.ShowPanelCorutine();
 
             Ui.CloseButton.OnClick.AddListener(CloseBattle);

@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.CommonComponents;
 using Assets.Scripts.States.Battles.BattleExecutorNumbers.Common;
+using Assets.Scripts.StatesMachine;
 using System;
 using System.Collections;
 using TMPro;
@@ -36,9 +37,9 @@ namespace Assets.Scripts.States.Battles.BattleExecutorNumbers
         [SerializeField]
         private ButtonComponent runButton;
 
-        public override void OnInit(Action<bool> setAccumulateTimeFlag)
+        public override void OnInit(Action<bool> setAccumulateTimeFlag, MainStateCode currentState)
         {
-            base.OnInit(setAccumulateTimeFlag);
+            base.OnInit(setAccumulateTimeFlag, currentState);
 
             // Task configure
             ConfigTask();

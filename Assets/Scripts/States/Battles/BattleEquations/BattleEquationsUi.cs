@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.CommonComponents;
 using Assets.Scripts.States.Battles.BattleEquations.Common;
+using Assets.Scripts.StatesMachine;
 using System;
 using System.Linq;
 using UnityEngine;
@@ -18,9 +19,9 @@ namespace Assets.Scripts.States.Battles.BattleEquations
         private const int equationsCount = 3;
         private BEEquationComponent[] equations = new BEEquationComponent[equationsCount];
 
-        public override void OnInit(Action<bool> setAccumulateTimeFlag)
+        public override void OnInit(Action<bool> setAccumulateTimeFlag, MainStateCode currentState)
         {
-            base.OnInit(setAccumulateTimeFlag);
+            base.OnInit(setAccumulateTimeFlag, currentState);
 
             equationPool.SetPrefab(equationPrefab.gameObject);
             equationPool.Init(equationsCount);

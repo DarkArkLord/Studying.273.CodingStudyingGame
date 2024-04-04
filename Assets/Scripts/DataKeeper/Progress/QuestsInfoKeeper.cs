@@ -23,10 +23,16 @@ namespace Assets.Scripts.DataKeeper.Progress
                 QuestProgress.Add(state, 0);
             }
         }
-
+        [JsonProperty]
         public List<QuestIdEnum> QuestsForStarting { get; set; }
+
+        [JsonProperty]
         public List<QuestIdEnum> QuestsForCompleting { get; set; }
+
+        [JsonProperty]
         public Dictionary<QuestIdEnum, QuestState> QuestStates { get; set; }
+
+        [JsonProperty]
         public Dictionary<QuestIdEnum, int> QuestProgress { get; set; }
 
         public bool IsQuestInState(QuestIdEnum quest, QuestState state)

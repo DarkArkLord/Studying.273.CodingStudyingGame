@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.CommonComponents;
 using Assets.Scripts.States.Battles.BattleWeightBalancer.Common;
+using Assets.Scripts.StatesMachine;
 using Assets.Scripts.Utils;
 using System;
 using TMPro;
@@ -23,9 +24,9 @@ namespace Assets.Scripts.States.Battles.BattleWeightBalancer
 
         private System.Random random = RandomUtils.Random;
 
-        public override void OnInit(Action<bool> setAccumulateTimeFlag)
+        public override void OnInit(Action<bool> setAccumulateTimeFlag, MainStateCode currentState)
         {
-            base.OnInit(setAccumulateTimeFlag);
+            base.OnInit(setAccumulateTimeFlag, currentState);
 
             _input.text = "";
 

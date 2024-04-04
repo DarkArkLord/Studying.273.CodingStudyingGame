@@ -1,4 +1,6 @@
 ﻿using Assets.Scripts.CommonComponents;
+using Assets.Scripts.DataKeeper.Progress;
+using Assets.Scripts.StatesMachine;
 using System;
 using TMPro;
 using UnityEngine;
@@ -34,10 +36,21 @@ namespace Assets.Scripts.States.Battles
         }
 
         protected Action<bool> setAccumulateTimeFlag;
+        protected MainStateCode currentState;
 
-        public virtual void OnInit(Action<bool> setAccumulateTimeFlag)
+        protected BattleDifficultyLevel DifficultyLevel { get; private set; }
+
+        public virtual void OnInit(Action<bool> setAccumulateTimeFlag, MainStateCode currentState)
         {
             this.setAccumulateTimeFlag = setAccumulateTimeFlag;
+            this.currentState = currentState;
+
+            if (!Root.Data.Progress.BattleStatistics.ContainsKey(currentState))
+            {
+                Root.Data.Progress.BattleStatistics.Add(currentState, new());
+            }
+
+            DifficultyLevel = Root.Data.Progress.BattleStatistics[currentState].CurrentDifficulty;
         }
     }
 }

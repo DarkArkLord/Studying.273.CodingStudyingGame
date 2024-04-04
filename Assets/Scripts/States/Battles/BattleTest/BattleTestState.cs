@@ -17,7 +17,7 @@ namespace Assets.Scripts.States.Battles.BattleTest
             Ui.SetCanvasAlpha(0);
             Ui.EnableCanvas();
             Ui.ShowBattleUi();
-            Ui.OnInit(SetAccumulateTimeFlag);
+            Ui.OnInit(SetAccumulateTimeFlag, Id);
             yield return Ui.ShowPanelCorutine();
 
             Ui.WinButton.OnClick.AddListener(Win);
@@ -44,7 +44,7 @@ namespace Assets.Scripts.States.Battles.BattleTest
             Ui.SetCanvasAlpha(0);
             Ui.EnableCanvas();
             Ui.ShowBattleUi();
-            Ui.OnInit(SetAccumulateTimeFlag);
+            Ui.OnInit(SetAccumulateTimeFlag, Id);
             yield return Ui.ShowPanelCorutine();
 
             //
