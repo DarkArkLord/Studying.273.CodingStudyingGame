@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Assets.Scripts.DataKeeper
+namespace Assets.Scripts.DataKeeper.Progress
 {
     [JsonObject]
     public class QuestsInfoKeeper

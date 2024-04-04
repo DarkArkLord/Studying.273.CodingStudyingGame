@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.DataKeeper;
+using Assets.Scripts.DataKeeper.Progress;
 using Assets.Scripts.StatesMachine;
 using System.Collections;
 using UnityEngine;

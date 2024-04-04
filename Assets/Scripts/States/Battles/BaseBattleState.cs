@@ -44,6 +44,8 @@ namespace Assets.Scripts.States.Battles
         protected void CloseBattle()
         {
             controller.PopState();
+
+            //
         }
     }
 }

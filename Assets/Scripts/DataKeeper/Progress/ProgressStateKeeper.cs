@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Assets.Scripts.DataKeeper
+namespace Assets.Scripts.DataKeeper.Progress
 {
     public class ProgressStateKeeper
     {
@@ -10,6 +10,6 @@ namespace Assets.Scripts.DataKeeper
         }
 
         [JsonProperty]
-        public QuestsInfoKeeper QuestsInfo {  get; set; }
+        public QuestsInfoKeeper QuestsInfo { get; set; }
     }
 }

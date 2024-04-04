@@ -2,7 +2,7 @@
 using System.IO;
 using UnityEngine;
 
-namespace Assets.Scripts.DataKeeper
+namespace Assets.Scripts.DataKeeper.Progress
 {
     public static class SaveLoadController
     {
@@ -25,7 +25,7 @@ namespace Assets.Scripts.DataKeeper
             File.WriteAllText(file, saveText);
         }
 
-        public static ProgressStateKeeper? Load()
+        public static ProgressStateKeeper Load()
         {
             var saveData = TryGetSaveFile();
 
@@ -41,7 +41,7 @@ namespace Assets.Scripts.DataKeeper
         public static bool HasSaveFile
             => CheckIsSaveInited(TryGetSaveFile());
 
-        private static JObject? TryGetSaveFile()
+        private static JObject TryGetSaveFile()
         {
             if (!File.Exists(FullSaveFilePath)) return null;
 
@@ -52,7 +52,7 @@ namespace Assets.Scripts.DataKeeper
             return JObject.Parse(saveText);
         }
 
-        private static bool CheckIsSaveInited(JObject? obj)
+        private static bool CheckIsSaveInited(JObject obj)
             => obj?.Value<bool>(IsSaveInitedAttribute) ?? false;
     }
 }

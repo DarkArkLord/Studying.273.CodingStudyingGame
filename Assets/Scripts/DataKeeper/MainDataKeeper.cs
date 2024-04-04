@@ -1,4 +1,6 @@
-﻿namespace Assets.Scripts.DataKeeper
+﻿using Assets.Scripts.DataKeeper.Progress;
+
+namespace Assets.Scripts.DataKeeper
 {
     public class MainDataKeeper
     {
