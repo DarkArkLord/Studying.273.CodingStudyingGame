@@ -11,8 +11,8 @@ namespace Assets.Scripts.States.Battles
         {
             CheckBattleResultData();
 
-            SetAccumulateTimeFlag(true);
             Root.Data.BattleResult.BattleTime = 0;
+            SetAccumulateTimeFlag(true);
         }
 
         protected void CheckBattleResultData()
