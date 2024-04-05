@@ -1,5 +1,5 @@
-﻿using Assets.Scripts.StatesMachine;
-using System.Linq;
+﻿using Assets.Scripts.DataKeeper.Progress;
+using Assets.Scripts.StatesMachine;
 using UnityEngine;
 
 namespace Assets.Scripts.States.Battles
@@ -48,30 +48,7 @@ namespace Assets.Scripts.States.Battles
         {
             controller.PopState();
 
-            var result = Root.Data.BattleResult;
-            var statistic = Root.Data.Progress.BattleStatistics[Id];
-
-            if (!statistic.LevelsStatistic.ContainsKey(statistic.CurrentDifficulty))
-            {
-                statistic.LevelsStatistic.Add(statistic.CurrentDifficulty, new());
-            }
-
-            var level = statistic.LevelsStatistic[statistic.CurrentDifficulty];
-
-            if (result.IsPlayerWin)
-            {
-                level.WinCount++;
-                level.WinTimes.Add(result.BattleTime);
-            }
-            else
-            {
-                level.LoseCount++;
-                level.LoseTimes.Add(result.BattleTime);
-            }
-
-            level.AverageTime = (level.WinTimes.Sum() + level.LoseTimes.Sum()) / (level.WinCount + level.LoseCount);
-
-            // Add grade
+            BattleStatisticProcessor.CalculateStatistics(Id, AverageTime);
         }
     }
 }
