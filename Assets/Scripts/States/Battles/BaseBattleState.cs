@@ -1,10 +1,13 @@
 ﻿using Assets.Scripts.StatesMachine;
+using System.Linq;
 using UnityEngine;
 
 namespace Assets.Scripts.States.Battles
 {
     public abstract class BaseBattleState : BaseState<MainStateCode>
     {
+        protected abstract float AverageTime { get; }
+
         protected bool accumulateTimeFlag;
 
         protected void OnInit()
@@ -65,6 +68,8 @@ namespace Assets.Scripts.States.Battles
                 level.LoseCount++;
                 level.LoseTimes.Add(result.BattleTime);
             }
+
+            level.AverageTime = (level.WinTimes.Sum() + level.LoseTimes.Sum()) / (level.WinCount + level.LoseCount);
 
             // Add grade
         }

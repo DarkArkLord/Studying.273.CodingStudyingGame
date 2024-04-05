@@ -8,6 +8,8 @@ namespace Assets.Scripts.States.Battles.BattleTest
     {
         public override MainStateCode Id => MainStateCode.Battle_Test;
 
+        protected override float AverageTime => 5f;
+
         [SerializeField]
         private BattleTestUi _ui;
         public BattleTestUi Ui => _ui;

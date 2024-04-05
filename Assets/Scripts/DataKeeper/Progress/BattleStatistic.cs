@@ -30,6 +30,9 @@ namespace Assets.Scripts.DataKeeper.Progress
         public List<float> LoseTimes { get; set; } = new List<float>();
 
         [JsonProperty]
+        public float AverageTime { get; set; } = 0;
+
+        [JsonProperty]
         public int WinCount { get; set; } = 0;
         [JsonProperty]
         public int LoseCount { get; set; } = 0;

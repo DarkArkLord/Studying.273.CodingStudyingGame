@@ -8,6 +8,8 @@ namespace Assets.Scripts.States.Battles.BattleNumbersOrder
     {
         public override MainStateCode Id => MainStateCode.Battle_NumbersOrder;
 
+        protected override float AverageTime => 10f;
+
         [SerializeField]
         private BattleNumbersOrderUi _ui;
         public BattleNumbersOrderUi Ui => _ui;

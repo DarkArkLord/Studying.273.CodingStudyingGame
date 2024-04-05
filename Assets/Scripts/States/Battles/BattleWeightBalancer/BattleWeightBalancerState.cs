@@ -8,6 +8,8 @@ namespace Assets.Scripts.States.Battles.BattleWeightBalancer
     {
         public override MainStateCode Id => MainStateCode.Battle_WeightBalancer;
 
+        protected override float AverageTime => 20f;
+
         [SerializeField]
         private BattleWeightBalancerUi _ui;
         public BattleWeightBalancerUi Ui => _ui;
