@@ -1,20 +1,18 @@
 ﻿using Assets.Scripts.DataKeeper.Progress;
+using Assets.Scripts.DataKeeper.QuestsSystem;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace Assets.Scripts.DataKeeper
 {
-    public class MainDataKeeper
+    public class MainDataKeeper : MonoBehaviour, IMainDataKeeper
     {
-        public MainDataKeeper()
-        {
-            BattleResult = null;
-            Progress = new ProgressStateKeeper();
-            TextMenuData = new TextMenuDataKeeper();
-        }
+        public BattleResultInfo BattleResult { get; set; } = null;
+        public TextMenuDataKeeper TextMenuData { get; set; } = new TextMenuDataKeeper();
+        public ProgressStateKeeper Progress { get; set; } = new ProgressStateKeeper();
 
-        public BattleResultInfo BattleResult { get; set; }
-
-        public TextMenuDataKeeper TextMenuData { get; set; }
-
-        public ProgressStateKeeper Progress { get; set; }
+        [SerializeField]
+        private MissionConfigSO[] missionConfigs;
+        public IReadOnlyList<MissionConfigSO> MissionConfigs => missionConfigs;
     }
 }

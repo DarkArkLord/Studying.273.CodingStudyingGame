@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Assets.Scripts.States.Menu.TownMenu
 {
@@ -19,7 +17,7 @@ namespace Assets.Scripts.States.Menu.TownMenu
             {
                 if (questsInfo.QuestStates[quest] == QuestState.InProgress)
                 {
-                    var questConfig = Root.Instance.MissionConfigs.FirstOrDefault(x => x.Id == quest) as MissionConfig_InteractNpc_SO;
+                    var questConfig = data.MissionConfigs.FirstOrDefault(x => x.Id == quest) as MissionConfig_InteractNpc_SO;
                     if (questConfig != null && questsInfo.QuestProgress[quest] >= questConfig.InteractionsCount)
                     {
                         questsInfo.QuestStates[quest] = QuestState.Complete;
@@ -32,7 +30,7 @@ namespace Assets.Scripts.States.Menu.TownMenu
             {
                 if (questsInfo.QuestStates[quest] == QuestState.NotAvailable)
                 {
-                    var questConfig = Root.Instance.MissionConfigs.FirstOrDefault(x => x.Id == quest);
+                    var questConfig = data.MissionConfigs.FirstOrDefault(x => x.Id == quest);
                     if (questConfig != null)
                     {
                         var allRequiredQuestCompleted = questConfig.QuestsForAvailable
@@ -56,11 +54,12 @@ namespace Assets.Scripts.States.Menu.TownMenu
         private static IReadOnlyList<string> GetQuestStrings()
         {
             var result = new List<string>();
-            var questsInfo = Root.Instance.Data.Progress.QuestsInfo;
+            var data = Root.Instance.Data;
+            var questsInfo = data.Progress.QuestsInfo;
 
             foreach (var quest in questsInfo.QuestsForCompleting)
             {
-                var questConfig = Root.Instance.MissionConfigs.FirstOrDefault(x => x.Id == quest);
+                var questConfig = data.MissionConfigs.FirstOrDefault(x => x.Id == quest);
                 if (questConfig != null)
                 {
                     result.Add(questConfig.OnCompleteText);
@@ -71,7 +70,7 @@ namespace Assets.Scripts.States.Menu.TownMenu
 
             foreach (var quest in questsInfo.QuestsForStarting)
             {
-                var questConfig = Root.Instance.MissionConfigs.FirstOrDefault(x => x.Id == quest);
+                var questConfig = data.MissionConfigs.FirstOrDefault(x => x.Id == quest);
                 if (questConfig != null)
                 {
                     result.Add(questConfig.OnStartText);
@@ -86,7 +85,7 @@ namespace Assets.Scripts.States.Menu.TownMenu
             {
                 if (questsInfo.QuestStates[quest] == QuestState.InProgress)
                 {
-                    var questConfig = Root.Instance.MissionConfigs.FirstOrDefault(x => x.Id == quest) as MissionConfig_InteractNpc_SO;
+                    var questConfig = data.MissionConfigs.FirstOrDefault(x => x.Id == quest) as MissionConfig_InteractNpc_SO;
                     var progress = questsInfo.QuestProgress[quest];
                     result.Add($"{questConfig.Title}\n{questConfig.InProgressText}\nВыполнено {progress} из {questConfig.InteractionsCount}");
                 }

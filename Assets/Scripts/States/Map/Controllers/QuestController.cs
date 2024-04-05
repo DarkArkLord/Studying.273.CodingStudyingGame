@@ -19,14 +19,14 @@ namespace Assets.Scripts.States.Map.Controllers
         {
             missionConfigs = new Dictionary<QuestIdEnum, MissionConfigSO>();
 
-            var root = Root.Instance;
-            var questsInfo = root.Data.Progress.QuestsInfo;
+            var data = Root.Instance.Data;
+            var questsInfo = data.Progress.QuestsInfo;
 
             foreach (var state in questsInfo.QuestStates)
             {
                 if (state.Value == QuestState.InProgress)
                 {
-                    var config = root.MissionConfigs.FirstOrDefault(config => config.Id == state.Key) as MissionConfig_InteractNpc_SO;
+                    var config = data.MissionConfigs.FirstOrDefault(config => config.Id == state.Key) as MissionConfig_InteractNpc_SO;
                     if (config.OnMap == currentMap)
                     {
                         missionConfigs.Add(state.Key, config);

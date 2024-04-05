@@ -1,7 +1,5 @@
 using Assets.Scripts.DataKeeper;
-using Assets.Scripts.DataKeeper.QuestsSystem;
 using Assets.Scripts.StatesMachine;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts
@@ -19,19 +17,14 @@ namespace Assets.Scripts
         private MainStatesListModel _statesModel;
         public MainStatesListModel States => _statesModel;
 
-        private MainDataKeeper _dataKeeper;
-        public MainDataKeeper Data => _dataKeeper;
-
         [SerializeField]
-        private MissionConfigSO[] missionConfigs;
-        public IReadOnlyList<MissionConfigSO> MissionConfigs => missionConfigs;
+        private MainDataKeeper _dataKeeper;
+        public IMainDataKeeper Data => _dataKeeper;
 
         // Some data
 
         private void Awake()
         {
-            _dataKeeper = new MainDataKeeper();
-
             // Entry point
             States.OnInit();
         }

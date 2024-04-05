@@ -12,7 +12,7 @@ namespace Assets.Scripts.DataKeeper.Progress
         private const string IsSaveInitedAttribute = "isInited";
         private const string DataAttribute = "data";
 
-        public static void Save(MainDataKeeper dataKeeper)
+        public static void Save(IMainDataKeeper dataKeeper)
         {
             var file = FullSaveFilePath;
 
