@@ -29,7 +29,7 @@ namespace Assets.Scripts.States.Battles.BattleGuessNumber
 
             correctResult = random.Next(1, 101);
             compareText.text = "?";
-            input.text = correctResult.ToString();// string.Empty;
+            input.text = string.Empty;
 
             checkButton.OnClick.AddListener(OnCheckButtonClick);
             okButton.OnClick.AddListener(OnOkButtonClick);
