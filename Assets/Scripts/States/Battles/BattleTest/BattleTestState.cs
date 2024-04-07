@@ -64,6 +64,7 @@ namespace Assets.Scripts.States.Battles.BattleTest
 
             yield return Ui.HidePanelCorutine();
             Ui.DisableCanvas();
+            Ui.OnClose();
             yield return base.OnStateDestroy();
         }
 

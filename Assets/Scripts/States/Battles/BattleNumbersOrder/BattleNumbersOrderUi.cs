@@ -149,7 +149,7 @@ namespace Assets.Scripts.States.Battles.BattleNumbersOrder
             }
         }
 
-        public void OnClose()
+        public override void OnClose()
         {
             pressedButtonsStack.Clear();
             foreach (var button in buttons)

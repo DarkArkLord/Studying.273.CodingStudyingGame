@@ -56,8 +56,8 @@ namespace Assets.Scripts.States.Battles.BattleExecutorNumbers
             Ui.CloseButton.OnClick.RemoveAllListeners();
 
             yield return Ui.HidePanelCorutine();
-            Ui.OnClose();
             Ui.DisableCanvas();
+            Ui.OnClose();
             yield return base.OnStateDestroy();
         }
     }

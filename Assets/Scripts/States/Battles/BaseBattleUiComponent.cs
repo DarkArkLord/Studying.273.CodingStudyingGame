@@ -52,5 +52,10 @@ namespace Assets.Scripts.States.Battles
 
             DifficultyLevel = Root.Data.Progress.BattleStatistics[currentState].CurrentDifficulty;
         }
+
+        public virtual void OnClose()
+        {
+            // 
+        }
     }
 }

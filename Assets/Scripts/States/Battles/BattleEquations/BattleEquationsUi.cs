@@ -58,7 +58,7 @@ namespace Assets.Scripts.States.Battles.BattleEquations
             });
         }
 
-        public void OnClose()
+        public override void OnClose()
         {
             checkButton.OnClick.RemoveAllListeners();
             foreach (var equation in equations)

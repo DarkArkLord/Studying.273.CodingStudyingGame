@@ -94,7 +94,7 @@ namespace Assets.Scripts.States.Battles.BattleWeightBalancer
             }
         }
 
-        public void OnClose()
+        public override void OnClose()
         {
             foreach (var button in _weightButtons)
             {

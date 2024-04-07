@@ -155,7 +155,7 @@ namespace Assets.Scripts.States.Battles.BattleExecutorNumbers
             }
         }
 
-        public void OnClose()
+        public override void OnClose()
         {
             runButton.OnClick.RemoveAllListeners();
 
