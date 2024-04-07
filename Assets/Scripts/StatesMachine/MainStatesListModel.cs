@@ -23,5 +23,6 @@
         Battle_Equations = 32,
         Battle_WeightBalancer = 33,
         Battle_ExecutorNumbers = 34,
+        Battle_GuessNumber = 35,
     }
 }
