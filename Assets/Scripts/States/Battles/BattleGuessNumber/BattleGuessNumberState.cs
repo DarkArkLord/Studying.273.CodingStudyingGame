@@ -8,7 +8,7 @@ namespace Assets.Scripts.States.Battles.BattleGuessNumber
     {
         public override MainStateCode Id => MainStateCode.Battle_GuessNumber;
 
-        protected override float AverageTime => 40f;
+        protected override float AverageTime => 30f;
 
         [SerializeField]
         private BattleGuessNumberUi _ui;
