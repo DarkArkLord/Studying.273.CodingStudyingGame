@@ -26,16 +26,9 @@ namespace Assets.Scripts.States.Battles.BattleEquations
             equationPool.SetPrefab(equationPrefab.gameObject);
             equationPool.Init(equationsCount);
 
-            var verticalOffset = 110f;
-            var localScale = new Vector3(1f, 1f, 1f);
-
             for (int i = 0; i < equationsCount; i++)
             {
                 var obj = equationPool.GetObject();
-                var y = i % 3 - 1;
-                obj.transform.localPosition = new Vector3(0, y * verticalOffset, 0);
-                obj.transform.localScale = localScale;
-
                 var equation = equations[i] = obj.GetComponent<BEEquationComponent>();
                 equation.GenerateTask();
                 obj.SetActive(true);
@@ -61,10 +54,7 @@ namespace Assets.Scripts.States.Battles.BattleEquations
         public override void OnClose()
         {
             checkButton.OnClick.RemoveAllListeners();
-            foreach (var equation in equations)
-            {
-                equationPool.FreeObject(equation.gameObject);
-            }
+            equationPool.FreeAllObjects();
         }
     }
 }
