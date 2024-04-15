@@ -12,8 +12,6 @@ namespace Assets.Scripts.States.Battles.BattleEquations
         [SerializeField]
         private ButtonComponent checkButton;
         [SerializeField]
-        private BEEquationComponent equationPrefab;
-        [SerializeField]
         private ObjectPoolComponent equationPool;
 
         private const int equationsCount = 3;
@@ -23,7 +21,6 @@ namespace Assets.Scripts.States.Battles.BattleEquations
         {
             base.OnInit(setAccumulateTimeFlag, currentState);
 
-            equationPool.SetPrefab(equationPrefab.gameObject);
             equationPool.Init(equationsCount);
 
             for (int i = 0; i < equationsCount; i++)
