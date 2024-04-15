@@ -34,21 +34,23 @@ namespace Assets.Scripts.States.Battles.BattleEquations
                 obj.SetActive(true);
             }
 
-            checkButton.OnClick.AddListener(() =>
-            {
-                setAccumulateTimeFlag(false);
+            checkButton.OnClick.AddListener(OnCheckButtonClick);
+        }
 
-                var isCorrect = equations.Select(e => e.CheckCorection()).Aggregate((a, b) => a && b);
-                Root.Data.BattleResult.IsPlayerWin = isCorrect;
-                if (isCorrect)
-                {
-                    ShowResultUi("Верно");
-                }
-                else
-                {
-                    ShowResultUi("Неверно");
-                }
-            });
+        private void OnCheckButtonClick()
+        {
+            setAccumulateTimeFlag(false);
+
+            var isCorrect = equations.Select(e => e.CheckCorection()).Aggregate((a, b) => a && b);
+            Root.Data.BattleResult.IsPlayerWin = isCorrect;
+            if (isCorrect)
+            {
+                ShowResultUi("Верно");
+            }
+            else
+            {
+                ShowResultUi("Неверно");
+            }
         }
 
         public override void OnClose()
