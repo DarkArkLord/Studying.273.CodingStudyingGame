@@ -85,7 +85,7 @@ namespace Assets.Scripts.States.Map.Controllers
             npc.SetInteractive(false);
 
             ResolveInteractionEvent.AddListener(KillingInteractAction(npc));
-            ChangeStateEvent.Invoke(MainStateCode.Battle_Equations);
+            ChangeStateEvent.Invoke(MainStateCode.Battle_EquationsWithLetters);
         }
 
         private void OnEnemyAndFriendInteract(INpcController enemy, INpcController friend)
