@@ -21,7 +21,6 @@ namespace Assets.Scripts.CommonComponents
 
         [SerializeField]
         private GameObject _prefab;
-        private int _startCount;
 
         private List<ObjectPoolItem> items;
 
@@ -33,14 +32,24 @@ namespace Assets.Scripts.CommonComponents
         public void Init(int startCount = 10)
         {
             // For repeat init we have lost memory
-            if (IsInited) return;
-
-            _startCount = startCount;
-
-            items = new List<ObjectPoolItem>(_startCount);
-            for (int i = 0; i < _startCount; i++)
+            if (IsInited && items != null)
             {
-                AddItem();
+                if (startCount > items.Count)
+                {
+                    var delta = startCount - items.Count;
+                    for (int i = 0; i < delta; i++)
+                    {
+                        AddItem();
+                    }
+                }
+            }
+            else
+            {
+                items = new List<ObjectPoolItem>(startCount);
+                for (int i = 0; i < startCount; i++)
+                {
+                    AddItem();
+                }
             }
 
             IsInited = true;
