@@ -62,7 +62,7 @@ namespace Assets.Scripts.States.Map.Controllers
             {
                 if (friend.Position2D == player.Position2D && friend.IsInteractive && player.IsInteractive)
                 {
-                    OnEnemyInteraction(friend);
+                    OnFriendInteraction(friend);
                     return;
                 }
             }
@@ -71,7 +71,7 @@ namespace Assets.Scripts.States.Map.Controllers
             {
                 if (item.Position2D == player.Position2D && item.IsInteractive && player.IsInteractive)
                 {
-                    OnEnemyInteraction(item);
+                    OnItemInteraction(item);
                     return;
                 }
             }
@@ -85,7 +85,7 @@ namespace Assets.Scripts.States.Map.Controllers
             npc.SetInteractive(false);
 
             ResolveInteractionEvent.AddListener(KillingInteractAction(npc));
-            ChangeStateEvent.Invoke(MainStateCode.Battle_EquationsWithLetters);
+            ChangeStateEvent.Invoke(MainStateCode.Battle_Test);
         }
 
         private void OnEnemyAndFriendInteract(INpcController enemy, INpcController friend)
