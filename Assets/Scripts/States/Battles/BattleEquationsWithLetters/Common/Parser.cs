@@ -36,12 +36,12 @@ namespace Assets.Scripts.States.Battles.BattleEquationsWithLetters.Common
     {
         public int? Value { get; set; } = null;
         public bool HasValue => Value != null;
+        public string Name { get; set; }
 
-        private string name;
-        public VariableOperator(string name) { this.name = name; }
+        public VariableOperator(string name) { this.Name = name; }
         public override int Result => Value ?? 0;
         public override OperatorType OperType => OperatorType.Variable;
-        public override string ToString() => Value?.ToString() ?? name;
+        public override string ToString() => Value?.ToString() ?? Name;
     }
 
     public class AssemblableOperator : BaseOperator
@@ -77,6 +77,7 @@ namespace Assets.Scripts.States.Battles.BattleEquationsWithLetters.Common
         public EquationOfOperators(BaseOperator a, BaseOperator b) { this.a = a; this.b = b; }
         public bool IsCorrect => a.Result == b.Result;
         public override string ToString() => $"{a} {(IsCorrect ? "=" : "!=")} {b}";
+        public string ToEqualString() => $"{a} = {b}";
     }
 
     public class EquationConfig
@@ -93,15 +94,29 @@ namespace Assets.Scripts.States.Battles.BattleEquationsWithLetters.Common
 
     public static class EquationsGenerator
     {
-        public static EquationsListConfig GenerateDisjointEquations(Random random)
+        public static EquationsListConfig GenerateDisjointEquations(Random random, int count)
         {
             var temp = GenerateVariableEquation(random);
-            // Set vars to null and names
-            return new EquationsListConfig
+
+            var configs = new EquationConfig[count];
+            for (int i = 0; i < count; i++)
             {
-                Equations = new EquationOfOperators[] { temp.Equation },
-                Variables = temp.Variables,
+                configs[i] = GenerateVariableEquation(random);
+            }
+
+            var result = new EquationsListConfig
+            {
+                Equations = configs.Select(x => x.Equation).ToArray(),
+                Variables = configs.SelectMany(x => x.Variables).ToArray(),
             };
+
+            for (int i = 0; i < result.Variables.Length; i++)
+            {
+                result.Variables[i].Name = Convert.ToChar('A' + i).ToString();
+                result.Variables[i].Value = null;
+            }
+
+            return result;
         }
 
         private static EquationConfig GenerateVariableEquation(Random random)
@@ -109,6 +124,13 @@ namespace Assets.Scripts.States.Battles.BattleEquationsWithLetters.Common
             var a = random.Next(100, 999);
             var b = random.Next(100, 999);
             var sum = a + b;
+
+            while (sum > 999)
+            {
+                a = random.Next(100, 999);
+                b = random.Next(100, 999);
+                sum = a + b;
+            }
 
             var aElements = SplitValue(a);
             var bElements = SplitValue(b);
