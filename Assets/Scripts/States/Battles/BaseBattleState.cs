@@ -38,7 +38,7 @@ namespace Assets.Scripts.States.Battles
 
         public override void OnUpdate()
         {
-            if (accumulateTimeFlag)
+            if (accumulateTimeFlag && Root.Data.BattleResult != null)
             {
                 Root.Data.BattleResult.BattleTime += Time.deltaTime;
             }
