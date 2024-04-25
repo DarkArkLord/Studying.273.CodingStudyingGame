@@ -3,12 +3,16 @@ using Assets.Scripts.States.Battles.BattleEquationsWithLetters.Common;
 using Assets.Scripts.StatesMachine;
 using Assets.Scripts.Utils;
 using System;
+using System.Linq;
 using UnityEngine;
 
 namespace Assets.Scripts.States.Battles.BattleEquationsWithLetters
 {
     public class BattleEquationsWithLettersUi : BaseBattleUiComponent
     {
+        [SerializeField]
+        private ButtonComponent checkButton;
+
         [SerializeField]
         private ObjectPoolComponent equationsPool;
         [SerializeField]
@@ -33,8 +37,7 @@ namespace Assets.Scripts.States.Battles.BattleEquationsWithLetters
                 var obj = equationsPool.GetObject();
                 var equation = equations[i] = obj.GetComponent<BEWLEquationComponent>();
 
-                equation.EquationText.text = equationsListConfig.Equations[i].ToEqualString();
-                equation.EquationText.color = Color.black;
+                equation.SetEquation(equationsListConfig.Equations[i]);
 
                 obj.SetActive(true);
             }
@@ -47,11 +50,40 @@ namespace Assets.Scripts.States.Battles.BattleEquationsWithLetters
                 var obj = inputPool.GetObject();
                 var input = inputs[i] = obj.GetComponent<BEWLInputComponent>();
 
-                var name = equationsListConfig.Variables[i].Name;
-                input.LeftSideText.text = $"{name} = ";
-                input.InputField.text = string.Empty;
+                input.SetVariableOperator(equationsListConfig.Variables[i]);
+                input.SetReadonly(false);
 
                 obj.SetActive(true);
+            }
+
+            checkButton.OnClick.AddListener(OnCheckButtonClick);
+        }
+
+        private void OnCheckButtonClick()
+        {
+            foreach (var input in inputs)
+            {
+                input.SetReadonly(true);
+            }
+
+            Root.Data.BattleResult.IsPlayerWin = false;
+            var isInputsCorrect = inputs.Select(e => e.TryReadInput()).Aggregate((a, b) => a && b);
+
+            if (!isInputsCorrect)
+            {
+                ShowResultUi("Неверно");
+                return;
+            }
+
+            var isEquationsCorrect = equations.Select(e => e.CheckCorrection()).Aggregate((a, b) => a && b);
+            Root.Data.BattleResult.IsPlayerWin = isEquationsCorrect;
+            if (isEquationsCorrect)
+            {
+                ShowResultUi("Верно");
+            }
+            else
+            {
+                ShowResultUi("Неверно");
             }
         }
 
@@ -59,8 +91,14 @@ namespace Assets.Scripts.States.Battles.BattleEquationsWithLetters
         {
             base.OnClose();
 
+            checkButton.OnClick.RemoveAllListeners();
+
             equationsPool.FreeAllObjects();
             inputPool.FreeAllObjects();
+
+            equationsListConfig = null;
+            equations = null;
+            inputs = null;
         }
     }
 }

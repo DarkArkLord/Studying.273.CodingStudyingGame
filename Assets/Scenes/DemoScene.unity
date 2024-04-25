@@ -9481,6 +9481,7 @@ MonoBehaviour:
   _closeButton: {fileID: 778786682}
   _resultUi: {fileID: 391634235}
   _resultText: {fileID: 1774070809}
+  checkButton: {fileID: 1850724615}
   equationsPool: {fileID: 1589169157}
   inputPool: {fileID: 1194777996}
 --- !u!225 &998883936
