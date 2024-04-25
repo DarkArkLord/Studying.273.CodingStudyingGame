@@ -14,6 +14,7 @@ namespace Assets.Scripts.States.Battles.BattleEquationsWithLetters
         [SerializeField]
         private ObjectPoolComponent inputPool;
 
+        private EquationsListConfig equationsListConfig;
         private BEWLEquationComponent[] equations;
         private BEWLInputComponent[] inputs;
 
@@ -21,33 +22,37 @@ namespace Assets.Scripts.States.Battles.BattleEquationsWithLetters
         {
             base.OnInit(setAccumulateTimeFlag, currentState);
 
-            var equationsCount = 3;
+            var equationsInitCount = 3;
+            equationsListConfig = EquationsGenerator.GenerateDisjointEquations(RandomUtils.Random, equationsInitCount);
+
+            var equationsCount = equationsListConfig.Equations.Length;
             equationsPool.Init(equationsCount);
-            //var lettersCount = 3;
-            //inputPool.Init(equationsCount);
-
-            var equ = EquationsGenerator.GenerateDisjointEquations(RandomUtils.Random);
-
-            var obj1 = equationsPool.GetObject();
-            var equation1 = obj1.GetComponent<BEWLEquationComponent>();
-            equation1.EquationText.text = equ.Equations[0].ToString();
-            obj1.SetActive(true);
-
-            foreach (var t in equ.Variables)
+            equations = new BEWLEquationComponent[equationsCount];
+            for (int i = 0; i < equationsCount; i++)
             {
-                t.Value = null;
+                var obj = equationsPool.GetObject();
+                var equation = equations[i] = obj.GetComponent<BEWLEquationComponent>();
+
+                equation.EquationText.text = equationsListConfig.Equations[i].ToEqualString();
+                equation.EquationText.color = Color.black;
+
+                obj.SetActive(true);
             }
 
-            var obj2 = equationsPool.GetObject();
-            var equation2 = obj2.GetComponent<BEWLEquationComponent>();
-            equation2.EquationText.text = equ.Equations[0].ToString();
-            obj2.SetActive(true);
+            var variablesCount = equationsListConfig.Variables.Length;
+            inputPool.Init(variablesCount);
+            inputs = new BEWLInputComponent[variablesCount];
+            for (int i = 0; i < variablesCount; i++)
+            {
+                var obj = inputPool.GetObject();
+                var input = inputs[i] = obj.GetComponent<BEWLInputComponent>();
 
-            //for (int i = 0; i < equationsCount; i++)
-            //{
-            //    equationsPool.GetObject().SetActive(true);
-            //    inputPool.GetObject().SetActive(true);
-            //}
+                var name = equationsListConfig.Variables[i].Name;
+                input.LeftSideText.text = $"{name} = ";
+                input.InputField.text = string.Empty;
+
+                obj.SetActive(true);
+            }
         }
 
         public override void OnClose()
