@@ -8,7 +8,7 @@ namespace Assets.Scripts.States.Battles.BattleEquationsWithLetters
     {
         public override MainStateCode Id => MainStateCode.Battle_EquationsWithLetters;
 
-        protected override float AverageTime => 20f;
+        protected override float AverageTime => 60f;
 
         [SerializeField]
         private BattleEquationsWithLettersUi _ui;
