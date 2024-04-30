@@ -85,7 +85,23 @@ namespace Assets.Scripts.States.Map.Controllers
             npc.SetInteractive(false);
 
             ResolveInteractionEvent.AddListener(KillingInteractAction(npc));
-            ChangeStateEvent.Invoke(MainStateCode.Battle_Test);
+
+            if (currentState == MainStateCode.Map_Forest_1)
+            {
+                ChangeStateEvent.Invoke(MainStateCode.Battle_Equations);
+            }
+            else if (currentState == MainStateCode.Map_Forest_2)
+            {
+                ChangeStateEvent.Invoke(MainStateCode.Battle_EquationsWithLetters);
+            }
+            else if (currentState == MainStateCode.Map_Forest_3)
+            {
+                ChangeStateEvent.Invoke(MainStateCode.Battle_ExecutorNumbers);
+            }
+            else
+            {
+                ChangeStateEvent.Invoke(MainStateCode.Battle_Test);
+            }
         }
 
         private void OnEnemyAndFriendInteract(INpcController enemy, INpcController friend)
@@ -117,7 +133,7 @@ namespace Assets.Scripts.States.Map.Controllers
                 else if (questsInfo.IsQuestInState(QuestIdEnum.Q2_F1_HealFriends, QuestState.InProgress))
                 {
                     ResolveInteractionEvent.AddListener(KillingInteractAction(npc));
-                    ChangeStateEvent.Invoke(MainStateCode.Battle_Test);
+                    ChangeStateEvent.Invoke(MainStateCode.Battle_NumbersOrder);
                 }
                 else if (questsInfo.IsQuestInState(QuestIdEnum.Q2_F1_HealFriends, QuestState.Complete))
                 {
@@ -135,7 +151,7 @@ namespace Assets.Scripts.States.Map.Controllers
                 else if (questsInfo.IsQuestInState(QuestIdEnum.Q5_F2_HealFriends, QuestState.InProgress))
                 {
                     ResolveInteractionEvent.AddListener(KillingInteractAction(npc));
-                    ChangeStateEvent.Invoke(MainStateCode.Battle_Test);
+                    ChangeStateEvent.Invoke(MainStateCode.Battle_TextShift);
                 }
                 else if (questsInfo.IsQuestInState(QuestIdEnum.Q5_F2_HealFriends, QuestState.Complete))
                 {
@@ -157,7 +173,7 @@ namespace Assets.Scripts.States.Map.Controllers
                 if (questsInfo.IsQuestInState(QuestIdEnum.Q1_F1_GatherFlowers, QuestState.InProgress))
                 {
                     ResolveInteractionEvent.AddListener(KillingInteractAction(npc));
-                    ChangeStateEvent.Invoke(MainStateCode.Battle_Test);
+                    ChangeStateEvent.Invoke(MainStateCode.Battle_GuessNumber);
                 }
             }
             else if (currentState == MainStateCode.Map_Forest_2)
@@ -165,7 +181,7 @@ namespace Assets.Scripts.States.Map.Controllers
                 if (questsInfo.IsQuestInState(QuestIdEnum.Q4_F2_GatherFlowers, QuestState.InProgress))
                 {
                     ResolveInteractionEvent.AddListener(KillingInteractAction(npc));
-                    ChangeStateEvent.Invoke(MainStateCode.Battle_Test);
+                    ChangeStateEvent.Invoke(MainStateCode.Battle_WeightBalancer);
                 }
             }
         }
