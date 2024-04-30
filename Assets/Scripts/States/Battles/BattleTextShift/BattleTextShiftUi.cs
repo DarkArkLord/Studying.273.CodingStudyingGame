@@ -79,13 +79,11 @@ namespace Assets.Scripts.States.Battles.BattleTextShift
             {
                 borders = 5;
             }
-
-            if (difficultyLevel == BattleDifficultyLevel.Medium)
+            else if (difficultyLevel == BattleDifficultyLevel.Medium)
             {
                 borders = 10;
             }
-
-            if (difficultyLevel == BattleDifficultyLevel.Hard)
+            else if (difficultyLevel == BattleDifficultyLevel.Hard)
             {
                 borders = 15;
             }
