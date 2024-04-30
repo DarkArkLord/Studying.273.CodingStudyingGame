@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.CommonComponents;
+using Assets.Scripts.DataKeeper.Progress;
 using Assets.Scripts.States.Battles.BattleWeightBalancer.Common;
 using Assets.Scripts.StatesMachine;
 using Assets.Scripts.Utils;
@@ -30,7 +31,20 @@ namespace Assets.Scripts.States.Battles.BattleWeightBalancer
 
             _input.text = "";
 
+            var maxValue = InitButtons();
+            var maxResultValue = GetMaxResultValue(maxValue, DifficultyLevel);
+
+            correctResult = random.Next(1, maxResultValue);
+            currentWeight = 0;
+            SetCompareText();
+
+            _checkButton.OnClick.AddListener(OnCheckButtonClick);
+        }
+
+        private int InitButtons()
+        {
             var maxValue = 0;
+
             foreach (var button in _weightButtons)
             {
                 button.OnInit();
@@ -52,30 +66,7 @@ namespace Assets.Scripts.States.Battles.BattleWeightBalancer
                 });
             }
 
-            correctResult = random.Next(1, maxValue);
-            currentWeight = 0;
-            SetCompareText();
-
-            _checkButton.OnClick.AddListener(() =>
-            {
-                setAccumulateTimeFlag(false);
-
-                var inputText = _input.text;
-                var isIncorrect = inputText == null
-                    || inputText.Length < 1
-                    || !int.TryParse(inputText, out int inputValue)
-                    || inputValue != correctResult;
-
-                Root.Data.BattleResult.IsPlayerWin = !isIncorrect;
-                if (isIncorrect)
-                {
-                    ShowResultUi("Неверно");
-                }
-                else
-                {
-                    ShowResultUi("Верно");
-                }
-            });
+            return maxValue;
         }
 
         private void SetCompareText()
@@ -91,6 +82,42 @@ namespace Assets.Scripts.States.Battles.BattleWeightBalancer
             else
             {
                 _compareText.text = "=";
+            }
+        }
+
+        private int GetMaxResultValue(int maxValue, BattleDifficultyLevel difficultyLevel)
+        {
+            if (difficultyLevel == BattleDifficultyLevel.Easy)
+            {
+                return maxValue / 4;
+            }
+
+            if (difficultyLevel == BattleDifficultyLevel.Medium)
+            {
+                return maxValue / 2;
+            }
+
+            return maxValue;
+        }
+
+        private void OnCheckButtonClick()
+        {
+            setAccumulateTimeFlag(false);
+
+            var inputText = _input.text;
+            var isIncorrect = inputText == null
+                || inputText.Length < 1
+                || !int.TryParse(inputText, out int inputValue)
+                || inputValue != correctResult;
+
+            Root.Data.BattleResult.IsPlayerWin = !isIncorrect;
+            if (isIncorrect)
+            {
+                ShowResultUi("Неверно");
+            }
+            else
+            {
+                ShowResultUi("Верно");
             }
         }
 
