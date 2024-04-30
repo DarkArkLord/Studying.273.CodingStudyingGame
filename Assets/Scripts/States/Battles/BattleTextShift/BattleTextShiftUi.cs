@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.CommonComponents;
+using Assets.Scripts.DataKeeper.Progress;
 using Assets.Scripts.StatesMachine;
 using Assets.Scripts.Utils;
 using System;
@@ -32,24 +33,64 @@ namespace Assets.Scripts.States.Battles.BattleTextShift
         {
             base.OnInit(setAccumulateTimeFlag, currentState);
 
-            var textLength = 3;
+            var textLength = GetTextLength(DifficultyLevel);
             text = GenerateText(textLength);
 
-            offset = random.Next(-5, 5);
-            while (offset == 0)
-            {
-                offset = random.Next(-5, 5);
-            }
+            do { offset = GetOffset(DifficultyLevel); }
+            while (offset == 0);
 
             questText.text = text;
             offsetText.text = offset.ToString();
+            input.text = string.Empty;
 
             checkButton.OnClick.AddListener(OnCheckButtonClick);
+        }
+
+        private int GetTextLength(BattleDifficultyLevel difficultyLevel)
+        {
+            if (difficultyLevel == BattleDifficultyLevel.Easy)
+            {
+                return random.Next(2, 5);
+            }
+
+            if (difficultyLevel == BattleDifficultyLevel.Medium)
+            {
+                return random.Next(4, 7);
+            }
+
+            if (difficultyLevel == BattleDifficultyLevel.Hard)
+            {
+                return random.Next(6, 9);
+            }
+
+            return 5;
         }
 
         private string GenerateText(int length)
         {
             return string.Join("", Enumerable.Range(0, length).Select(_ => letters[random.Next(letters.Count)]));
+        }
+
+        private int GetOffset(BattleDifficultyLevel difficultyLevel)
+        {
+            int borders = 0;
+
+            if (difficultyLevel == BattleDifficultyLevel.Easy)
+            {
+                borders = 5;
+            }
+
+            if (difficultyLevel == BattleDifficultyLevel.Medium)
+            {
+                borders = 10;
+            }
+
+            if (difficultyLevel == BattleDifficultyLevel.Hard)
+            {
+                borders = 15;
+            }
+
+            return random.Next(-borders, borders + 1);
         }
 
         private void OnCheckButtonClick()
