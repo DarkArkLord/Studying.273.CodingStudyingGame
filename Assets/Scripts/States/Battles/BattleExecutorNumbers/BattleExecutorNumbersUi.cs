@@ -1,8 +1,11 @@
 ﻿using Assets.Scripts.CommonComponents;
+using Assets.Scripts.DataKeeper.Progress;
 using Assets.Scripts.States.Battles.BattleExecutorNumbers.Common;
 using Assets.Scripts.StatesMachine;
+using Assets.Scripts.Utils;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -10,10 +13,6 @@ namespace Assets.Scripts.States.Battles.BattleExecutorNumbers
 {
     public class BattleExecutorNumbersUi : BaseBattleUiComponent
     {
-        //[SerializeField]
-        //private ButtonComponent _winButton;
-        //public ButtonComponent WinButton => _winButton;
-
         [SerializeField]
         private ObjectPoolComponent codeElementsPool;
         [SerializeField]
@@ -36,6 +35,8 @@ namespace Assets.Scripts.States.Battles.BattleExecutorNumbers
         private TMP_Text taskText;
         [SerializeField]
         private ButtonComponent runButton;
+
+        private System.Random random = RandomUtils.Random;
 
         public override void OnInit(Action<bool> setAccumulateTimeFlag, MainStateCode currentState)
         {
@@ -60,27 +61,140 @@ namespace Assets.Scripts.States.Battles.BattleExecutorNumbers
 
         private void ConfigTask()
         {
-            // Task 0
+            var configsEazy = new Action[] { ConfigTask_Easy_0, ConfigTask_Easy_1, ConfigTask_Easy_2, ConfigTask_Easy_3, ConfigTask_Easy_4, ConfigTask_Easy_5 };
+            var configsMeduim = new Action[] { ConfigTask_Medium_0, ConfigTask_Medium_1, ConfigTask_Medium_2, ConfigTask_Medium_3 };
+            var configsHard = new Action[] { ConfigTask_Hard_0, ConfigTask_Hard_1, ConfigTask_Hard_2 };
+
+            var configs = new List<Action>();
+
+            if (DifficultyLevel == BattleDifficultyLevel.Easy)
+            {
+                configs.AddRange(configsEazy);
+                configs.AddRange(configsEazy);
+                configs.AddRange(configsEazy);
+                configs.AddRange(configsMeduim);
+            }
+            else if (DifficultyLevel == BattleDifficultyLevel.Hard)
+            {
+                configs.AddRange(configsMeduim);
+                configs.AddRange(configsHard);
+                configs.AddRange(configsHard);
+                configs.AddRange(configsHard);
+            }
+            else
+            {
+                configs.AddRange(configsEazy);
+                configs.AddRange(configsMeduim);
+                configs.AddRange(configsMeduim);
+                configs.AddRange(configsMeduim);
+                configs.AddRange(configsHard);
+            }
+
+            var config = configs[random.Next(configs.Count)];
+            config.Invoke();
+        }
+
+        private void ConfigTask_Easy_0()
+        {
             taskText.text = "Задание: вывести поступающие на вход цифры.";
-            var input = new int[] { 1, };
+            var input = new int[] { 1, 2, 3, 4, 5, };
             executionContext.OnInit(input, input);
+        }
 
-            // Task 1
-            //taskText.text = "Задание: вывести поступающие на вход цифры.";
-            //var input = new int[] { 1, 2, 3 };
-            //executionContext.OnInit(input, input);
+        private void ConfigTask_Easy_1()
+        {
+            taskText.text = "Задание: считать попарно числа А и Б, вывести их сумму.";
+            var input = new int[] { 1, 2, 6, 3, 7, 3 };
+            var output = new int[] { 3, 9, 10 };
+            executionContext.OnInit(input, output);
+        }
 
-            // Task 2
-            //taskText.text = "Задание: считать попарно числа А и Б, вывести их сумму, разность, произведение, частное и остаток.";
-            //var input = new int[] { 1, 2, 6, 3, 7, 3 };
-            //var output = new int[] { 3, -1, 2, 0, 1, 9, 3, 18, 2, 0, 10, 4, 21, 2, 1 };
-            //executionContext.OnInit(input, output);
+        private void ConfigTask_Easy_2()
+        {
+            taskText.text = "Задание: считать попарно числа А и Б, вывести их разность.";
+            var input = new int[] { 1, 2, 6, 3, 7, 3 };
+            var output = new int[] { -1, 3, 4 };
+            executionContext.OnInit(input, output);
+        }
 
-            // Task 3
-            //taskText.text = "Задание: считать попарно числа А и Б, вывести их сумму, разность и произведение.";
-            //var input = new int[] { 1, 2, 6, 3, 7, 3 };
-            //var output = new int[] { 3, -1, 2, 9, 3, 18, 10, 4, 21 };
-            //executionContext.OnInit(input, output);
+        private void ConfigTask_Easy_3()
+        {
+            taskText.text = "Задание: считать попарно числа А и Б, вывести их произведение.";
+            var input = new int[] { 1, 2, 6, 3, 7, 3 };
+            var output = new int[] { 2, 18, 21 };
+            executionContext.OnInit(input, output);
+        }
+
+        private void ConfigTask_Easy_4()
+        {
+            taskText.text = "Задание: считать число, вывести его удвоенное значение.";
+            var input = new int[] { 1, 2, 3, 4, 5, 6 };
+            var output = new int[] { 2, 4, 6, 8, 10, 12 };
+            executionContext.OnInit(input, output);
+        }
+
+        private void ConfigTask_Easy_5()
+        {
+            taskText.text = "Задание: считать попарно числа А и Б, вывести их в обратном порядке (Б и А).";
+            var input = new int[] { 1, 2, 6, 3, 7, 3 };
+            var output = new int[] { 2, 18, 21 };
+            executionContext.OnInit(input, output);
+        }
+
+        private void ConfigTask_Medium_0()
+        {
+            taskText.text = "Задание: считать попарно числа А и Б, вывести их сумму и разность.";
+            var input = new int[] { 1, 2, 6, 3, 7, 3 };
+            var output = new int[] { 3, -1, 9, 3, 10, 4 };
+            executionContext.OnInit(input, output);
+        }
+
+        private void ConfigTask_Medium_1()
+        {
+            taskText.text = "Задание: считать попарно числа А и Б, вывести их произведение, частное и остаток.";
+            var input = new int[] { 1, 2, 6, 3, 7, 3 };
+            var output = new int[] { 2, 0, 1, 18, 2, 0, 21, 2, 1 };
+            executionContext.OnInit(input, output);
+        }
+
+        private void ConfigTask_Medium_2()
+        {
+            taskText.text = "Задание: считать попарно числа А и Б, вывести их сумму, разность, произведение, частное и остаток.";
+            var input = new int[] { 1, 2, 6, 3, 7, 3 };
+            var output = new int[] { 3, -1, 2, 0, 1, 9, 3, 18, 2, 0, 10, 4, 21, 2, 1 };
+            executionContext.OnInit(input, output);
+        }
+
+        private void ConfigTask_Medium_3()
+        {
+            taskText.text = "Задание: считать три числа, вывести их сумму.";
+            var input = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+            var output = new int[] { 6, 15, 24 };
+            executionContext.OnInit(input, output);
+        }
+
+        private void ConfigTask_Hard_0()
+        {
+            taskText.text = "Задание: считать числа А, Б и В, вывести значение выражения А - Б * В.";
+            var input = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+            var output = new int[] { -5, -26, -65 };
+            executionContext.OnInit(input, output);
+        }
+
+        private void ConfigTask_Hard_1()
+        {
+            taskText.text = "Задание: считать числа А и Б, вывести значение выражения (А^2 - Б^2)^2.";
+            var input = new int[] { 1, 1, 1, 2, 2, 2, 2, 3, 3, 2, 3, 3 };
+            var output = new int[] { 0, 9, 0, 25, 25, 0 };
+            executionContext.OnInit(input, output);
+        }
+
+        private void ConfigTask_Hard_2()
+        {
+            taskText.text = "Задание: считать числа А, Б, В и Г, вывести значение выражения (А - Б) * (В - Г).";
+            var input = new int[] { 1, 1, 1, 1, 1, 2, 3, 4, 4, 3, 2, 1, 4, 2, 3, 1 };
+            var output = new int[] { 0, 1, 1, 4 };
+            executionContext.OnInit(input, output);
         }
 
         private void InitInfoColumns()
