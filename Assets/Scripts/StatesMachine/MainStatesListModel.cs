@@ -17,6 +17,7 @@
 
         Map_Forest_1 = 20,
         Map_Forest_2 = 21,
+        Map_Forest_3 = 22,
 
         Battle_Test = 30,
         Battle_NumbersOrder = 31,
