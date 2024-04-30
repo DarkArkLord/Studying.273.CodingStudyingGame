@@ -109,26 +109,39 @@ namespace Assets.Scripts.States.Map.Controllers
 
             if (currentState == MainStateCode.Map_Forest_1)
             {
-                if (questsInfo.IsQuestInState(QuestIdEnum.Q2_HealFriends, QuestState.NotAvailable))
+                if (questsInfo.IsQuestInState(QuestIdEnum.Q2_F1_HealFriends, QuestState.NotAvailable))
                 {
                     data.TextMenuData.SetText("Привет :з");
                     ChangeStateEvent.Invoke(MainStateCode.TextMenu);
                 }
-                else if (questsInfo.IsQuestInState(QuestIdEnum.Q2_HealFriends, QuestState.InProgress))
+                else if (questsInfo.IsQuestInState(QuestIdEnum.Q2_F1_HealFriends, QuestState.InProgress))
                 {
                     ResolveInteractionEvent.AddListener(KillingInteractAction(npc));
                     ChangeStateEvent.Invoke(MainStateCode.Battle_Test);
                 }
-                else if (questsInfo.IsQuestInState(QuestIdEnum.Q2_HealFriends, QuestState.Complete))
+                else if (questsInfo.IsQuestInState(QuestIdEnum.Q2_F1_HealFriends, QuestState.Complete))
                 {
                     data.TextMenuData.SetText("Спасибо за помощь :з");
                     ChangeStateEvent.Invoke(MainStateCode.TextMenu);
                 }
             }
-            else
+            else if (currentState == MainStateCode.Map_Forest_2)
             {
-                data.TextMenuData.SetText("Будь осторожен, тут опасно :з");
-                ChangeStateEvent.Invoke(MainStateCode.TextMenu);
+                if (questsInfo.IsQuestInState(QuestIdEnum.Q5_F2_HealFriends, QuestState.NotAvailable))
+                {
+                    data.TextMenuData.SetText("Будь осторожен, тут опасно :з");
+                    ChangeStateEvent.Invoke(MainStateCode.TextMenu);
+                }
+                else if (questsInfo.IsQuestInState(QuestIdEnum.Q5_F2_HealFriends, QuestState.InProgress))
+                {
+                    ResolveInteractionEvent.AddListener(KillingInteractAction(npc));
+                    ChangeStateEvent.Invoke(MainStateCode.Battle_Test);
+                }
+                else if (questsInfo.IsQuestInState(QuestIdEnum.Q5_F2_HealFriends, QuestState.Complete))
+                {
+                    data.TextMenuData.SetText("Спасибо за помощь :з");
+                    ChangeStateEvent.Invoke(MainStateCode.TextMenu);
+                }
             }
         }
 
@@ -138,9 +151,18 @@ namespace Assets.Scripts.States.Map.Controllers
             var questsInfo = data.Progress.QuestsInfo;
 
             npc.SetInteractive(false);
+
             if (currentState == MainStateCode.Map_Forest_1)
             {
-                if (questsInfo.IsQuestInState(QuestIdEnum.Q1_GatherFlowers, QuestState.InProgress))
+                if (questsInfo.IsQuestInState(QuestIdEnum.Q1_F1_GatherFlowers, QuestState.InProgress))
+                {
+                    ResolveInteractionEvent.AddListener(KillingInteractAction(npc));
+                    ChangeStateEvent.Invoke(MainStateCode.Battle_Test);
+                }
+            }
+            else if (currentState == MainStateCode.Map_Forest_2)
+            {
+                if (questsInfo.IsQuestInState(QuestIdEnum.Q4_F2_GatherFlowers, QuestState.InProgress))
                 {
                     ResolveInteractionEvent.AddListener(KillingInteractAction(npc));
                     ChangeStateEvent.Invoke(MainStateCode.Battle_Test);

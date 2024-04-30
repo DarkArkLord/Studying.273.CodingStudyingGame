@@ -66,9 +66,27 @@ namespace Assets.Scripts.States.Map.Components
 
         private void InitMap()
         {
-            var mapSize = 50;
+            var mapSize = GetMapSize();
             var mapController = new MapController(MapGenerator, mapSize, mapSize);
             _floorController = new FloorController(mapController, floorElementsKeeper);
+        }
+
+        private int GetMapSize()
+        {
+            if (CurrentState == MainStateCode.Map_Forest_1)
+            {
+                return 50;
+            }
+            else if (CurrentState == MainStateCode.Map_Forest_2)
+            {
+                return 50;
+            }
+            else if (CurrentState == MainStateCode.Map_Forest_3)
+            {
+                return 20;
+            }
+
+            return 10;
         }
 
         private void InitPlayer()
@@ -108,8 +126,8 @@ namespace Assets.Scripts.States.Map.Components
 
                 if (CurrentState == MainStateCode.Map_Forest_1)
                 {
-                    var wolfesKilled = quests.IsQuestInState(QuestIdEnum.Q3_KillEnemies, QuestState.Complete);
-                    var friendsHealed = quests.IsQuestInState(QuestIdEnum.Q2_HealFriends, QuestState.Complete);
+                    var wolfesKilled = quests.IsQuestInState(QuestIdEnum.Q3_F1_KillWolfes, QuestState.Complete);
+                    var friendsHealed = quests.IsQuestInState(QuestIdEnum.Q2_F1_HealFriends, QuestState.Complete);
 
                     if (wolfesKilled && friendsHealed)
                     {
@@ -123,6 +141,21 @@ namespace Assets.Scripts.States.Map.Components
                     }
                 }
                 else if (CurrentState == MainStateCode.Map_Forest_2)
+                {
+                    var wolfesKilled = quests.IsQuestInState(QuestIdEnum.Q6_F2_KillWolfes, QuestState.Complete);
+                    var friendsHealed = quests.IsQuestInState(QuestIdEnum.Q5_F2_HealFriends, QuestState.Complete);
+                    if (wolfesKilled && friendsHealed)
+                    {
+                        SetChildsActive(false);
+                        statesController.PushState(MainStateCode.Map_Forest_3);
+                    }
+                    else
+                    {
+                        data.TextMenuData.SetText("Сперва нужно решить все дела здесь.");
+                        statesController.PushState(MainStateCode.TextMenu);
+                    }
+                }
+                else if (CurrentState == MainStateCode.Map_Forest_3)
                 {
                     SetChildsActive(false);
                     data.TextMenuData.SetText("Дальше идти некуда, вы возвращаетесь в деревню.", MainStateCode.TownMenu);
@@ -152,7 +185,7 @@ namespace Assets.Scripts.States.Map.Components
 
             if (CurrentState == MainStateCode.Map_Forest_1)
             {
-                var wolfesKilled = quests.IsQuestInState(QuestIdEnum.Q3_KillEnemies, QuestState.Complete);
+                var wolfesKilled = quests.IsQuestInState(QuestIdEnum.Q3_F1_KillWolfes, QuestState.Complete);
                 if (wolfesKilled)
                 {
                     return 5;
@@ -164,7 +197,7 @@ namespace Assets.Scripts.States.Map.Components
             }
             else if (CurrentState == MainStateCode.Map_Forest_2)
             {
-                var wolfesKilled = quests.IsQuestInState(QuestIdEnum.Q4_KillWolfes2, QuestState.Complete);
+                var wolfesKilled = quests.IsQuestInState(QuestIdEnum.Q6_F2_KillWolfes, QuestState.Complete);
                 if (wolfesKilled)
                 {
                     return 5;
@@ -172,6 +205,18 @@ namespace Assets.Scripts.States.Map.Components
                 else
                 {
                     return 10;
+                }
+            }
+            else if (CurrentState == MainStateCode.Map_Forest_3)
+            {
+                var wolfesKilled = quests.IsQuestInState(QuestIdEnum.Q7_F3_KillWolfes, QuestState.Complete);
+                if (wolfesKilled)
+                {
+                    return 0;
+                }
+                else
+                {
+                    return 5;
                 }
             }
 
@@ -198,7 +243,7 @@ namespace Assets.Scripts.States.Map.Components
 
             if (CurrentState == MainStateCode.Map_Forest_1)
             {
-                var friendsHealed = quests.IsQuestInState(QuestIdEnum.Q2_HealFriends, QuestState.Complete);
+                var friendsHealed = quests.IsQuestInState(QuestIdEnum.Q2_F1_HealFriends, QuestState.Complete);
                 if (friendsHealed)
                 {
                     return 10;
@@ -211,6 +256,10 @@ namespace Assets.Scripts.States.Map.Components
             else if (CurrentState == MainStateCode.Map_Forest_2)
             {
                 return 5;
+            }
+            else if (CurrentState == MainStateCode.Map_Forest_3)
+            {
+                return 0;
             }
 
             return 1;
@@ -236,7 +285,7 @@ namespace Assets.Scripts.States.Map.Components
 
             if (CurrentState == MainStateCode.Map_Forest_1)
             {
-                var flowersGathered = quests.IsQuestInState(QuestIdEnum.Q1_GatherFlowers, QuestState.Complete);
+                var flowersGathered = quests.IsQuestInState(QuestIdEnum.Q1_F1_GatherFlowers, QuestState.Complete);
                 if (flowersGathered)
                 {
                     return 5;
@@ -247,6 +296,10 @@ namespace Assets.Scripts.States.Map.Components
                 }
             }
             else if (CurrentState == MainStateCode.Map_Forest_2)
+            {
+                return 5;
+            }
+            else if (CurrentState == MainStateCode.Map_Forest_3)
             {
                 return 5;
             }
