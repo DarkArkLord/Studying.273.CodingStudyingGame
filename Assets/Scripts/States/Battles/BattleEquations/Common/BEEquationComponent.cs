@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Utils;
+﻿using Assets.Scripts.DataKeeper.Progress;
+using Assets.Scripts.Utils;
 using System.Linq;
 using TMPro;
 using UnityEngine;
@@ -19,19 +20,57 @@ namespace Assets.Scripts.States.Battles.BattleEquations.Common
 
         private System.Random _random = RandomUtils.Random;
 
-        public void GenerateTask()
+        private OperatorType[] _operatorsList = new OperatorType[2] { OperatorType.Plus, OperatorType.Minus };
+        private OperatorType[] _operatorsListHard = new OperatorType[3] { OperatorType.Plus, OperatorType.Minus, OperatorType.Mult };
+
+        public void GenerateTask(BattleDifficultyLevel difficultyLevel)
         {
-            var numbersCount = 3; // random?
-            var numbers = Enumerable.Range(0, numbersCount).Select(_ => _random.Next(2, 11)).ToArray();
-            var operatorsList = new OperatorType[3] { OperatorType.Plus, OperatorType.Minus, OperatorType.Mult };
-            var operators = Enumerable.Range(0, numbersCount - 1).Select(_ => operatorsList[_random.Next(operatorsList.Length)]).ToArray();
-            var tree = OperationsParser.Parse(numbers, operators);
+            var tree = GenerateEquation(difficultyLevel);
 
             _leftSideText.text = $"{tree} = ";
             Result = tree.Result;
             _rightSideInputField.text = "";
             _rightSideInputField.interactable = true;
             _resultText.text = "";
+        }
+
+        private BaseOperator GenerateEquation(BattleDifficultyLevel difficultyLevel)
+        {
+            var numbersCount = GetNumbersCount(difficultyLevel);
+            var operatorsList = GetOperatorsList(difficultyLevel);
+
+            BaseOperator tree;
+
+            do
+            {
+                var numbers = Enumerable.Range(0, numbersCount)
+                    .Select(_ => _random.Next(2, 11)).ToArray();
+                var operators = Enumerable.Range(0, numbersCount - 1)
+                    .Select(_ => operatorsList[_random.Next(operatorsList.Length)]).ToArray();
+                tree = OperationsParser.Parse(numbers, operators);
+            } while (tree.Result < -100 || tree.Result > 100);
+
+            return tree;
+        }
+
+        private int GetNumbersCount(BattleDifficultyLevel difficultyLevel)
+        {
+            if (difficultyLevel == BattleDifficultyLevel.Easy)
+            {
+                return 2;
+            }
+
+            return 3;
+        }
+
+        private OperatorType[] GetOperatorsList(BattleDifficultyLevel difficultyLevel)
+        {
+            if (difficultyLevel == BattleDifficultyLevel.Hard)
+            {
+                return _operatorsListHard;
+            }
+
+            return _operatorsList;
         }
 
         public bool CheckCorection()

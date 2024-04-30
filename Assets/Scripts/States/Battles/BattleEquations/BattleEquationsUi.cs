@@ -27,7 +27,7 @@ namespace Assets.Scripts.States.Battles.BattleEquations
             {
                 var obj = equationPool.GetObject();
                 var equation = equations[i] = obj.GetComponent<BEEquationComponent>();
-                equation.GenerateTask();
+                equation.GenerateTask(DifficultyLevel);
                 obj.SetActive(true);
             }
 
