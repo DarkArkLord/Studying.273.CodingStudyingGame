@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.CommonComponents;
+using Assets.Scripts.DataKeeper.Progress;
 using Assets.Scripts.States.Battles.BattleNumbersOrder.Common;
 using Assets.Scripts.StatesMachine;
 using Assets.Scripts.Utils;
@@ -43,19 +44,17 @@ namespace Assets.Scripts.States.Battles.BattleNumbersOrder
                 _valuesComparator = (a, b) => a > b;
             }
 
-            if (!_buttonsPool.IsInited)
-            {
-                _buttonsPool.SetPrefab(_buttonPrefab.gameObject);
-                _buttonsPool.Init(buttonsCount);
-            }
+            _buttonsPool.Init(buttonsCount);
 
             var buttonLocalScale = new Vector3(1f, 1f, 1f);
             var buttonOffset = 215f;
             var verticalOffset = 50f;
 
-            for (int i = 0, buttonValue = _random.Next(1, 5);
+            var maxOffset = GetMaxOffsetByDifficulty();
+
+            for (int i = 0, buttonValue = _random.Next(1, maxOffset);
                 i < buttonsCount;
-                i++, buttonValue += _random.Next(1, 5))
+                i++, buttonValue += _random.Next(1, maxOffset))
             {
                 var obj = _buttonsPool.GetObject();
                 var x = i / 3 - 1;
@@ -91,16 +90,22 @@ namespace Assets.Scripts.States.Battles.BattleNumbersOrder
                 });
             }
 
-            // mix values
-            for (int i = 0; i < buttonsCount * buttonsCount; i++)
-            {
-                var ai = _random.Next(buttonsCount);
-                var bi = _random.Next(buttonsCount);
+            MixValuesOnButtons();
+        }
 
-                var temp = buttons[ai].Value;
-                buttons[ai].SetValue(buttons[bi].Value);
-                buttons[bi].SetValue(temp);
+        private int GetMaxOffsetByDifficulty()
+        {
+            if (DifficultyLevel == BattleDifficultyLevel.Easy)
+            {
+                return 3;
             }
+
+            if (DifficultyLevel == BattleDifficultyLevel.Hard)
+            {
+                return 10;
+            }
+
+            return 5;
         }
 
         private void SetDefaultButtonIndexAndCollors(BNOButtonComponent button)
@@ -146,6 +151,19 @@ namespace Assets.Scripts.States.Battles.BattleNumbersOrder
             else
             {
                 ShowResultUi("Неверно");
+            }
+        }
+
+        private void MixValuesOnButtons()
+        {
+            for (int i = 0; i < buttonsCount * buttonsCount; i++)
+            {
+                var ai = _random.Next(buttonsCount);
+                var bi = _random.Next(buttonsCount);
+
+                var temp = buttons[ai].Value;
+                buttons[ai].SetValue(buttons[bi].Value);
+                buttons[bi].SetValue(temp);
             }
         }
 
