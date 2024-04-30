@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.States.Battles.BattleEquations.Common;
+﻿using Assets.Scripts.DataKeeper.Progress;
+using Assets.Scripts.States.Battles.BattleEquations.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -94,14 +95,14 @@ namespace Assets.Scripts.States.Battles.BattleEquationsWithLetters.Common
 
     public static class EquationsGenerator
     {
-        public static EquationsListConfig GenerateDisjointEquations(Random random, int count)
+        public static EquationsListConfig GenerateDisjointEquations(Random random, BattleDifficultyLevel difficultyLevel)
         {
-            var temp = GenerateVariableEquation(random);
+            var count = GetEquationsCount(difficultyLevel);
 
             var configs = new EquationConfig[count];
             for (int i = 0; i < count; i++)
             {
-                configs[i] = GenerateVariableEquation(random);
+                configs[i] = GenerateVariableEquation(random, difficultyLevel);
             }
 
             var result = new EquationsListConfig
@@ -119,7 +120,17 @@ namespace Assets.Scripts.States.Battles.BattleEquationsWithLetters.Common
             return result;
         }
 
-        private static EquationConfig GenerateVariableEquation(Random random)
+        private static int GetEquationsCount(BattleDifficultyLevel difficultyLevel)
+        {
+            if (difficultyLevel == BattleDifficultyLevel.Easy)
+            {
+                return 2;
+            }
+
+            return 3;
+        }
+
+        private static EquationConfig GenerateVariableEquation(Random random, BattleDifficultyLevel difficultyLevel)
         {
             var a = random.Next(100, 999);
             var b = random.Next(100, 999);
@@ -138,18 +149,37 @@ namespace Assets.Scripts.States.Battles.BattleEquationsWithLetters.Common
 
             VariableOperator[] variables;
 
-            var rnd = random.Next(3);
-            if (rnd == 0)
+            if (difficultyLevel == BattleDifficultyLevel.Hard)
             {
-                variables = SetVariables(random, aElements, bElements);
-            }
-            else if (rnd == 1)
-            {
-                variables = SetVariables(random, bElements, sumElements);
+                var rnd = random.Next(3);
+                if (rnd == 0)
+                {
+                    variables = SetVariables2(random, aElements, bElements);
+                }
+                else if (rnd == 1)
+                {
+                    variables = SetVariables2(random, bElements, sumElements);
+                }
+                else
+                {
+                    variables = SetVariables2(random, aElements, sumElements);
+                }
             }
             else
             {
-                variables = SetVariables(random, aElements, sumElements);
+                var rnd = random.Next(3);
+                if (rnd == 0)
+                {
+                    variables = SetVariable1(random, aElements);
+                }
+                else if (rnd == 1)
+                {
+                    variables = SetVariable1(random, bElements);
+                }
+                else
+                {
+                    variables = SetVariable1(random, sumElements);
+                }
             }
 
             var aOperator = new AssemblableOperator(aElements);
@@ -186,7 +216,18 @@ namespace Assets.Scripts.States.Battles.BattleEquationsWithLetters.Common
             return result;
         }
 
-        private static VariableOperator[] SetVariables(Random random, BaseOperator[] value1, BaseOperator[] value2)
+        private static VariableOperator[] SetVariable1(Random random, BaseOperator[] value)
+        {
+            var varIndex = random.Next(value.Length);
+            var varValue = value[varIndex].Result;
+
+            var v = new VariableOperator("VAR") { Value = varValue };
+            value[varIndex] = v;
+
+            return new VariableOperator[] { v };
+        }
+
+        private static VariableOperator[] SetVariables2(Random random, BaseOperator[] value1, BaseOperator[] value2)
         {
             var var1index = random.Next(value1.Length);
             var var2index = random.Next(value2.Length);
@@ -197,17 +238,17 @@ namespace Assets.Scripts.States.Battles.BattleEquationsWithLetters.Common
             if (var1value == var2value)
             {
                 var v = new VariableOperator("VAR") { Value = var1value };
-                value1[var1index] = (BaseOperator)v;
-                value2[var2index] = (BaseOperator)v;
+                value1[var1index] = v;
+                value2[var2index] = v;
 
                 return new VariableOperator[] { v };
             }
             else
             {
                 var va = new VariableOperator("VAR") { Value = var1value };
-                value1[var1index] = (BaseOperator)va;
+                value1[var1index] = va;
                 var vb = new VariableOperator("VAR") { Value = var2value };
-                value2[var2index] = (BaseOperator)vb;
+                value2[var2index] = vb;
 
                 return new VariableOperator[] { va, vb };
             }

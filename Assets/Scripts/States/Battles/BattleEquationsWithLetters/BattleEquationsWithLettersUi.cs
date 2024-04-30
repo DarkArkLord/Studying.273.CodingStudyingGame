@@ -26,8 +26,7 @@ namespace Assets.Scripts.States.Battles.BattleEquationsWithLetters
         {
             base.OnInit(setAccumulateTimeFlag, currentState);
 
-            var equationsInitCount = 3;
-            equationsListConfig = EquationsGenerator.GenerateDisjointEquations(RandomUtils.Random, equationsInitCount);
+            equationsListConfig = EquationsGenerator.GenerateDisjointEquations(RandomUtils.Random, DifficultyLevel);
 
             var equationsCount = equationsListConfig.Equations.Length;
             equationsPool.Init(equationsCount);
