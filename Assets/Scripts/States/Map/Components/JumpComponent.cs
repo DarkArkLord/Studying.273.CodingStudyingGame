@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 namespace Assets.Scripts.States.Map.Components
 {
@@ -7,15 +6,14 @@ namespace Assets.Scripts.States.Map.Components
     {
         public float JumpHeight { get; set; } = 0.5f;
         public bool NeedJump { get; set; } = true;
-        private float sqrt_h;
 
         public override void SetTarget(Vector3? moveTarget = null, Vector3? rotateTarget = null)
         {
             base.SetTarget(moveTarget, rotateTarget);
-            sqrt_h = Mathf.Sqrt(JumpHeight);
         }
 
-        private float HeightOffset => JumpHeight - (Progress * 2 - 1) * sqrt_h * ((Progress * 2 - 1) * sqrt_h);
+        private float HeightProgress => (2 * Progress - 1) * (2 * Progress - 1);
+        private float HeightOffset => (1 - HeightProgress) * JumpHeight;
 
         private Vector3 JumpOffset => NeedJump
             ? Vector3.up * HeightOffset
